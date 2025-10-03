@@ -1,0 +1,70 @@
+# Скомпилированные объектные файлы
+*.o
+*.obj
+*.ko
+*.elf
+
+# Прелинкованные объекты
+*.slo
+*.lo
+
+# Скомпилированные динамические библиотеки
+*.so
+*.dylib
+*.dll
+
+# Статические библиотеки
+*.a
+*.lib
+
+# Исполняемые файлы
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Отладочные файлы
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+cmake-build-*/
+build/
+out/
+
+# JetBrains IDEs (CLion, IntelliJ IDEA)
+.idea/
+*.iml
+*.iws
+
+# Кэш и временные файлы
+.cache/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
