@@ -1,14 +1,15 @@
 #include <iostream>
 
 int main() {
-    int n = 0;
+    double n = 0;
 
     std::cout << "Введите число n: ";
     std::cin >> n;
+    int N = ceil(n);
 
     for (int i = 1; i <= 10; i++) {
-        std::cout << n << std::endl;
-        n++;
+        std::cout << N << std::endl;
+        N++;
     }
 
     return 0;
