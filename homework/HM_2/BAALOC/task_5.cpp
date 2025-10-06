@@ -12,7 +12,7 @@ int main() {
 
     if (num2 == 0.0) {
         std::cout << "Ошибка: знаменатель равен нулю" << std::endl;
-        return 0;
+        return 0; //test
     }
 
     double m = num1 / num2;
