@@ -2,7 +2,7 @@
 #include <fstream>
 
 int main() {
-    std::string fileName = "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/HM_3/BAALOC/task1.txt";
+    std::string fileName = "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/HM_3/HM_2/task1.txt";
     std::ifstream file(fileName);
 
     std::cout << "Открытие: " << fileName << std::endl;
