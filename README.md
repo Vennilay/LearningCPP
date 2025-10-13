@@ -67,7 +67,7 @@ LearningCPP/
 
 ```bash
 # Склонируй репозиторий
-git clone https://github.com/[владелец]/LearningCPP.git
+git clone https://github.com/Vennilay/LearningCPP.git
 cd LearningCPP
 
 # Настрой Git (если ещё не делал)
