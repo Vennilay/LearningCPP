@@ -60,7 +60,6 @@ out/
 .idea/
 *.iml
 *.iws
-CMakeLists.txt
 
 # Кэш и временные файлы
 .cache/
