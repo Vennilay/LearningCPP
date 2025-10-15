@@ -43,7 +43,7 @@ LearningCPP/
 │   │   └── HM_1/
 │   ├── MXLNIK/
 │   │   └── HM_1/
-│   └── Vondre/
+│   └── Vondre1/
 │       └── HM_1/
 ├── practise/               # Практические работы
 │   ├── Vennilay/
@@ -55,7 +55,7 @@ LearningCPP/
 │   │   └── PR_1/
 │   ├── MXLNIK/
 │   │   └── PR_1/
-│   └── Vondre/
+│   └── Vondre1/
 │       └── PR_1/
 └── README.md
 ```
@@ -245,8 +245,4 @@ practise/BAALOC/
 | BAALOC | [@BAALOC](https://github.com/BAALOC) |
 | Fq1jjeR | [@Fq1jjeR](https://github.com/Fq1jjeR) |
 | MXLNIK | [@MXLNIK](https://github.com/MXLNIK) |
-| Vondre | [@Vondre](https://github.com/Vondre) |
-
-
-
-
+| Vondre1 | [@Vondre1](https://github.com/Vondre1) |
