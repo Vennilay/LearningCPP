@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <cctype>
 
 int main() {
-    std::string filename = "files/Vennilay/HM_3/task1.txt";
+    std::string filename = "files/Vennilay/HM_3/task2.txt";
     std::fstream file(filename);
 
     if (!file.is_open()) {
@@ -14,7 +15,12 @@ int main() {
     std::string line;
 
     while (std::getline(file, line)) {
-        std::cout << line << std::endl;
+        for (char c : line) {
+            if (std::isdigit(static_cast<unsigned char>(c))) {
+                std::cout << c;
+            }
+        }
+        std::cout << std::endl;
     }
     file.close();
 
