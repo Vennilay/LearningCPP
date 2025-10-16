@@ -1,3 +1,5 @@
+* @Vennilay
+
 # Каждый владеет своей папкой homework и всеми подпапками
 homework/Vennilay/ @Vennilay
 homework/BAALOC/ @BAALOC
@@ -5,9 +7,16 @@ homework/Fq1jjeR/ @Fq1jjeR
 homework/MXLNIK/ @MXLNIK
 homework/Vondre/ @Vondre1
 
-# Каждый владеет своей папкой Practise и всеми подпапками
+# Каждый владеет своей папкой practise и всеми подпапками
 practise/Vennilay/ @Vennilay
 practise/BAALOC/ @BAALOC
 practise/Fq1jjeR/ @Fq1jjeR
 practise/MXLNIK/ @MXLNIK
 practise/Vondre/ @Vondre1
+
+# Каждый владеет своей папкой files
+files/Vennilay/ @Vennilay
+files/BAALOC/ @BAALOC
+files/Fq1jjeR/ @Fq1jjeR
+files/MXLNIK/ @MXLNIK
+files/Vondre/ @Vondre1
