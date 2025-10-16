@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 int main() {
     double S = 0, n = 0, p = 0;
