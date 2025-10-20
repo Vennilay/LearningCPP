@@ -18,7 +18,8 @@ foreach(CPP_FILE ${ALL_CPP_FILES})
     string(REGEX REPLACE "[/\\\\]" "_" TARGET_NAME "${REL_PATH}")
     string(REPLACE ".cpp" "" TARGET_NAME "${TARGET_NAME}")
 
-    add_executable(${TARGET_NAME} ${CPP_FILE})
+    add_executable(${TARGET_NAME} ${CPP_FILE}
+            homework/Vondre/HM_3/vuz3.1.cpp)
 
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
