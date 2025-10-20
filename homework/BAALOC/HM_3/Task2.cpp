@@ -2,8 +2,7 @@
 #include <fstream>
 
 int main() {
-    const std::string fileName =
-        "files/BAALOC/HM_3/task2.txt";
+    std::string fileName = "files/BAALOC/HM_3/task2.txt";
     std::ifstream file(fileName);
 
     std::cout << "Открытие: " << fileName << std::endl;
@@ -14,7 +13,7 @@ int main() {
             std::string newLine;
 
             for (char i : line) {
-                if (std::isdigit(i) or i == ' ') {
+                if (std::isdigit(i)) {
                     newLine += i;
                 }
             }
@@ -27,8 +26,7 @@ int main() {
         }
 
         file.close();
-    }
-    else {
+    } else {
         std::cout << "Ошибка открытия файла" << std::endl;
     }
     return 0;

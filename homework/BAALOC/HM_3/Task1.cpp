@@ -13,7 +13,6 @@ int main() {
             std::cout << line << std::endl;
         }
         file.close();
-
     } else {
         std::cout << "Ошибка открытия файла" << std::endl;
     }
