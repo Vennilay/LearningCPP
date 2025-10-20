@@ -15,7 +15,7 @@ int main() {
 
         while (file.get(ch)) {
             if (isdigit(ch)){
-                std::cout << ch;
+                cout << ch;
                 count = true;
             }
             if ((isalpha(ch) || ch == ' ') && count){
@@ -25,7 +25,7 @@ int main() {
         }
         file.close();
     } else {
-        cout << "Не удалось открыть файл" << std::endl;
+        cout << "Не удалось открыть файл" << endl;
     }
 
     return 0;
