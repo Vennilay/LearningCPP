@@ -8,5 +8,5 @@ int main() {
     std::string content;
     content.assign((std::istreambuf_iterator<char>(file)),(std::istreambuf_iterator<char>()));
     std::cout << "Содержимое файла:\n" << content << std::endl;
-    file.close();
+    file.close(); // piffot
 }
