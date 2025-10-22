@@ -3,7 +3,7 @@
 
 int main() {
     const std::string fileName =
-        "files/BAALOC/HM_3/task2.txt";
+        "files/BAALOC/HW_3/task2.txt";
     std::ifstream file(fileName);
 
     std::cout << "Открытие: " << fileName << std::endl;

@@ -87,7 +87,7 @@ git config user.email "твой@email.com"
 git checkout main
 git pull origin main
 
-# Создай новую ветку для задания (например, для HM_1)
+# Создай новую ветку для задания (например, для HW_1)
 git checkout -b homework/[твой_ник]/hm1
 ```
 
@@ -100,13 +100,13 @@ git checkout -b homework/[твой_ник]/hm1
 
 ```bash
 # Создай папку для задания внутри своей папки
-mkdir -p homework/[твой_ник]/HM_1
+mkdir -p homework/[твой_ник]/HW_1
 
 # Добавь файлы с решением
 # Например: main.cpp, task.cpp, solution.txt и т.д.
 
 # Добавь файлы в Git
-git add homework/[твой_ник]/HM_1/
+git add homework/[твой_ник]/HW_1/
 
 # Закоммить изменения с понятным сообщением
 git commit -m "Add HM_1 solution"
