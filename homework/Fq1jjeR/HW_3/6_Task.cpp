@@ -9,6 +9,6 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    cout << "1488";
+    cout << "14888";
 
 }
