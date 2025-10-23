@@ -7,6 +7,7 @@ using namespace std;
 
 int main() {
 
+
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
     int N;
@@ -31,6 +32,7 @@ int main() {
             cout << i << " ";
         }
     }
+
 
     return 0;
 }

@@ -11,7 +11,6 @@ int main() {
 
     const string filename = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HM_3\6_Task.txt)";
 
-
     ofstream outFile(filename);
 
     if (!outFile) {
