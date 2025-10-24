@@ -11,7 +11,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    ifstream shows_file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HM_3\3_Task.txt)");
+    ifstream shows_file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\3_Task.txt)");
     string show, line;
 
     if (!shows_file.is_open()) {
