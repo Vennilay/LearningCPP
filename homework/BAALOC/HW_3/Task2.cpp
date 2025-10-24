@@ -2,7 +2,7 @@
 #include <fstream>
 
 int main() {
-    std::string fileName = "files/BAALOC/HM_3/task2.txt";
+    std::string fileName = "files/BAALOC/HW_3/task2.txt";
     std::ifstream file(fileName);
 
     std::cout << "Открытие: " << fileName << std::endl;
