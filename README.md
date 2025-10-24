@@ -33,18 +33,18 @@ LearningCPP/
 │   └── CODEOWNERS          # Файл с правами доступа
 ├── homework/               # Домашние задания
 │   ├── Vennilay/
-│   │   ├── HM_1/
-│   │   ├── HM_2/
-│   │   └── HM_3/
+│   │   ├── HW_1/
+│   │   ├── HW_2/
+│   │   └── HW_3/
 │   ├── BAALOC/
-│   │   ├── HM_2/
-│   │   └── HM_3/
+│   │   ├── HW_2/
+│   │   └── HW_3/
 │   ├── Fq1jjeR/
-│   │   └── HM_1/
+│   │   └── HW_1/
 │   ├── MXLNIK/
-│   │   └── HM_1/
+│   │   └── HW_1/
 │   └── Vondre1/
-│       └── HM_1/
+│       └── HW_1/
 ├── practise/               # Практические работы
 │   ├── Vennilay/
 │   │   └── PR_2/
@@ -62,7 +62,7 @@ LearningCPP/
 
 ### Важно:
 - Твоя папка: `homework/[твой_ник]/` и `practise/[твой_ник]/`
-- Внутри создавай подпапки для заданий: `HM_1/`, `HM_2/`, `PR_1/`, `PR_2/` и т.д.
+- Внутри создавай подпапки для заданий: `HW_1/`, `HW_2/`, `PR_1/`, `PR_2/` и т.д.
 
 ## 🚀 Как работать с репозиторием
 
@@ -87,7 +87,7 @@ git config user.email "твой@email.com"
 git checkout main
 git pull origin main
 
-# Создай новую ветку для задания (например, для HM_1)
+# Создай новую ветку для задания (например, для HW_1)
 git checkout -b homework/[твой_ник]/hm1
 ```
 
@@ -100,16 +100,16 @@ git checkout -b homework/[твой_ник]/hm1
 
 ```bash
 # Создай папку для задания внутри своей папки
-mkdir -p homework/[твой_ник]/HM_1
+mkdir -p homework/[твой_ник]/HW_1
 
 # Добавь файлы с решением
 # Например: main.cpp, task.cpp, solution.txt и т.д.
 
 # Добавь файлы в Git
-git add homework/[твой_ник]/HM_1/
+git add homework/[твой_ник]/HW_1/
 
 # Закоммить изменения с понятным сообщением
-git commit -m "Add HM_1 solution"
+git commit -m "Add HW_1 solution"
 ```
 
 ### Шаг 4: Отправка на GitHub
@@ -126,7 +126,7 @@ git push origin homework/[твой_ник]/hm1
 3. Убедись, что:
    - **Base:** `main` (ветка, в которую вливаются изменения)
    - **Compare:** `homework/[твой_ник]/hm1` (твоя ветка)
-4. Напиши название PR: `"Add HM_1 solution by [твой_ник]"`
+4. Напиши название PR: `"Add HW_1 solution by [твой_ник]"`
 5. Опционально добавь описание
 6. Нажми **"Create Pull Request"**
 
@@ -180,7 +180,7 @@ git branch -d homework/[твой_ник]/hm1
 
 ### Обязательные требования:
 - **Путь:** Загружай файлы **только** в `homework/[твой_ник]/` или `practise/[твой_ник]/`
-- **Подпапки:** Создавай `HM_1/`, `HM_2/`, `PR_1/`, `PR_2/` внутри своей папки
+- **Подпапки:** Создавай `HW_1/`, `HW_2/`, `PR_1/`, `PR_2/` внутри своей папки
 - **Имена файлов:** Используй понятные имена на английском (`main.cpp`, `task1.cpp`, `solution.txt`)
 - **Commit messages:** Пиши понятные сообщения (можно на русском)
 
@@ -195,15 +195,15 @@ git branch -d homework/[твой_ник]/hm1
 ### Домашнее задание:
 ```
 homework/Vennilay/
-├── HM_1/
+├── HW_1/
 │   ├── main.cpp
 │   ├── functions.h
 │   ├── functions.cpp
 │   └── README.md (опционально)
-├── HM_2/
+├── HW_2/
 │   ├── task.cpp
 │   └── output.txt
-└── HM_3/
+└── HW_3/
     └── solution.cpp
 ```
 

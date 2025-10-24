@@ -25,11 +25,15 @@ int main() {
     std::cout << "Введите два числа: ";
     std::cin >> firstNumber >> secondNumber;
 
-    std::cout << "НОД (метод деления): "
-              << NODDeleniem(firstNumber, secondNumber) << std::endl;
+    if (firstNumber == 0 && secondNumber == 0) {
+        std::cout << "Числа должны быть больше 0!" << std::endl;
+    }
 
-    std::cout << "НОД (метод вычитания): "
-              << NODvichitaniem(firstNumber, secondNumber) << std::endl;
+    // if ()
+
+    std::cout << "НОД (метод деления): " << NODDeleniem(std::abs(firstNumber), secondNumber) << std::endl;
+
+    std::cout << "НОД (метод вычитания): " << NODvichitaniem(firstNumber, secondNumber) << std::endl;
 
     return 0;
 }

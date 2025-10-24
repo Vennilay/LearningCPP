@@ -3,7 +3,7 @@
 #include <cctype>
 
 int main() {
-    std::string filename = "files/Vennilay/HM_3/task2.txt";
+    std::string filename = "files/Vennilay/HW_3/task2.txt";
     std::fstream file(filename);
 
     if (!file.is_open()) {
