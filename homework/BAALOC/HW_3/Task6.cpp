@@ -21,6 +21,6 @@ int writeInFile(const std::string& pathToFile) {
 }
 
 int main() {
-    std::string pathToFile = "files/BAALOC/HM_3/task6.txt";
+    std::string pathToFile = "files/BAALOC/HW_3/task6.txt";
     writeInFile(pathToFile);
 }

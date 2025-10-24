@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 
 void bubbleSort(std::string& str) {
@@ -62,7 +63,7 @@ int main() {
     std::cout << "\nИсходная строка (только буквы): " << s << std::endl;
     std::cout << "Количество букв: " << s.length() << std::endl;
 
-    bubbleSort(s);
+    std::sort(s.begin(), s.end());
 
     std::cout << "Отсортированная строка: " << s << std::endl;
 
