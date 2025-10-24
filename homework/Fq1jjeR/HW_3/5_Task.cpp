@@ -25,7 +25,6 @@ int main() {
         }
     }
 
-
     for (int i = 2; i <= N; i++) {
         if (is_prime[i]) {
             cout << i << " ";
