@@ -13,7 +13,7 @@ int main() {
             std::string newLine;
 
             for (char i : line) {
-                if (std::isdigit(i)) {
+                if (std::isdigit(i) or i == ' ') {
                     newLine += i;
                 }
             }
