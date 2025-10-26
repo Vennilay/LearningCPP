@@ -3,7 +3,7 @@
 
 int main() {
     std::string filename = "files/Vennilay/HW_3/task1.txt";
-    std::fstream file(filename);
+    std::ifstream file(filename);
 
     if (!file.is_open()) {
         std::cout << "Ошибка открытия файла!" << std::endl;
