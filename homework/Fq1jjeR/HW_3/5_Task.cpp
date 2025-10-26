@@ -9,12 +9,13 @@ int main() {
 
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
+
     int N;
     cout << "Введите натуральное число:";
     cin >> N;
 
     vector<bool> is_prime(N + 1, true);
-    is_prime[0] = is_prime[1] = false; // 0 и 1 не являются простыми
+    is_prime[1] = false;
 
 
     for (int i = 2; i * i <= N; i++) {
