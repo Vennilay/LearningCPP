@@ -22,7 +22,10 @@ int main() {
     while (getline(shows_file, show)) {
         line += show;
     }
-
+    if (line.length() > 30) {
+        cout << "Ошибка: строка содержит более 30 символов!" << endl;
+        return 1;
+    }
     sort(line.begin(), line.end());
     cout << line;
 
