@@ -1,23 +1,23 @@
 #include <iostream>
+#include <string>
 
-int main() {
-    std::string alph = "abcdefghijklmnopqrstuvwxyz";
-    std::string line = "qweasdzxcvbnmrewqplmoknijuhyt";
-    std::string newLine;
-    int last_index = 0;
-
-    while (line.data()) {
-        for (char sym : line) {
-            if (alph.find(sym) == last_index) {
-                newLine += sym;
-                last_index += 1;
-                std::cout << newLine << std::endl;
-                line.erase(sym, 1);
+void bubbleSort(std::string str) {
+    int n = str.length();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (str[j] > str[j + 1]) {
+                std::swap(str[j], str[j + 1]);
             }
         }
     }
+}
 
+int main() {
+    std::string letters = "qwertyuiopasdfghjklzxcvbnmqwerty";
 
-    std::cout << newLine << std::endl;
+    std::cout << "Исходная строка: " << letters << std::endl;
+    bubbleSort(letters);
+    std::cout << "Отсортированная строка: " << letters << std::endl;
+
     return 0;
 }
