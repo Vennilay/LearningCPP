@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-int NODDeleniem(int number1, int number2) {
+int NODdevision(int number1, int number2) {
     while (number2 != 0) {
         int ostatok = number1 % number2;
         number1 = number2;
@@ -10,7 +10,7 @@ int NODDeleniem(int number1, int number2) {
     return number1;
 }
 
-int NODvichitaniem(int number1, int number2) {
+int NODminus(int number1, int number2) {
     if (number1 == 0) return number2;
     if (number2 == 0) return number1;
 
@@ -38,8 +38,8 @@ int main() {
     int absSecond = std::abs(secondNumber);
 
     std::cout << "\nНОД(" << firstNumber << ", " << secondNumber << "):" << std::endl;
-    std::cout << "НОД (метод деления): " << NODDeleniem(absFirst, absSecond) << std::endl;
-    std::cout << "НОД (метод вычитания): " << NODvichitaniem(absFirst, absSecond) << std::endl;
+    std::cout << "НОД (метод деления): " << NODdevision(absFirst, absSecond) << std::endl;
+    std::cout << "НОД (метод вычитания): " << NODminus(absFirst, absSecond) << std::endl;
 
     return 0;
 }
