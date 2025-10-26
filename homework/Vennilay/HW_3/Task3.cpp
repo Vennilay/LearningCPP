@@ -1,71 +1,56 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <algorithm>
 
-
-void bubbleSort(std::string& str) {
-    int n = str.length();
-
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (str[j] > str[j + 1]) {
-                char temp = str[j];
-                str[j] = str[j + 1];
-                str[j + 1] = temp;
-            }
-        }
-    }
-}
-
 int main() {
+    std::string filename = "files/Vennilay/HW_3/task3.txt";
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        std::cout << "Ошибка открытия файла!" << std::endl;
+        return 1;
+    }
+
     std::string line;
-    std::string s = "";
+    std::string result;
     int i = 0;
 
-    std::cout << "Введите строку (буквы латиницы или кириллицы): ";
-    getline(std::cin, line);
+    std::getline(file, line);
+    file.close();
 
-    while ((s.length() < 30) && (i < line.length()))
-    {
-        if (((line[i] > 64) && (line[i] <= 90)) ||
-            ((line[i] > 96) && (line[i] <= 122)) ||
-            (line[i] < 0))
-        {
-            s = s + line[i];
+
+    while ((result.length() < 30) && (i < line.length())) {
+        if (((line[i] >= 65) && (line[i] <= 90)) // A-Z (заглавные латинские)
+            || ((line[i] >= 97) && (line[i] <= 122)) // a-z (строчные латинские)
+            || (line[i] < 0))  {  // Русские буквы
+            result += line[i];
         }
         i++;
     }
 
-    if ((s.length() == 30) && (i < line.length())) {
-        bool hasInvalidChars = false;
-
-        for (int j = i; j < line.length(); j++) {
-            if (!(((line[j] > 64) && (line[j] <= 90)) ||
-                  ((line[j] > 96) && (line[j] <= 122)) ||
-                  (line[j] < 0)))
-            {
-                hasInvalidChars = true;
-                break;
+    if ((result.length() == 30) && (i < line.length())) {
+        for (unsigned int j = i; j < line.length(); j++) {
+            if (!(((line[j] >= 65) && (line[j] <= 90)) ||
+                  ((line[j] >= 97) && (line[j] <= 122)) ||
+                  (line[j] < 0))) {
+                std::cout << "Ошибка: после 30-й буквы обнаружен посторонний символ!" << std::endl;
+                return 1;
             }
-        }
-
-        if (hasInvalidChars) {
-            std::cout << "Ошибка: после 30-й буквы обнаружен посторонний символ!" << std::endl;
-            return 1;
         }
     }
 
-    if (s.empty()) {
+    if (result.empty()) {
         std::cout << "Ошибка: строка не содержит букв!" << std::endl;
         return 1;
     }
 
-    std::cout << "\nИсходная строка (только буквы): " << s << std::endl;
-    std::cout << "Количество букв: " << s.length() << std::endl;
+    std::cout << "Исходная строка (только буквы, макс. 30): " << result << std::endl;
+    std::cout << "Количество букв: " << result.length() << std::endl;
 
-    std::sort(s.begin(), s.end());
+    std::sort(result.begin(), result.end());
 
-    std::cout << "Отсортированная строка: " << s << std::endl;
+    std::cout << "Отсортированная строка: " << result << std::endl;
 
     return 0;
 }
