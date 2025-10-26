@@ -1,28 +1,46 @@
 #include <iostream>
 
-int main() {
-    int num1 = 0, num2 = 0, max_dev = 0, max_dev2 = 0;
+int gcd_division(int a, int b) {
+    if (a == 0) return b;
+    if (b == 0) return a;
 
-    std::cout << "Введите первое и второе число через пробел: ";
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int gcd_subtraction(int a, int b) {
+    if (a == 0) return b;
+    if (b == 0) return a;
+
+    while (a != b) {
+        if (a > b)
+            a -= b;
+        else
+            b -= a;
+    }
+    return a;
+}
+
+int main() {
+    int num1 = 0, num2 = 0;
+
+    std::cout << "Введите два числа через пробел: ";
     std::cin >> num1 >> num2;
 
-    for (int i = 1; i <= std::max(num1, num2); i++) {
-        if (num1 % i == 0 and num2 % i == 0) {
-            max_dev = std::max(i, max_dev);
-        }
+    if (num1 == 0 and num2 == 0) {
+        std::cout << "Ошибка, НОД не определён!" << std::endl;
+        return 1;
     }
-    std::cout << "НОД через деление: " << max_dev << std::endl;
 
-    while (num1 != num2) {
-        if (num1 > num2) {
-            num1 -= num2;
-        }
-        else {
-            num2 -= num1;
-        }
-    }
-    max_dev2 = num1;
-    std::cout << "НОД через вычитание: " << max_dev2 << std::endl;
+    num1 = std::abs(num1);
+    num2 = std::abs(num2);
+
+    std::cout << "НОД через деление: " << gcd_division(num1, num2) << std::endl;
+    std::cout << "НОД через вычитание: " << gcd_subtraction(num1, num2) << std::endl;
 
     return 0;
 }
