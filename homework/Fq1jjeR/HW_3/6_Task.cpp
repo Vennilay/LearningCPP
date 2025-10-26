@@ -6,11 +6,11 @@
 using namespace std;
 
 int main() {
+
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
     const string filename = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\6_Task.txt)";
-
 
     ofstream outFile(filename);
 
@@ -19,7 +19,7 @@ int main() {
         return 1;
     }
 
-    cout << "Введите 10 чисел типа double:" << endl;
+    cout << "Введите 10 чисел:" << endl;
     for (int i = 0; i < 10; i++) {
         double num;
         cout << "Число " << (i + 1) << ": ";
@@ -28,7 +28,7 @@ int main() {
     }
 
     outFile.close();
-    cout << "Файл закрыт." << endl << endl;
+    cout << "Файл закрыт." << endl;
 
 
     ifstream inFile(filename);
@@ -43,6 +43,7 @@ int main() {
     int count = 0;
 
     cout << "Числа из файла:" << endl;
+
     while (inFile >> number) {
         cout << fixed << number << " ";
         sum += number;
