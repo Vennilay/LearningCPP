@@ -1,26 +1,35 @@
 #include <iostream>
-
-bool isPrime(int n) {
-    if (n == 2) {
-        return true;
-    }
-    for (int i = 2; i <= std::sqrt(n) + 1; i++) {
-        if (n % i == 0) {
-            return false;
-        }
-    }
-    return true;
-}
+#include <vector>
 
 int main() {
-    int n = 0;
-    std::cout << "Введите число: ";
+    int n;
+    std::cout << "Введите натуральное число: ";
     std::cin >> n;
 
-    for (int i = 2; i <= n; i++) {
-        if (isPrime(i)) {
-            std::cout << i << std::endl;
+    if (n < 2) {
+        std::cout << "Простых чисел нет." << std::endl;
+        return 0;
+    }
+
+    std::vector<bool> isPrime(n + 1, true);
+
+    isPrime[0] = isPrime[1] = false;
+
+    for (int i = 2; i * i <= n; ++i) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
         }
     }
+
+    std::cout << "Простые числа от 2 до " << n << ":" << std::endl;
+    for (int i = 2; i <= n; ++i) {
+        if (isPrime[i]) {
+            std::cout << i << " ";
+        }
+    }
+    std::cout << std::endl;
+
     return 0;
 }
