@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 int NODDeleniem(int number1, int number2) {
     while (number2 != 0) {
@@ -10,6 +11,9 @@ int NODDeleniem(int number1, int number2) {
 }
 
 int NODvichitaniem(int number1, int number2) {
+    if (number1 == 0) return number2;
+    if (number2 == 0) return number1;
+
     while (number1 != number2) {
         if (number1 > number2)
             number1 -= number2;
@@ -20,20 +24,22 @@ int NODvichitaniem(int number1, int number2) {
 }
 
 int main() {
-    int firstNumber, secondNumber;
+    int firstNumber = 0, secondNumber = 0;
 
-    std::cout << "Введите два числа: ";
+    std::cout << "Введите два целых числа: ";
     std::cin >> firstNumber >> secondNumber;
 
     if (firstNumber == 0 && secondNumber == 0) {
-        std::cout << "Числа должны быть больше 0!" << std::endl;
+        std::cout << "Ошибка: НОД(0, 0) не определён!" << std::endl;
+        return 1;
     }
 
-    // if ()
+    int absFirst = std::abs(firstNumber);
+    int absSecond = std::abs(secondNumber);
 
-    std::cout << "НОД (метод деления): " << NODDeleniem(std::abs(firstNumber), secondNumber) << std::endl;
-
-    std::cout << "НОД (метод вычитания): " << NODvichitaniem(firstNumber, secondNumber) << std::endl;
+    std::cout << "\nНОД(" << firstNumber << ", " << secondNumber << "):" << std::endl;
+    std::cout << "НОД (метод деления): " << NODDeleniem(absFirst, absSecond) << std::endl;
+    std::cout << "НОД (метод вычитания): " << NODvichitaniem(absFirst, absSecond) << std::endl;
 
     return 0;
 }

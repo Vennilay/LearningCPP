@@ -2,7 +2,7 @@
 #include <vector>
 
 int main() {
-    int n;
+    int n = 0;
     std::cout << "Введите натуральное число n: ";
     std::cin >> n;
 
