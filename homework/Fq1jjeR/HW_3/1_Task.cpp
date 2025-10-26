@@ -6,21 +6,23 @@
 using namespace std;
 
 int main() {
+
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    ifstream shows_file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\1_Task.txt)");
+    ifstream file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\1_Task.txt)");
 
-    if (!shows_file.is_open()) {
+    if (!file.is_open()) {
         cout << "Ошибка открытия файла!" << endl;
         return 1;
     }
 
-    string show;
-    while (getline(shows_file, show)) {
-        cout << show << endl;
+    string line;
+
+    while (getline(file, line)) {
+        cout << line << endl;
     }
 
-    shows_file.close();
+    file.close();
     return 0;
 }
