@@ -25,7 +25,7 @@ int getSumFromFile(const std::string& pathToFile) {
     std::ifstream file(pathToFile);
     if (!file.is_open()) {
         std::cout << "Ошибка чтения файла" << std::endl;
-        return 0;
+        return 1;
     }
     int num, sum = 0;
     while (file >> num) {
@@ -36,7 +36,7 @@ int getSumFromFile(const std::string& pathToFile) {
 }
 
 int main() {
-    std::string pathToFile = "files/BAALOC/HW_3/task6.txt";
+    std::string pathToFile = "task6.txt";
     writeInFile(pathToFile);
 
     int sum = getSumFromFile(pathToFile);
