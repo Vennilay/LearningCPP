@@ -6,6 +6,7 @@ using namespace std;
 
 
 int division(int a, int b) {
+
     while (b != 0) {
         int temp = b;
         b = a % b;
@@ -15,13 +16,17 @@ int division(int a, int b) {
 }
 
 int subtraction(int a, int b) {
-    while (a != b) {
 
+    if (a == 0)
+        return b;
+    if (b == 0)
+        return a;
+
+    while (a != b) {
         if (a > b)
             a = a - b;
         else
             b = b - a;
-
     }
     return a;
 }
@@ -37,6 +42,11 @@ int main() {
     cin >> a;
     cout << "Введите второе число:";
     cin >> b;
+
+    if (a == 0 && b == 0){
+        cout << "НОД не определён";
+        return 1;
+    }
 
     cout << "Введите способ нахождения(0 - делением, 1 - вычитанием):";
     cin >> c;
