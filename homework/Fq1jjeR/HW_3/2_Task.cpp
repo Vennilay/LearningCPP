@@ -27,6 +27,7 @@ int main() {
             count = false;
         }
     }
+
     file.close();
 
     return 0;
