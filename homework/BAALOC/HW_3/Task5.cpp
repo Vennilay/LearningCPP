@@ -1,35 +1,39 @@
 #include <iostream>
 #include <vector>
 
+void markNonPrimes(std::vector<bool>& primeFlags, int n) {
+    for (int number = 2; number <= std::sqrt(n); ++number) {
+        if (primeFlags[number]) {
+            for (int multiple = number * number; multiple <= n; multiple += number) {
+                primeFlags[multiple] = false;
+            }
+        }
+    }
+}
+
+void displayRes(std::vector<bool>& primeFlags, int n) {
+    std::cout << "Простые числа:" << std::endl;
+    for (int number = 2; number <= n; number++) {
+        if (primeFlags[number]) {
+            std::cout << number << std::endl;
+        }
+    }
+}
+
 int main() {
-    int n;
+    int n = 0;
     std::cout << "Введите натуральное число: ";
     std::cin >> n;
 
     if (n < 2) {
         std::cout << "Простых чисел нет." << std::endl;
-        return 0;
+        return 1;
     }
 
-    std::vector<bool> isPrime(n + 1, true);
+    std::vector<bool> primeFlags(n + 1, true);
+    primeFlags[0] = primeFlags[1] = false;
 
-    isPrime[0] = isPrime[1] = false;
-
-    for (int i = 2; i * i <= n; ++i) {
-        if (isPrime[i]) {
-            for (int j = i * i; j <= n; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-
-    std::cout << "Простые числа от 2 до " << n << ":" << std::endl;
-    for (int i = 2; i <= n; ++i) {
-        if (isPrime[i]) {
-            std::cout << i << " ";
-        }
-    }
-    std::cout << std::endl;
-
+    markNonPrimes(primeFlags, n);
+    displayRes(primeFlags, n);
     return 0;
 }
