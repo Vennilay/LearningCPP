@@ -12,6 +12,7 @@ int main() {
 
     ifstream file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\1_Task.txt)");
 
+
     if (!file.is_open()) {
         cout << "Ошибка открытия файла!" << endl;
         return 1;
