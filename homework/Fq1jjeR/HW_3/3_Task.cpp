@@ -8,28 +8,30 @@ using namespace std;
 
 int main() {
 
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
-    ifstream shows_file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\3_Task.txt)");
-    string show, line;
 
-    if (!shows_file.is_open()) {
-        cout << "Ошибка открытия файла!" << endl;
-        return 1;
+    string line;
+
+    bool allowed = true;
+
+    cin >> line;
+    for (int i = 0; i < line.length(); i++) {
+        if (!(((line[i] > 64) && (line[i] <= 90)) || ((line[i] > 96) && (line[i] <= 122)) || (line[i] < 0))){
+            allowed = false;
+            break;
+        }
     }
 
-    while (getline(shows_file, show)) {
-        line += show;
-    }
-    if (line.length() > 30) {
-        cout << "Ошибка: строка содержит более 30 символов!" << endl;
-        return 1;
-    }
-    sort(line.begin(), line.end());
-    cout << line;
+    if(allowed){
+        line = line.substr(0, 30);
+        sort(line.begin(), line.end());
+        cout << line;
 
-    shows_file.close();
-
+    }
+    else{
+        cout << "Error";
+    }
     return 0;
 }
