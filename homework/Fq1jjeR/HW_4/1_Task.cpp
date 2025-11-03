@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-#include <windows.h>
 
 using namespace std;
 
@@ -11,8 +10,7 @@ double circleArea(double radius, double PI) { return PI * (radius * radius) ; }
 
 
 int main() {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+
 
 
     cout << "Прямоугольник" << endl;
@@ -21,6 +19,7 @@ int main() {
     cout << "Введите ширину: "; cin >> width;
     cout << "Введите высоту: "; cin >> heightRectangle;
     cout << "Площадь: " << fixed << setprecision(2) << rectangleArea(width, heightRectangle) << endl;
+    cout << endl;
 
 
     cout << "Треугольник" << endl;
@@ -29,6 +28,7 @@ int main() {
     cout << "Введите основание: "; cin >> base;
     cout << "Введите высоту: "; cin >> heightTriangle;
     cout << "Площадь: " << fixed << setprecision(2) << triangleArea(base, heightTriangle) << endl;
+    cout << endl;
 
 
     cout << "Круг" << endl;
