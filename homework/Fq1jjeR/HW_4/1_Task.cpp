@@ -10,8 +10,7 @@ double triangleArea(double base, double heightTriangle) { return (base * heightT
 double circleArea(double radius, double PI) { return PI * (radius * radius) ; }
 
 
-int main()
-{
+int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
