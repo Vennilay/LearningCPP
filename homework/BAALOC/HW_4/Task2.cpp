@@ -59,4 +59,6 @@ int main() {
     std::string flag;
     flag = generateLinesWithStars() + generateLines();
     std::cout << flag << std::endl;
+
+    return 0;
 }
