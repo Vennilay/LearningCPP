@@ -1,7 +1,7 @@
 #include <iostream>
 
 void pryamougolnik() {
-    int shirina, height;
+    double shirina, height;
     std::cout<<"Введите ширину ";
     std::cin>>shirina;
     std::cout<<"Введите высоту ";
@@ -11,7 +11,7 @@ void pryamougolnik() {
 }
 
 void treugolnik() {
-    int osnov, height;
+    double osnov, height;
     std::cout<<"Введите длину основания ";
     std::cin>>osnov;
     std::cout<<"Введите высоту ";
@@ -21,7 +21,7 @@ void treugolnik() {
 }
 
 void krug() {
-    int radius;
+    double radius;
     std::cout<<"Введите рудиус ";
     std::cin>>radius;
     if (radius <= 0) std::cout<<"Введено некорректное значение";
@@ -52,4 +52,5 @@ int main(){
         std::cout<<"Хотите узнать площадь другой фигуры? y/n"<< std::endl;
         std::cin>>again;
     }
+    std::cout<<"goodbye";
 }
