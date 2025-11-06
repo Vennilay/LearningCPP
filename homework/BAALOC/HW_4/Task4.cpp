@@ -9,8 +9,8 @@ int main() {
     std::cout << "Сколько чисел сгенерировать? ";
     std::cin >> howMany;
 
-    int* seqA = new int[howMany];
-    int* seqB = new int[howMany];
+    auto seqA = new int[howMany];
+    auto seqB = new int[howMany];
     seqA[0] = 0;
     seqB[0] = 0;
 
