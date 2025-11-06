@@ -1,46 +1,32 @@
 #include <iostream>
 #include <cmath>
-/*
-using namespace std;
-
 
 int main() {
-    int width = 80;
-    int height = 20;
-    for (int y = 0; y < height; ++y) {
-        double val_y = 1.0 - 2.0 * y / (height-1); // Y от +1 до -1
-        for (int x = 0; x < width; ++x) {
-            double angle = 2 * M_PI * x / width;
-            double val_x = sin(angle);
-            if (fabs(val_x - val_y) < 0.05)
-                cout << "*";
-            else if (y == height/2)
-                cout << "-";
-            else
-                cout << " ";
-        }
-        cout << endl;
-    }
-}
-*/
-
-int main() {
-    int HEIGHT = 40;
-    int WIDTH = 80;
-
-    std::string verticalLine;
+    const int HEIGHT = 40;
+    const int WIDTH = 160;
 
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
-            if (x == y) {
-                verticalLine += '-';
-            }
-            else {
-                verticalLine += ' ';
+            double angle = 2 * M_PI * x / WIDTH;
+            double sinValue = std::sin(angle);
+            int sinY = HEIGHT / 2 - static_cast<int>(sinValue * HEIGHT / 3.0);
+
+            if (x == 0 && y == 0) {
+                std::cout << "y ^";
+            } else if (x == 0 && y < HEIGHT - 1) {
+                std::cout << "  |";
+            } else if (y == HEIGHT / 2 && x == WIDTH - 1) {
+                std::cout << "> x";
+            } else if (y == HEIGHT / 2 && x > 0) {
+                std::cout << '-';
+            } else if (y == sinY) {
+                std::cout << '*';
+            } else {
+                std::cout << ' ';
             }
         }
+        std::cout << '\n';
     }
-    for (char c : verticalLine) {
-        std::cout << c << std::endl;
-    }
+
+    return 0;
 }
