@@ -1,19 +1,34 @@
 #include <iostream>
-
-int generatePassword(int c, int i, int m, int n, int s) {
-    std::cout << s << std::endl;
-    if (n == 0) {
-        return s;
-    }
-    n--;
-    s = (m * generatePassword(c, i, m, n, s) + i) % c;
-    return s;
-}
+#include <iomanip>
 
 int main() {
-    int c = 64, i = 3, m = 37, n = 0;
-    n = 10;
+    int m1 = 37, i1 = 3, c1 = 64;
+    int m2 = 25173, i2 = 13849, c2 = 65537;
 
-    int password = generatePassword(c, i, m, n, 0);
-    std::cout << password << std::endl;
+    int howMany;
+    std::cout << "Сколько чисел сгенерировать? ";
+    std::cin >> howMany;
+
+    int* seqA = new int[howMany];
+    int* seqB = new int[howMany];
+    seqA[0] = 0;
+    seqB[0] = 0;
+
+    std::cout << "\nГенерация для варианта A\n---------------------------------\n";
+    for (int step = 0; step < howMany; ++step) {
+        seqA[step] = (m1 * seqA[step - 1] + i1) % c1;
+        std::cout << "Шаг " << step << ": " << seqA[step] << "\n";
+        std::cout << "---------------------------------\n";
+    }
+
+    std::cout << "\nГенерация для варианта B\n---------------------------------\n";
+    for (int step = 0; step < howMany; ++step) {
+        seqB[step] = (m2 * seqB[step - 1] + i2) % c2;
+        std::cout << "Шаг " << step << ": " << seqB[step] << "\n";
+        std::cout << "---------------------------------\n";
+    }
+
+    delete[] seqA;
+    delete[] seqB;
+    return 0;
 }
