@@ -1,11 +1,10 @@
 #include <iostream>
 
-
 int main() {
-    std::string bright_blue = "\033[104m";    // Яркий синий фон
-    std::string bright_red = "\033[101m";     // Яркий красный фон
-    std::string bright_white = "\033[107m";   // Яркий белый фон
-    std::string reset = "\033[0m";            // Сброс цвета
+    std::string bright_blue = "\033[104m";    // синий
+    std::string bright_red = "\033[101m";     // красный
+    std::string bright_white = "\033[107m";   // белый
+    std::string reset = "\033[0m";            // сброс
 
     for (int i = 0; i < 6; i++) {
         std::cout << bright_blue << "  * * * * * * * *  " << reset;
