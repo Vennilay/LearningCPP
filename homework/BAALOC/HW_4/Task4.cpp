@@ -15,14 +15,14 @@ int main() {
     seqB[0] = 0;
 
     std::cout << "\nГенерация для варианта A\n---------------------------------\n";
-    for (int step = 0; step < howMany; ++step) {
+    for (int step = 1; step <= howMany; ++step) {
         seqA[step] = (m1 * seqA[step - 1] + i1) % c1;
         std::cout << "Шаг " << step << ": " << seqA[step] << "\n";
         std::cout << "---------------------------------\n";
     }
 
     std::cout << "\nГенерация для варианта B\n---------------------------------\n";
-    for (int step = 0; step < howMany; ++step) {
+    for (int step = 1; step <= howMany; ++step) {
         seqB[step] = (m2 * seqB[step - 1] + i2) % c2;
         std::cout << "Шаг " << step << ": " << seqB[step] << "\n";
         std::cout << "---------------------------------\n";
