@@ -1,33 +1,55 @@
-#define USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <cmath>
 
-double RectangleSquare(const double width, const double rectangle_height) {
-    return width * rectangle_height;
+double RectangleSquare(const double width, const double height) {
+    return width * height;
 }
 
-double TriangleSquare(const double triangle_base, const double triangle_height) {
-    return 0.5 * triangle_base * triangle_height;
+double TriangleSquare(const double base, const double height) {
+    return 0.5 * base * height;
 }
 
-double CircleSquare(const double circle_radius) {
-    return M_PI * pow(circle_radius, 2);
+double CircleSquare(const double r) {
+    return M_PI * r * r;
 }
 
 int main() {
-    double width = 0, rectangle_height = 0, triangle_base = 0, triangle_height = 0, circle_radius = 0;
-    std::cout << "Введите ширину и высоту прямоугольника: " << std::endl;
-    std::cin >> width >> rectangle_height;
+    double width = 0, heightRect = 0, baseTri = 0, heightTri = 0, radius = 0;
 
-    std::cout << "Введите основание и высоту треугольника: " << std::endl;
-    std::cin >> triangle_base >> triangle_height;
+    std::cout << "Введите ширину прямоугольника: ";
+    std::cin >> width;
 
-    std::cout << "Введите радиус окружности: " << std::endl;
-    std::cin >> circle_radius;
+    std::cout << "Введите высоту прямоугольника: ";
+    std::cin >> heightRect;
 
-    std::cout << "Площадь прямоугольника: " << RectangleSquare(width, rectangle_height) << std::endl;
-    std::cout << "Площадь треугольника: " << TriangleSquare(triangle_base, triangle_height) << std::endl;
-    std::cout << "Площадь круга: " << CircleSquare(circle_radius) << std::endl;
+    if (width <= 0 || heightRect <= 0) {
+        std::cout << "Ошибка: размеры прямоугольника должны быть положительными!\n";
+        return 0;
+    }
+
+    std::cout << "Введите основание треугольника: ";
+    std::cin >> baseTri;
+
+    std::cout << "Введите высоту треугольника: ";
+    std::cin >> heightTri;
+
+    if (baseTri <= 0 || heightTri <= 0) {
+        std::cout << "Ошибка: размеры треугольника должны быть положительными!\n";
+        return 0;
+    }
+
+    std::cout << "Введите радиус круга: ";
+    std::cin >> radius;
+
+    if (radius <= 0) {
+        std::cout << "Ошибка: радиус должен быть положительным!\n";
+        return 0;
+    }
+
+    std::cout << "\nПлощадь прямоугольника: "  << RectangleSquare(width, heightRect) << std::endl;
+    std::cout << "Площадь треугольника: " << TriangleSquare(baseTri, heightTri) << std::endl;
+    std::cout << "Площадь круга: " << CircleSquare(radius) << std::endl;
 
     return 0;
 }
