@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+using namespace std;
 
 int main() {
     const int width = 80;   // ширина графика
@@ -12,28 +13,28 @@ int main() {
     for (int y = 0; y < height; ++y) {
         for (int x = 1; x < width; ++x) {
             double angle = (2 * pi * (x - midX)) / (width - 1); // диапазон [-π, +π]
-            double s = std::sin(angle);
+            double s = sin(angle);
 
-            int sin_y = static_cast<int>(std::round(midY - s * (height - 1) / 2.0));
+            int sin_y = static_cast<int>(round(midY - s * (height - 1) / 2.0));
 
             // приоритет рисования:
             if (x == midX && y == midY) {
-                std::cout << '*';  // начало координат
+                cout << '*';  // начало координат
             }
             else if (y == sin_y) {
-                std::cout << '*';  // график
+                cout << '*';  // график
             }
             else if (y == midY) {
-                std::cout << '-';  // ось X
+                cout << '-';  // ось X
             }
             else if (x == midX) {
-                std::cout << '|';  // ось Y
+                cout << '|';  // ось Y
             }
             else {
-                std::cout << ' ';  // фон
+                cout << ' ';  // фон
             }
         }
-        std::cout << '\n';
+        cout << '\n';
     }
 
     return 0;
