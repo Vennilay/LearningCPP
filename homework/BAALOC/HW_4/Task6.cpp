@@ -4,7 +4,7 @@
 int main() {
     std::vector<std::vector<int>> qty = {
             {5, 2, 0, 10},
-            {5, 2, 5, 0},
+            {3, 5, 2, 5},
             {20, 0, 0, 0}
         };
 
@@ -45,6 +45,6 @@ int main() {
     std::cout << "Минимум комиссионных: " << (comm_min + 1) << "\n";
     std::cout << "Общая выручка: " << sum_revenue << "\n";
     std::cout << "Общая сумма комиссионных: " << sum_comm << "\n";
-    std::cout << "Всего денег прошло через руки: " << sum_revenue << "\n";
+    std::cout << "Всего денег прошло через руки: " << sum_revenue + sum_comm << "\n";
     return 0;
 }

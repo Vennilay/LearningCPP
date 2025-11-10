@@ -18,6 +18,11 @@ int main() {
     std::cout << "Введите число a, b, h, r через пробел: ";
     std::cin >> a >> b >> h >> r;
 
+    if (a == 0 && b == 0 && h == 0 && r == 0) {
+        std::cout << "Все числа должны быть больше нуля" << std::endl;
+        return 1;
+    }
+
     std::cout << calculateTriangle(h, a) << std::endl;
     std::cout << calculateRectangle(a, b) << std::endl;
     std::cout << calculateCircle(r) << std::endl;
