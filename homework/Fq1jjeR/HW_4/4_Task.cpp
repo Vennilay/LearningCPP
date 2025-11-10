@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 int main() {
     // Вариант 1
@@ -11,22 +12,27 @@ int main() {
     const int add2 = 13849;
     const int c2 = 65537;
 
-    int s = 0; // начальное значение s0
+    int s = 0, n;
 
-    std::cout << "=== Вариант 1 ===\n";
+    cout << "Сколько чисел генерировать: ";
+    cin >> n;
+
+    cout << "=== Вариант 1 ===\n";
     s = 0;
-    for (int i = 0; i < 20; ++i) { // можно увеличить длину последовательности
+
+    for (int i = 0; i < n; ++i) { // можно увеличить длину последовательности
         s = (m1 * s + add1) % c1;
-        std::cout << s << " ";
+        cout << s << " ";
     }
 
-    std::cout << "\n\n=== Вариант 2 ===\n";
+    cout << "\n\n=== Вариант 2 ===\n";
     s = 0;
-    for (int i = 0; i < 20; ++i) {
+
+    for (int i = 0; i < n; ++i) {
         s = (m2 * s + add2) % c2;
-        std::cout << s << " ";
+        cout << s << " ";
     }
 
-    std::cout << std::endl;
+    cout << endl;
     return 0;
 }
