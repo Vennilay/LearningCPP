@@ -2,7 +2,7 @@
 #include <fstream>
 
 int main() {
-    std::string filename = "files/Vennilay/HW_3/task1.txt";
+    std::string filename = "files/Vennilay/HW_3/task1.txt.txt";
     std::ifstream file(filename);
 
     if (!file.is_open()) {
