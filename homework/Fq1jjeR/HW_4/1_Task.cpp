@@ -11,8 +11,6 @@ double circleArea(double radius, double PI) { return PI * (radius * radius) ; }
 
 int main() {
 
-
-
     cout << "Прямоугольник" << endl;
     double width, heightRectangle;
 
@@ -32,7 +30,7 @@ int main() {
 
 
     cout << "Круг" << endl;
-    const double PI = 3.141592653589793;
+    const double PI = 3.1415926;
     double radius = 5;
 
     cout << "Введите радиус: "; cin >> radius;
