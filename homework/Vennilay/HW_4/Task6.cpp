@@ -67,7 +67,6 @@ int main() {
     std::cout << "Меньше всего комиссионных у продавца " << minCom + 1 << "\n";
     std::cout << "Общая выручка = " << obshayaVyruchka << "\n";
     std::cout << "Общие комиссионные = " << obshieKomissionnie << "\n";
-    std::cout << "Всего денег прошло через руки = " << obshayaVyruchka << "\n";
-
+    std::cout << "Всего денег прошло через руки = " << obshayaVyruchka + obshieKomissionnie << "\n";
     return 0;
 }
