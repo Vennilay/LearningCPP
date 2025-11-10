@@ -7,7 +7,7 @@ int main() {
 
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
-            double angle = 6 * M_PI * x / WIDTH;
+            double angle = 2 * M_PI * x / WIDTH;
             double sinValue = std::sin(angle);
             int sinY = HEIGHT / 2 - static_cast<int>(sinValue * HEIGHT / 3.0);
 
