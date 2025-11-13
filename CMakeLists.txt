@@ -23,7 +23,7 @@ foreach(CPP_FILE ${ALL_CPP_FILES})
             COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_SOURCE_DIR}/files
             ${CMAKE_BINARY_DIR}/files
-            COMMENT "Copying files directory to build folder"
+            COMMENT "Copying files directory to build folder..."
     )
 
     message(STATUS "Created: ${TARGET_NAME} <- ${CPP_FILE}")
