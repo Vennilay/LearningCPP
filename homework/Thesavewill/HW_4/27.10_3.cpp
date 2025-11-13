@@ -11,7 +11,7 @@ int main() {
     double step = CountPI * M_PI / l, y = 0.5;
     int midY = h / 2;
     int midX = l / 2;
-    cout << "Ãğàôèê ôóíêöèè y = sin(x)" << endl;
+    cout << "Ğ“Ñ€Ğ°Ñ„Ğ¸Ğº Ñ„ÑƒĞ½ĞºÑ†Ğ¸Ğ¸ y = sin(x)" << endl;
 
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < l; j++) {
