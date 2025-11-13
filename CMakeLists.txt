@@ -8,8 +8,6 @@ file(COPY ${CMAKE_SOURCE_DIR}/files/
 
 file(GLOB_RECURSE ALL_CPP_FILES
         "homework/*.cpp"
-        "practise/*.cpp"
-        "tests/*.cpp"
 )
 
 foreach(CPP_FILE ${ALL_CPP_FILES})
