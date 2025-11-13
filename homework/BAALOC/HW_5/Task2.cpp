@@ -4,7 +4,7 @@
 
 int charToDigit(char c) {
     if (c >= '0' && c <= '9') {
-        return c - '0';
+        return c - '0'; // исходя из значений ASCI таблицы
     }
     if (c >= 'A' && c <= 'Z') {
         return c - 'A' + 10;
@@ -17,12 +17,12 @@ int charToDigit(char c) {
 
 char digitToChar(int digit) {
     if (digit < 10) {
-        return static_cast<char>('0' + digit);
+        return static_cast<char>('0' + digit); // исходя из значений ASCI таблицы
     }
     return static_cast<char>('A' + (digit - 10));
 }
 
-long long toDecimal(const std::string& number, int base) {
+long long toDecimal(const std::string& number, int base) { // схема Горнера
     long long result = 0;
     for (char c : number) {
         result = result * base + charToDigit(c);
