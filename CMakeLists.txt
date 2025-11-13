@@ -14,6 +14,7 @@ foreach(CPP_FILE ${ALL_CPP_FILES})
     file(RELATIVE_PATH REL_PATH ${CMAKE_SOURCE_DIR} ${CPP_FILE})
 
     string(REGEX REPLACE "[/\\\\]" "_" TARGET_NAME "${REL_PATH}")
+    string(REGEX REPLACE "[ ]" "_" TARGET_NAME "${TARGET_NAME}")
     string(REPLACE ".cpp" "" TARGET_NAME "${TARGET_NAME}")
 
     add_executable(${TARGET_NAME} ${CPP_FILE})
