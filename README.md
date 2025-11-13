@@ -199,11 +199,12 @@ git branch -d homework/[твой_ник]/hm1
 
 ## 👥 Участники
 
-| Студент | GitHub |
-|---------|--------|
-| Vennilay | [@Vennilay](https://github.com/Vennilay) |
-| BAALOC | [@BAALOC](https://github.com/BAALOC) |
-| Fq1jjeR | [@Fq1jjeR](https://github.com/Fq1jjeR) |
-| MXLNIK | [@MXLNIK](https://github.com/MXLNIK) |
-| Vondre1 | [@Vondre1](https://github.com/Vondre1) |
+| Студент     | GitHub |
+|-------------|--------|
+| Vennilay    | [@Vennilay](https://github.com/Vennilay) |
+| BAALOC      | [@BAALOC](https://github.com/BAALOC) |
+| Fq1jjeR     | [@Fq1jjeR](https://github.com/Fq1jjeR) |
+| MXLNIK      | [@MXLNIK](https://github.com/MXLNIK) |
+| Vondre1     | [@Vondre1](https://github.com/Vondre1) |
 | Thesavewill | [@Thesavewill](https://github.com/Thesavewill) |
+| EgorDevRus  | [@EgorDevRus](https://github.com/EgorDevRus) |
