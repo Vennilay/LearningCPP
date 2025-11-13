@@ -1,33 +1,47 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 
-int charToValue(char c) {
-    if (c >= '0' && c <= '9') return c - '0';
-    if (c >= 'A' && c <= 'Z') return c - 'A' + 10;
-    if (c >= 'a' && c <= 'z') return c - 'a' + 10;
+int charToDigit(char c) {
+    if (c >= '0' && c <= '9') {
+        return c - '0';
+    }
+    if (c >= 'A' && c <= 'Z') {
+        return c - 'A' + 10;
+    }
+    if (c >= 'a' && c <= 'z') {
+        return c - 'a' + 10;
+    }
     return -1;
 }
 
-char valueToChar(int val) {
-    return val < 10 ? '0' + val : 'A' + val - 10;
+char digitToChar(int digit) {
+    if (digit < 10) {
+        return static_cast<char>('0' + digit);
+    }
+    return static_cast<char>('A' + (digit - 10));
 }
 
-long long toDecimal(std::string num, int base) {
+long long toDecimal(const std::string& number, int base) {
     long long result = 0;
-    for (char c : num) {
-        result = result * base + charToValue(c);
+    for (char c : number) {
+        result = result * base + charToDigit(c);
     }
     return result;
 }
 
-std::string fromDecimal(long long num, int base) {
-    if (num == 0) return "0";
-
-    std::string result = "";
-    while (num > 0) {
-        result = valueToChar(num % base) + result;
-        num /= base;
+std::string fromDecimal(long long decimal, int base) {
+    if (decimal == 0) {
+        return "0";
     }
+
+    std::string result;
+    while (decimal > 0) {
+        result += digitToChar(static_cast<int>(decimal % base));
+        decimal /= base;
+    }
+
+    std::reverse(result.begin(), result.end());
     return result;
 }
 
@@ -35,18 +49,19 @@ int main() {
     std::string number;
     int oldBase, newBase;
 
-    std::cout << "Число: ";
+    std::cout << "Введите число: ";
     std::cin >> number;
-    std::cout << "Старое основание: ";
+
+    std::cout << "Введите старое основание: ";
     std::cin >> oldBase;
-    std::cout << "Новое основание: ";
+
+    std::cout << "Введите новое основание: ";
     std::cin >> newBase;
 
     long long decimal = toDecimal(number, oldBase);
     std::string result = fromDecimal(decimal, newBase);
 
-    std::cout << number << " (" << oldBase << ") = "
-        << result << " (" << newBase << ")" << std::endl;
+    std::cout << "Результат: " << result << std::endl;
 
     return 0;
 }

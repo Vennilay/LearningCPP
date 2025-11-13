@@ -1,45 +1,55 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <map>
 
 int main() {
-    std::string filename, newDelimiter;
-    std::cout << "Имя файла: ";
-    std::cin >> filename;
+    std::string filename = "files/BAALOC/HW_5/Task3.txt";
+    char separator;
 
-    std::ifstream in(filename);
-    if (!in) {
-        std::cout << "Ошибка открытия файла.\n";
+    std::cout << "Введите символ для замены пробелов: ";
+    std::cin >> separator;
+
+    std::ifstream fin(filename);
+    if (!fin.is_open()) {
+        std::cout << "Не удалось открыть файл.\n";
         return 1;
     }
 
-    std::map<char, int> freq;
-    std::string text, line;
-    while (std::getline(in, line)) text += line + '\n';
-    in.close();
+    std::string text, word, maxWord;
+    size_t maxLen = 0;
 
-    for (char c : text) freq[c]++;
-    char minChar = '\0';
-    int minCount = INT_MAX;
-    for (auto p : freq) {
-        if (p.second < minCount) {
-            minChar = p.first;
-            minCount = p.second;
+    while (std::getline(fin, text)) {
+        size_t pos = 0;
+        while (pos < text.size()) {
+            word.clear();
+            while (pos < text.size() && text[pos] != ' ')
+                word += text[pos++];
+            if (word.size() > maxLen) {
+                maxLen = word.size();
+                maxWord = word;
+            }
+            ++pos;
         }
     }
-    std::cout << "Наименее часто встречающийся символ: '" << minChar << "' встречается " << minCount << " раз.\n";
+    fin.close();
 
-    std::cout << "Введите новый разделитель (символ): ";
-    std::cin >> newDelimiter;
+    std::cout << "Слово максимальной длины: " << maxWord << std::endl;
+    std::cout << "Длина: " << maxLen << std::endl;
 
-    for (char& c : text) {
-        if (c == ' ') c = newDelimiter[0];
+    std::ifstream fin2(filename);
+    if (!fin2.is_open()) {
+        std::cout << "Не удалось открыть файл для второй обработки.\n";
+        return 1;
     }
 
-    std::ofstream out("converted_" + filename);
-    out << text;
-    out.close();
-    std::cout << "Результат сохранён в файл: converted_" << filename << std::endl;
+    while (std::getline(fin2, text)) {
+        for (char& c : text) {
+            if (c == ' ')
+                c = separator;
+        }
+        std::cout << text << std::endl;
+    }
+    fin2.close();
+
     return 0;
 }
