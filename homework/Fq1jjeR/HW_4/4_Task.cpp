@@ -2,6 +2,7 @@
 using namespace std;
 
 int main() {
+
     // Вариант 1
     const int m1 = 37;
     const int add1 = 3;
@@ -18,7 +19,6 @@ int main() {
     cin >> n;
 
     cout << "=== Вариант 1 ===\n";
-    s = 0;
 
     for (int i = 0; i < n; ++i) {
         s = (m1 * s + add1) % c1;

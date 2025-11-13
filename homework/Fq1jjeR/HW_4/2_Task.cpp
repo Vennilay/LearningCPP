@@ -7,12 +7,12 @@ int main() {
     string bright_white = "\033[107m";   // белый
     string reset = "\033[0m";            // сброс
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         cout << bright_blue << "  * * * * * * * *  " << reset;
         cout << (i % 2 == 0 ? bright_red : bright_white) << "                              " << reset << endl;
     }
 
-    for (int i = 6; i < 13; i++) {
+    for (int i = 7; i < 13; i++) {
         cout << (i % 2 == 0 ? bright_red : bright_white) << "                                                 " << reset << endl;
     }
 
