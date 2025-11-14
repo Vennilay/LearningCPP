@@ -21,16 +21,16 @@ int main() {
     std::cout << "Введите количество элементов: ";
     std::cin >> n;
 
-    std::vector<int> data(n);
+    std::vector<int> vvod(n);
     std::cout << "Введите " << n << " элементов через пробел:\n";
     for (int i = 0; i < n; ++i) {
-        std::cin >> data[i];
+        std::cin >> vvod[i];
     }
 
-    gnomeSort(data);
+    gnomeSort(vvod);
 
     std::cout << "Отсортированный массив: ";
-    for (int x : data) {
+    for (int x : vvod) {
         std::cout << x << " ";
     }
     std::cout << "\n";
