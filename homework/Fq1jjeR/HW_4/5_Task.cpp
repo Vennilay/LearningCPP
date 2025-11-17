@@ -1,7 +1,9 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void selectionSort(int arr[], int n) {
+void selectionSort(vector<int>& arr, int n) {
+
     for (int i = 0; i < n - 1; i++) {
         int minIndex = i;
         for (int j = i + 1; j < n; j++) {
@@ -14,8 +16,8 @@ void selectionSort(int arr[], int n) {
 }
 
 int main() {
-    int arr[] = {64, 25, 12, 22, 11};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    vector<int> arr = {77, 66, 5, 4, 3, 0, 1, 0, -1, -2, -3};
+    int n = arr.size();
 
     cout << "Исходный массив: ";
     for (int i = 0; i < n; i++)
