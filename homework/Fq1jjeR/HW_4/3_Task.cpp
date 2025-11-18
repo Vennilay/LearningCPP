@@ -1,41 +1,33 @@
+
 #include <iostream>
 #include <cmath>
 using namespace std;
 
 int main() {
-    const int width = 80;   // ширина графика
-    const int height = 25;  // высота графика
-    const double pi = 3.14;
+    const int width = 80;
+    const int height = 25;
 
-    const int midX = width / 2;   // центр по X
-    const int midY = height / 2;  // центр по Y
+    const int centerX = width / 2;
+    const int centerY = height / 2;
 
-    for (int y = 0; y < height; ++y) {
-        for (int x = 1; x < width; ++x) {
-            double angle = (2 * pi * (x - midX)) / (width - 1); // диапазон [-π, +π]
-            double s = sin(angle);
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
 
-            int sin_y = static_cast<int>(round(midY - s * (height - 1) / 2.0));
+            double angle = (double)(x - centerX) / (width / 2) * M_PI;
+            int sinY = centerY - (int)round(sin(angle) * (height / 2));
 
-            // приоритет рисования:
-            if (x == midX && y == midY) {
-                cout << '*';  // начало координат
-            }
-            else if (y == sin_y) {
-                cout << '*';  // график
-            }
-            else if (y == midY) {
-                cout << '-';  // ось X
-            }
-            else if (x == midX) {
-                cout << '|';  // ось Y
-            }
-            else {
-                cout << ' ';  // фон
-            }
+            if (y == sinY)
+                cout << "*";
+            else if (y == centerY)
+                cout << "-";
+            else if (x == centerX)
+                cout << "|";
+            else
+                cout << " ";
         }
-        cout << '\n';
+        cout << "\n";
     }
 
     return 0;
 }
+
