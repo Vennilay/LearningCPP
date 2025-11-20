@@ -22,7 +22,9 @@ char digitToChar(int digit) {
     return static_cast<char>('A' + (digit - 10));
 }
 
-long long toDecimal(const std::string& number, int base) { // схема Горнера
+//TODO сделать проверки
+long long toDecimal(const std::string& number, int base) {
+    // схема Горнера
     long long result = 0;
     for (char c : number) {
         result = result * base + charToDigit(c);
