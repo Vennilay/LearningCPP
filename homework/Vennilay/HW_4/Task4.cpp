@@ -16,7 +16,7 @@ void generate(int m, int i, int c, int n) {
                   << " = " << (m * previous + i)
                   << " % " << c << " = " << s << "\n";
     }
-}
+} // test
 
 int main() {
     int n;
