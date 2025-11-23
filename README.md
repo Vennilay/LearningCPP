@@ -113,3 +113,5 @@ https://github.com/user-attachments/assets/d0fc5383-34d3-4ed0-95dc-8fe59b489f3d
 | Vondre1     | [@Vondre1](https://github.com/Vondre1) |
 | Thesavewill | [@Thesavewill](https://github.com/Thesavewill) |
 | EgorDevRus  | [@EgorDevRus](https://github.com/EgorDevRus) |
+| lkzz13      | [@lkzz13](https://github.com/lkzz13) |
+| lii636      | [@lii636](https://github.com/lii636) |
