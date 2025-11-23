@@ -12,7 +12,7 @@ int getValue(const char c) {
     case 'M': return 1000;
     default: return 0;
     }
-} // тестовое изменение ещё одно odno
+}
 
 bool isValidRoman(const std::string& roman) {
     if (roman.empty()) return false;
