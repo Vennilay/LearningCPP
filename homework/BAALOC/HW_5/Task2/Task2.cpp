@@ -26,9 +26,11 @@ char digitToChar(int digit) {
 
 long long toDecimal(const std::string& number, int base) {
     long long result = 0;
+
     for (char c : number) {
         result = result * base + charToDigit(c);
     }
+
     return result;
 }
 
@@ -38,6 +40,7 @@ std::string fromDecimal(long long decimal, int base) {
     }
 
     std::string result;
+
     while (decimal > 0) {
         result += digitToChar(static_cast<int>(decimal % base));
         decimal /= base;
