@@ -4,15 +4,15 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream fa("txtfiles/A.txt");
-    std::ifstream fb("txtfiles/B.txt");
+    std::ifstream fa("../txtfiles/5.5.9A.txt");
+    std::ifstream fb("../txtfiles/5.5.9B.txt");
 
     if (!fa) {
-        std::cerr << "Не удалось открыть файл A.txt\n";
+        std::cerr << "Не удалось открыть файл 5.5.9A.txt\n";
         return 1;
     }
     if (!fb) {
-        std::cerr << "Не удалось открыть файл B.txt\n";
+        std::cerr << "Не удалось открыть файл 5.5.9B.txt\n";
         return 1;
     }
 
@@ -36,7 +36,7 @@ int main() {
 
     std::sort(nums.begin(), nums.end());
 
-    std::ofstream fc("txtfiles/C.txt");
+    std::ofstream fc("../txtfiles/5.5.9C.txt");
     if (!fc) {
         std::cerr << "Не удалось открыть файл C.txt для записи\n";
         return 1;
