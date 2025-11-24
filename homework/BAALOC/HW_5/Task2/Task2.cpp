@@ -3,8 +3,9 @@
 #include <algorithm>
 
 int charToDigit(char c) {
+    // исходя из значений ASCI таблицы
     if (c >= '0' && c <= '9') {
-        return c - '0'; // исходя из значений ASCI таблицы
+        return c - '0';
     }
     if (c >= 'A' && c <= 'Z') {
         return c - 'A' + 10;
@@ -16,19 +17,20 @@ int charToDigit(char c) {
 }
 
 char digitToChar(int digit) {
+    // исходя из значений ASCI таблицы
     if (digit < 10) {
-        return static_cast<char>('0' + digit); // исходя из значений ASCI таблицы
+        return static_cast<char>('0' + digit);
     }
     return static_cast<char>('A' + (digit - 10));
 }
 
-//TODO сделать проверки
 long long toDecimal(const std::string& number, int base) {
-    // схема Горнера
     long long result = 0;
+
     for (char c : number) {
         result = result * base + charToDigit(c);
     }
+
     return result;
 }
 
@@ -38,6 +40,7 @@ std::string fromDecimal(long long decimal, int base) {
     }
 
     std::string result;
+
     while (decimal > 0) {
         result += digitToChar(static_cast<int>(decimal % base));
         decimal /= base;
