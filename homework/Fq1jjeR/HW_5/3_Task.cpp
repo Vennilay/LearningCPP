@@ -66,9 +66,11 @@ int main() {
     string longest = findLongestWord(file);
     string shortest = findShortestWord(file);
 
+    cout << "=== Задача 4 ===" << endl;
     cout << "Слово максимальной длины: " << longest << endl;
     cout << "Длина: " << longest.length() << " символов" << endl;
 
+    cout << "=== Задача 6 ===" << endl;
     cout << "Слово минимальной длины: " << shortest << endl;
     cout << "Длина: " << shortest.length() << " символов" << endl;
 
