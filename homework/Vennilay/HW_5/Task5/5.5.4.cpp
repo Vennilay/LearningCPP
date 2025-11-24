@@ -5,9 +5,9 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream fin("txtfiles/words.txt");
+    std::ifstream fin("../txtfiles/5.5.4.txt");
     if (!fin) {
-        std::cerr << "Не удалось открыть файл words.txt для чтения\n";
+        std::cerr << "Не удалось открыть файл 5.5.4.txt для чтения\n";
         return 1;
     }
 
@@ -19,7 +19,7 @@ int main() {
     fin.close();
 
     if (words.empty()) {
-        std::cout << "Файл words.txt пуст или в нем нет слов.\n";
+        std::cout << "Файл 5.5.4.txt пуст или в нем нет слов.\n";
         return 0;
     }
 

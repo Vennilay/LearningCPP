@@ -15,7 +15,7 @@ bool is_strictly_increasing(const std::string &s) {
 }
 
 int main() {
-    std::ifstream fin("text.txt");
+    std::ifstream fin("../txtfiles/5.5.25");
     if (!fin) {
         std::cerr << "Не удалось открыть файл text.txt для чтения\n";
         return 1;

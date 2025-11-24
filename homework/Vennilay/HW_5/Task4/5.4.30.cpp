@@ -13,7 +13,7 @@ int main() {
         used[0] = true;
     } else {
         while (n > 0) {
-            int d = static_cast<int>(n % 10);
+            const int d = static_cast<int>(n % 10);
             used[d] = true;
             n /= 10;
         }
