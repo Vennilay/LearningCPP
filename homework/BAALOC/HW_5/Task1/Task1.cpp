@@ -15,18 +15,26 @@ int getValue(const char c) {
 }
 
 bool isValidRoman(const std::string& roman) {
-    if (roman.empty()) return false;
+    if (roman.empty()) {
+        return false;
+    }
 
     for (const char c : roman) {
-        if (getValue(c) == 0) return false;
+        if (getValue(c) == 0) {
+            return false;
+        }
     }
 
     int repeatCount = 1;
     for (size_t i = 1; i < roman.size(); i++) {
         if (roman[i] == roman[i - 1]) {
             repeatCount++;
-            if (roman[i] == 'V' || roman[i] == 'L' || roman[i] == 'D') return false;
-            if (repeatCount > 3) return false;
+            if (roman[i] == 'V' || roman[i] == 'L' || roman[i] == 'D') {
+                return false;
+            }
+            if (repeatCount > 3) {
+                return false;
+            }
         } else {
             repeatCount = 1;
         }
@@ -49,6 +57,7 @@ bool isValidRoman(const std::string& roman) {
 
 int decodeRoman(const std::string& roman) {
     int result = 0;
+
     for (size_t i = 0; i < roman.size(); ++i) {
         int current = getValue(roman[i]);
         if (i + 1 < roman.size() && current < getValue(roman[i + 1])) {
@@ -57,11 +66,13 @@ int decodeRoman(const std::string& roman) {
             result += current;
         }
     }
+
     return result;
 }
 
 int main() {
     std::string roman;
+
     std::cout << "Введите римское число: ";
     std::cin >> roman;
 
