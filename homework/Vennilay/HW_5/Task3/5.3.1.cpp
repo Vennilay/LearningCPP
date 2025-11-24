@@ -2,7 +2,7 @@
 #include <fstream>
 
 int main() {
-    std::ifstream inputFile("txtfiles/task3.1.txt");
+    std::ifstream inputFile("../txtfiles/5.3.1.txt");
 
     if (inputFile.is_open()) {
         char c;

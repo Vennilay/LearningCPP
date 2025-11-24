@@ -14,7 +14,7 @@ int main() {
         has3 = false;
     } else {
         while (sq > 0) {
-            int d = static_cast<int>(sq % 10);
+            const int d = static_cast<int>(sq % 10);
             if (d == 3) {
                 has3 = true;
                 break;
