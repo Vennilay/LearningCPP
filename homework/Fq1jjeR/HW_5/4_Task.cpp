@@ -20,7 +20,7 @@ int countUniqueDigits(string num) {
 bool containsThreeInSquare(double n) {
     double square = n * n;
     string s = to_string(square);
-    return s.find('3') != string::npos;
+    return s.find('3') != s.npos;
 }
 
 // === Задача 32 ===
@@ -71,7 +71,7 @@ int main() {
 
 
 
-    cout << "=== Задача 32 ===" << endl;
+    cout << "\n=== Задача 32 ===" << endl;
     cout << "Удаление цифр 0 и 5 из числа" << endl;
 
     string x;
