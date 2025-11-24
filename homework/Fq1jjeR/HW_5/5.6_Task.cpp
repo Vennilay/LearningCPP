@@ -1,15 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <numeric> // для std::gcd
+
 using namespace std;
 
-// ===== ПУТЬ К ФАЙЛАМ =====
-const string BASE_PATH = "D:\\Coding\\LearningCPP\\files\\Fq1jjeR\\HW_5\\";
-const string numbersFile = BASE_PATH + "numbers.txt";
-const string primesFile  = BASE_PATH + "primes.txt";
-
-// ===== Проверка числа на простоту =====
 bool isPrime(int n) {
     if (n < 2) return false;
     for (int i = 2; i * i <= n; i++) {
@@ -18,15 +12,26 @@ bool isPrime(int n) {
     return true;
 }
 
-// ===== Вычисление НОК двух чисел =====
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
 long long lcm(long long a, long long b) {
     return a / gcd(a, b) * b;
 }
 
 int main() {
-    cout << "=== Задача 6 ===" << endl;
+    string BASE_PATH = "D:\\Coding\\LearningCPP\\files\\Fq1jjeR\\HW_5\\";
+    string numbersFile = BASE_PATH + "numbers.txt";
+    string primesFile = BASE_PATH + "primes.txt";
+
     int count;
-    cout << "\nСколько натуральных чисел хотите ввести: ";
+    cout << "Сколько натуральных чисел хотите ввести: ";
     cin >> count;
 
     vector<int> numbers;
@@ -43,44 +48,36 @@ int main() {
         numbers.push_back(num);
     }
 
-    // ===== Сохранение всех чисел в numbers.txt =====
+    // Сохранение всех чисел
     ofstream numbersOut(numbersFile);
-    if (!numbersOut.is_open()) {
-        cout << "Ошибка создания файла numbers.txt!" << endl;
-        return 1;
-    }
     for (int n : numbers)
         numbersOut << n << " ";
     numbersOut.close();
 
-    // ===== Выбор простых чисел =====
+    // Выбор простых чисел
     vector<int> primes;
     for (int n : numbers) {
         if (isPrime(n))
             primes.push_back(n);
     }
 
-    // ===== Сохранение простых чисел в primes.txt =====
+    // Сохранение простых чисел
     ofstream primesOut(primesFile);
-    if (!primesOut.is_open()) {
-        cout << "Ошибка создания файла primes.txt!" << endl;
-        return 1;
-    }
     for (int p : primes)
         primesOut << p << " ";
     primesOut.close();
 
     cout << "Количество простых чисел: " << primes.size() << endl;
 
-    // ===== Вычисление НОД =====
+    // Вычисление НОД
     int gcdAll = numbers[0];
     for (size_t i = 1; i < numbers.size(); i++)
         gcdAll = gcd(gcdAll, numbers[i]);
 
     cout << "НОД всех чисел: " << gcdAll << endl;
 
-    // ===== Вычисление НОК =====
-    long long lcmAll = numbers[0];
+    // Вычисление НОК
+    int lcmAll = numbers[0];
     for (size_t i = 1; i < numbers.size(); i++)
         lcmAll = lcm(lcmAll, numbers[i]);
 
