@@ -24,8 +24,9 @@ long long lcm(long long a, long long b) {
 }
 
 int main() {
+    cout << "=== Задача 6 ===" << endl;
     int count;
-    cout << "Сколько натуральных чисел хотите ввести? ";
+    cout << "\nСколько натуральных чисел хотите ввести: ";
     cin >> count;
 
     vector<int> numbers;
@@ -52,8 +53,6 @@ int main() {
         numbersOut << n << " ";
     numbersOut.close();
 
-    cout << "\nВсе числа сохранены в: " << numbersFile << endl;
-
     // ===== Выбор простых чисел =====
     vector<int> primes;
     for (int n : numbers) {
@@ -71,7 +70,6 @@ int main() {
         primesOut << p << " ";
     primesOut.close();
 
-    cout << "Простые числа сохранены в: " << primesFile << endl;
     cout << "Количество простых чисел: " << primes.size() << endl;
 
     // ===== Вычисление НОД =====
