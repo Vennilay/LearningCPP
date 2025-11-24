@@ -1,49 +1,35 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
 
-void generate(int pos, std::vector<int> &a, long long &cnt) {
-    int n = static_cast<int>(a.size());
-
-    if (pos == n) {
-        bool has_fixed_point = false;
-        for (int i = 0; i < n; ++i) {
-            if (a[i] == i + 1) {
-                has_fixed_point = true;
-                break;
-            }
-        }
-
-        if (has_fixed_point) {
-            ++cnt;
-
-            for (int x : a) {
-                std::cout << x << ' ';
-            }
-            std::cout << '\n';
-        }
-
-        return;
-    }
-
-    // for (int i = pos; i < n; ++i) {
-    //     std::swap(a[pos], a[i]);
-    //     generate(pos + 1, a, cnt);
-    //     std::swap(a[pos], a[i]);
-    // }
+int fact(const int n) {
+    int f = 1;
+    for (int i = 2; i <= n; ++i)
+        f *= i;
+    return f;
 }
 
 int main() {
-    int n = 10;
-    std::vector<int> a(n);
+    int n;
+    std::cout << "Количество шариков: ";
+    std::cin >> n;
 
-    for (int i = 0; i < n; ++i) {
+    int a[12];
+    for (int i = 0; i < n; ++i)
         a[i] = i + 1;
+
+    int result = 0;
+    const int total = fact(n);
+
+    for (int i = 0; i < total; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (a[j] == j + 1) {
+                ++result;
+                break;
+            }
+        }
+        std::next_permutation(a, a + n);
     }
 
-    long long cnt = 0;
-    generate(0, a, cnt);
-
-    std::cout << "n = " << n << ", count = " << cnt << '\n';
-
+    std::cout << "Результат: " << result << std::endl;
     return 0;
 }

@@ -5,49 +5,36 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream fin("../txtfiles/5.5.4.txt");
-    if (!fin) {
-        std::cerr << "Не удалось открыть файл 5.5.4.txt для чтения\n";
-        return 1;
-    }
-
+    const std::string inputFilename = "../txtfiles/5.5.4.txt";
+    const std::string outputFilename = "../txtfiles/5.5.4_sorted.txt";
     std::vector<std::string> words;
-    std::string w;
-    while (fin >> w) {
-        words.push_back(w);
-    }
-    fin.close();
+    std::string temp;
 
-    if (words.empty()) {
-        std::cout << "Файл 5.5.4.txt пуст или в нем нет слов.\n";
-        return 0;
+    std::ifstream fin(inputFilename);
+    if (fin) {
+        while (fin >> temp) {
+            words.push_back(temp);
+        }
+        fin.close();
+    }
+
+    std::cout << "Введите слово для добавления: ";
+    if (std::cin >> temp) {
+        words.push_back(temp);
     }
 
     std::sort(words.begin(), words.end());
 
-    std::cout << "Слова после сортировки:\n";
-    for (const std::string &s : words) {
-        std::cout << s << '\n';
-    }
-
-    std::cout << "\nВведите слово для добавления: ";
-    std::string newWord;
-    std::cin >> newWord;
-
-    auto it = std::lower_bound(words.begin(), words.end(), newWord);
-    words.insert(it, newWord);
-
-    std::ofstream fout("txtfiles/words_sorted.txt");
+    std::ofstream fout(outputFilename);
     if (!fout) {
-        std::cerr << "Не удалось открыть файл words_sorted.txt для записи\n";
+        std::cerr << "Ошибка при открытии файла для записи\n";
         return 1;
     }
 
-    for (const std::string &s : words) {
-        fout << s << '\n';
+    for (const auto& w : words) {
+        fout << w << '\n';
     }
-    fout.close();
 
-    std::cout << "Обновленный отсортированный список слов сохранен в words_sorted.txt.\n";
+    std::cout << "Слово добавлено, список отсортирован и сохранен в " << outputFilename << "\n";
     return 0;
 }
