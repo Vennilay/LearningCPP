@@ -9,7 +9,7 @@ int fact(const int n) {
 }
 
 int main() {
-    int n = 1;
+    int n = 10; 
     int a[12];
     for (int i = 0; i < n; ++i)
         a[i] = i + 1;
