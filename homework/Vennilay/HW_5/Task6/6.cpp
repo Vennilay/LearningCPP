@@ -9,9 +9,7 @@ int fact(const int n) {
 }
 
 int main() {
-    int n;
-    std::cout << "Количество шариков: ";
-    std::cin >> n;
+    int n = 10;
 
     int a[12];
     for (int i = 0; i < n; ++i)
