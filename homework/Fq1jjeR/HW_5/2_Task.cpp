@@ -3,7 +3,6 @@
 #include <algorithm>
 using namespace std;
 
-// перевод символа -> значение
 int charToVal(char c) {
     if (c >= '0' && c <= '9') return c - '0';
     if (c >= 'A' && c <= 'Z') return c - 'A' + 10;
@@ -11,55 +10,70 @@ int charToVal(char c) {
     return -1;
 }
 
-// перевод значения -> символ
 char valToChar(int v) {
-    if (v < 10) return '0' + v;
-    return 'A' + (v - 10);
+    return (v < 10) ? ('0' + v) : ('A' + (v - 10));
 }
 
-// перевод из любой системы в 10-ю
+// Перевод из любой СС -> 10
 int toDecimal(const string& s, int base) {
-    int result = 0;
+    bool negative = false;
+    int start = 0;
 
-    for (char c : s) {
-        int v = charToVal(c);
+    if (s[0] == '-') {
+        negative = true;
+        start = 1;
+    }
+
+    int result = 0;
+    for (int i = start; i < s.size(); i++) {
+        int v = charToVal(s[i]);
         if (v < 0 || v >= base) {
-            cout << "Ошибка: некорректный символ!" << endl;
-            exit(0);
+            cout << "Ошибка: недопустимый символ '" << s[i] << "' для основания " << base << endl;
+            exit(1);
         }
         result = result * base + v;
     }
-    return result;
+
+    return negative ? -result : result;
 }
 
-// перевод из 10-й в любую другую
+// Перевод из 10 -> любая СС
 string fromDecimal(int num, int base) {
     if (num == 0) return "0";
-    string result = "";
+
+    bool negative = (num < 0);
+    num = abs(num);
+
+    string result;
     while (num > 0) {
         result += valToChar(num % base);
         num /= base;
     }
     reverse(result.begin(), result.end());
-    return result;
+
+    return negative ? "-" + result : result;
 }
 
 int main() {
-
     string number;
     int oldBase, newBase;
 
+    cout << "=== Конвертер систем счисления ===" << endl;
     cout << "Введите число: ";
     cin >> number;
-    cout << "Введите старое основание: ";
+    cout << "Введите старое основание (2-36): ";
     cin >> oldBase;
-    cout << "Введите новое основание: ";
+    cout << "Введите новое основание (2-36): ";
     cin >> newBase;
+
+    if (oldBase < 2 || oldBase > 36 || newBase < 2 || newBase > 36) {
+        cout << "Ошибка: основания должны быть в диапазоне 2–36." << endl;
+        return 1;
+    }
 
     int decimalValue = toDecimal(number, oldBase);
     string converted = fromDecimal(decimalValue, newBase);
 
-    cout << "Результат: " << converted << endl;
-
+    cout << "Результат преобразования: " << converted << endl;
     return 0;
 }
