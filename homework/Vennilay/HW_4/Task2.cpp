@@ -1,5 +1,5 @@
 #include <iostream>
-// test!
+// test !
 int main() {
     std::string bright_blue = "\033[104m";    // синий
     std::string bright_red = "\033[101m";     // красный
