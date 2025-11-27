@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    string filename = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\5.1_Task.txt)";
+    string filename = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\5.4_Task.txt)";
 
     // Чтение слов из файла
     ifstream inFile(filename);
