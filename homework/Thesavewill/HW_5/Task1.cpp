@@ -5,8 +5,8 @@
 using namespace std;
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     string input; map<char, int> Map; int n, rez;
     Map['I'] = 1; Map['V'] = 2; Map['X'] = 3; Map['L'] = 4;
     Map['C'] = 5; Map['D'] = 6; Map['M'] = 7;
