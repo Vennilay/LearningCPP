@@ -13,7 +13,6 @@ string cleanWord(string word) {
     return cleaned;
 }
 
-// Поиск слова максимальной длины
 string findLongestWord(ifstream& file) {
     file.clear();
     file.seekg(0);
@@ -26,13 +25,11 @@ string findLongestWord(ifstream& file) {
 
         if (!clean.empty() && clean.length() > longest.length())
             longest = clean;
-
     }
 
     return longest;
 }
 
-// Поиск слова минимальной длины
 string findShortestWord(ifstream& file) {
     file.clear();
     file.seekg(0);

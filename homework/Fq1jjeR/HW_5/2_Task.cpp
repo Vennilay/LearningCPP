@@ -6,7 +6,6 @@ using namespace std;
 int charToVal(char c) {
     if (c >= '0' && c <= '9') return c - '0';
     if (c >= 'A' && c <= 'Z') return c - 'A' + 10;
-    if (c >= 'a' && c <= 'z') return c - 'a' + 10;
     return -1;
 }
 
@@ -15,7 +14,7 @@ char valToChar(int v) {
 }
 
 // Перевод из любой СС -> 10
-int toDecimal(const string& s, int base) {
+int toDecimal(string s, int base) {
     bool negative = false;
     int start = 0;
 
@@ -27,11 +26,11 @@ int toDecimal(const string& s, int base) {
     int result = 0;
     for (int i = start; i < s.size(); i++) {
         int v = charToVal(s[i]);
-        if (v < 0 || v >= base) {
+        if (v >= base) {
             cout << "Ошибка: недопустимый символ '" << s[i] << "' для основания " << base << endl;
             exit(1);
         }
-        result = result * base + v;
+        result = (result * base) + v;
     }
 
     return negative ? -result : result;
