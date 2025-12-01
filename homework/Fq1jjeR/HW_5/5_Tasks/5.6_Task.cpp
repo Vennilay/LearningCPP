@@ -21,7 +21,7 @@ int gcd(int a, int b) {
     return a;
 }
 
-long long lcm(long long a, long long b) {
+int lcm(int a, int b) {
     return a / gcd(a, b) * b;
 }
 
