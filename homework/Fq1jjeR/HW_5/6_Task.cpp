@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-void generatePermutations(vector<int>& arr, int step, int n, long long& count) {
+void generatePermutations(vector<int>& arr, int step, int n, int& count) {
     if (step == n) {
         for (int i = 0; i < n; i++) {
             if (arr[i] == i + 1) {
@@ -26,7 +26,7 @@ int main() {
     for (int i = 0; i < n; i++)
         balls[i] = i + 1;
 
-    long long count = 0;
+    int count = 0;
     generatePermutations(balls, 0, n, count);
 
     cout << "Количество перестановок с хотя бы одним совпадением: " << count << endl;

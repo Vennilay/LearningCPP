@@ -25,7 +25,7 @@ int main() {
     string x;
     cout << "Введите число: ";
     cin >> x;
-    cout << "После удаления 0 и 5: " << removeZeroAndFive(x) << endl;
+    cout << "После удаления: " << removeZeroAndFive(x) << endl;
 
     return 0;
 }
