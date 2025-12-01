@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <set>
+#include <string>
 
 // 2
 double task2(int n) {
@@ -51,9 +53,19 @@ double task4(int n) {
     return y;
 }
 
+// 30
+size_t task30(long long n) {
+    std::set<char> digits;
+    std::string s = std::to_string(std::llabs(n));
+    for (char c : s) {
+        digits.insert(c);
+    }
+    return digits.size();
+}
+
+
 int main() {
     int n2, n4;
-
     std::cout << "Введите n для второй задачи: ";
     std::cin >> n2;
 
@@ -65,6 +77,12 @@ int main() {
 
     double result4 = task4(n4);
     std::cout << "Ответ для четвертой задачи: " << result4 << std::endl;
+
+    long long num;
+    std::cout << "Введите целое число для анализа цифр: ";
+    std::cin >> num;
+
+    std::cout << "Количество различных цифр: " << task30(num) << std::endl;
 
     return 0;
 }
