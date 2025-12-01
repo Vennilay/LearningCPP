@@ -28,7 +28,15 @@ long long toDecimal(const std::string& number, int base) {
     long long result = 0;
 
     for (char c : number) {
-        result = result * base + charToDigit(c);
+        int val = charToDigit(c);
+
+        if (val == -1 || val >= base) {
+            std::cout << "Ошибка: цифра '" << c << "' недопустима для системы счисления " << base << std::endl;
+            exit(1);
+        }
+
+        // схема Горнера
+        result = result * base + val;
     }
 
     return result;
