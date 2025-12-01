@@ -2,7 +2,6 @@
 
 using namespace std;
 
-// Проверка наличия цифры 3 в квадрате double
 bool containsThreeInSquare(double n) {
     double square = n * n;
     string s = to_string(square);
