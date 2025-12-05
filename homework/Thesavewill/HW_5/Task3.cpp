@@ -7,7 +7,7 @@ int main()
 {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-
+    //18
     string strSearch, strFile;
     string filename = "task1.txt";
 
@@ -25,7 +25,28 @@ int main()
 
     if (strFile.find(strSearch) != string::npos) {
         cout << "Эта подстрока есть в строке" << endl;
-    } else {
+    }
+    else {
+        cout << "Этой подстроки нет в строке" << endl;
+    }
+    //22
+    cout << "Номер 22" << endl;
+
+    cout << "Введите искомую подстроку:";
+    cin >> strFile;
+
+    ofstream out2(filename);
+    out2 << strFile;
+    out2.close();
+
+    ifstream in2(filename);
+    getline(in2, strFile);
+    in2.close();
+
+    if (strFile.find(strSearch) != string::npos) {
+        cout << "Эта подстрока есть в строке" << endl;
+    }
+    else {
         cout << "Этой подстроки нет в строке" << endl;
     }
     return 0;
