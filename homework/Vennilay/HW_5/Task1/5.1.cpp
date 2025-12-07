@@ -14,31 +14,32 @@ int getValue(const char c) {
     }
 }
 
-int decodeRoman(const std::string& roman) {
-    int result = 0;
-    const size_t length = roman.length();
+int decode(const std::string& line) {
+    int res = 0;
+    const int len = line.length();
 
-    for (size_t i = 0; i < length; i++) {
-        const int current = getValue(roman[i]);
-        if (i + 1 < length && current < getValue(roman[i + 1])) {
-            result = result - current;
+    for (int i = 0; i < len; i++) {
+        const int current = getValue(line[i]);
+
+        if (i + 1 < len && current < getValue(line[i + 1])) {
+            res -= current;
         } else {
-            result = result + current;
+            res += current;
         }
     }
-    return result;
+    return res;
 }
 
-std::string encodeRoman(int num) {
+std::string encode(int num) {
     if (num <= 0) return "";
 
     const int vals[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    const std::string strs[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    const std::string syms[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
     std::string res;
     for (int i = 0; i < 13; i++) {
         while (num >= vals[i]) {
-            res += strs[i];
+            res += syms[i];
             num -= vals[i];
         }
     }
@@ -50,16 +51,17 @@ int main() {
     std::cout << "Введите римское число: ";
     std::cin >> roman;
 
-    for (size_t i = 0; i < roman.length(); i++) {
+    const int len = roman.length();
+
+    for (int i = 0; i < len; i++) {
         if (getValue(roman[i]) == 0) {
             std::cout << "Ошибка: посторонние символы!" << std::endl;
             return 1;
         }
     }
 
-    const int number = decodeRoman(roman);
-
-    const std::string check = encodeRoman(number);
+    const int number = decode(roman);
+    const std::string check = encode(number);
 
     if (check == roman) {
         std::cout << roman << " = " << number << std::endl;
