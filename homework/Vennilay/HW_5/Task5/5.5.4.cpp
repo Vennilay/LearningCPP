@@ -5,36 +5,31 @@
 #include <algorithm>
 
 int main() {
-    const std::string inputFilename = "../txtfiles/5.5.4.txt";
-    const std::string outputFilename = "../txtfiles/5.5.4_sorted.txt";
-    std::vector<std::string> words;
-    std::string temp;
-
-    std::ifstream fin(inputFilename);
-    if (fin) {
-        while (fin >> temp) {
-            words.push_back(temp);
-        }
-        fin.close();
-    }
-
-    std::cout << "Введите слово для добавления: ";
-    if (std::cin >> temp) {
-        words.push_back(temp);
-    }
-
-    std::sort(words.begin(), words.end());
-
-    std::ofstream fout(outputFilename);
-    if (!fout) {
-        std::cerr << "Ошибка при открытии файла для записи\n";
+    std::ifstream fin("../txtfiles/5.5.4.txt");
+    if (!fin.is_open()) {
+        std::cerr << "Ошибка: Файл не найден!" << std::endl;
         return 1;
     }
 
-    for (const auto& w : words) {
+    std::vector<std::string> words;
+    std::string temp;
+
+    while (fin >> temp) {
+        words.push_back(temp);
+    }
+
+    std::cout << "Введите слово для добавления: ";
+    std::cin >> temp;
+    words.push_back(temp);
+
+    std::sort(words.begin(), words.end());
+
+    std::ofstream fout("../txtfiles/5.5.4_sorted.txt");
+    for (const std::string& w : words) {
         fout << w << '\n';
     }
 
-    std::cout << "Слово добавлено, список отсортирован и сохранен в " << outputFilename << "\n";
+    std::cout << "Слово добавлено";
+
     return 0;
 }
