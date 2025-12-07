@@ -1,11 +1,12 @@
 #include <iostream>
+#include <cmath>
 
 int main() {
     long long n;
     std::cout << "Введите целое число n: ";
     std::cin >> n;
 
-    n = std::llabs(n);
+    n = std::abs(n);
     int sum = 0;
 
     while (n > 0) {

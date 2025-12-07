@@ -2,37 +2,50 @@
 #include <fstream>
 #include <string>
 
-bool is_strictly_increasing(const std::string &s) {
-    if (s.empty()) {
-        return false;
-    }
-    for (std::size_t i = 1; i < s.size(); ++i) {
-        if (!(s[i - 1] < s[i])) {
-            return false;
-        }
-    }
-    return true;
-}
-
 int main() {
-    std::ifstream fin("../txtfiles/5.5.25");
-    if (!fin) {
-        std::cerr << "Не удалось открыть файл text.txt для чтения\n";
+    std::ofstream File("../txtfiles/5.5.25.txt");
+    if (File.is_open()) {
+        File << "abcde" << std::endl;  // Подходит
+        File << "ba" << std::endl;     // Не подходит
+        File << "12356" << std::endl;  // Подходит
+        File << "" << std::endl;       // Пустая (не подходит)
+        File << "aaz" << std::endl;    // Подходит
+        File.close();
+    } else {
+        std::cout << "Не удалось создать файл." << std::endl;
         return 1;
     }
 
-    std::string line;
+    std::ifstream fin("../txtfiles/5.5.25.txt");
+    if (!fin.is_open()) {
+        std::cout << "Не удалось открыть файл для чтения." << std::endl;
+        return 1;
+    }
+
     int count = 0;
+    std::string line;
 
     while (std::getline(fin, line)) {
-        if (!line.empty() && is_strictly_increasing(line)) {
-            ++count;
+        if (line.empty()) {
+            continue;
+        }
+
+        bool isSorted = true;
+        for (int i = 0; i < line.length() - 1; i++) {
+            if (line[i] > line[i + 1]) {
+                isSorted = false;
+                break;
+            }
+        }
+
+        if (isSorted) {
+            count++;
         }
     }
 
     fin.close();
 
-    std::cout << "Число непустых строк с символами по возрастанию: " << count << "\n";
+    std::cout << "Количество подходящих строк: " << count << std::endl;
 
     return 0;
 }
