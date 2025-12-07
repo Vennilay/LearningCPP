@@ -26,9 +26,10 @@ int lcm(int a, int b) {
 }
 
 int main() {
-    string BASE_PATH = "D:\\Coding\\LearningCPP\\files\\Fq1jjeR\\HW_5\\";
-    string numbersFile = BASE_PATH + "numbers.txt";
-    string primesFile = BASE_PATH + "primes.txt";
+
+    string basePath = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\)";
+    string numbersFile = basePath + "numbers.txt";
+    string primesFile = basePath + "primes.txt";
 
     int count;
     cout << "Сколько натуральных чисел хотите ввести: ";
@@ -71,14 +72,14 @@ int main() {
 
     // Вычисление НОД
     int gcdAll = numbers[0];
-    for (size_t i = 1; i < numbers.size(); i++)
+    for (int i = 1; i < numbers.size(); i++)
         gcdAll = gcd(gcdAll, numbers[i]);
 
     cout << "НОД всех чисел: " << gcdAll << endl;
 
     // Вычисление НОК
     int lcmAll = numbers[0];
-    for (size_t i = 1; i < numbers.size(); i++)
+    for (int i = 1; i < numbers.size(); i++)
         lcmAll = lcm(lcmAll, numbers[i]);
 
     cout << "НОК всех чисел: " << lcmAll << endl;
