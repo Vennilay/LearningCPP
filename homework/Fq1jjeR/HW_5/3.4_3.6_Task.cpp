@@ -65,11 +65,11 @@ int main() {
 
     cout << "=== Задача 4 ===" << endl;
     cout << "Слово максимальной длины: " << longest << endl;
-    cout << "Длина: " << longest.length() << " символов" << endl;
+    cout << "Длина: " << longest.length() << endl;
 
     cout << "=== Задача 6 ===" << endl;
     cout << "Слово минимальной длины: " << shortest << endl;
-    cout << "Длина: " << shortest.length() << " символов" << endl;
+    cout << "Длина: " << shortest.length() << endl;
 
     file.close();
     return 0;
