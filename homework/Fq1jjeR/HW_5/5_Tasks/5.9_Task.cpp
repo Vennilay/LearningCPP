@@ -6,14 +6,14 @@
 using namespace std;
 
 int main() {
-    string basePath = "D:\\Coding\\LearningCPP\\files\\Fq1jjeR\\HW_5\\";
-    string fileA = basePath + "A.txt";
-    string fileB = basePath + "B.txt";
-    string fileC = basePath + "C.txt";
+
+    string basePath = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\)";
+    string fileA = basePath + "A.txt", fileB = basePath + "B.txt", fileC = basePath + "C.txt";
+
 
     // Создание файла A
     int count, num;
-    cout << "Сколько целых чисел хотите ввести в файл A? ";
+    cout << "Сколько целых чисел хотите ввести в файл A: ";
     cin >> count;
 
     vector<int> numbersA;
@@ -30,7 +30,7 @@ int main() {
     outA.close();
 
     // Создание файла B
-    cout << "Сколько целых чисел хотите ввести в файл B? ";
+    cout << "Сколько целых чисел хотите ввести в файл B: ";
     cin >> count;
 
     vector<int> numbersB;
