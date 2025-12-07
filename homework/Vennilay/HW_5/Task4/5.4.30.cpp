@@ -1,31 +1,34 @@
 #include <iostream>
+#include <cmath>
 
 int main() {
     long long n;
-    std::cout << "Введите целое число n: ";
+
+    std::cout << "Введите целое число: ";
     std::cin >> n;
 
-    n = std::llabs(n);
+    n = std::abs(n);
 
-    bool used[10] = {false};
+    int seen[10] = {0};
 
     if (n == 0) {
-        used[0] = true;
-    } else {
-        while (n > 0) {
-            const int d = static_cast<int>(n % 10);
-            used[d] = true;
-            n /= 10;
-        }
+        seen[0] = 1;
+    }
+
+    while (n > 0) {
+        int digit = n % 10;
+        seen[digit] = 1;
+        n = n / 10;
     }
 
     int count = 0;
-    for (int d = 0; d < 10; ++d) {
-        if (used[d]) {
-            ++count;
+    for (int i = 0; i < 10; i++) {
+        if (seen[i] == 1) {
+            count = count + 1;
         }
     }
 
     std::cout << "Количество различных цифр: " << count << std::endl;
+
     return 0;
 }
