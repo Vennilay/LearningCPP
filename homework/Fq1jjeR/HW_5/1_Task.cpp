@@ -15,7 +15,7 @@ int getValue(char c) {
 int romanToDecimal(string s) {
     int result = 0;
 
-    for (size_t i = 0; i < s.length(); i++) {
+    for (int i = 0; i < s.length(); i++) {
         int current = getValue(s[i]);
         if (i + 1 < s.length() && current < getValue(s[i + 1]))
             result = result - current;
