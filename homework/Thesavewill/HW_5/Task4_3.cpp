@@ -12,11 +12,10 @@ int CommonDivisor(int a, int b) {
 }
 //61
 int main() {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-    int input;
-    cout << "Задание 61" << endl;
-    cout << "Введите размер массива:"; cin >> input;
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    int input= 5;
+    cout << "Размер массива: " << input;
     cout << "Введите значения массива:";
 
     int numbers[input];

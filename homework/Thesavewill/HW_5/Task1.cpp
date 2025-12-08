@@ -1,34 +1,72 @@
 ﻿#include <iostream>
-#include <map>
 #include <string>
 #include <windows.h>
 using namespace std;
-int main()
-{
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
-    string input; map<char, int> Map; int n, rez;
-    Map['I'] = 1; Map['V'] = 2; Map['X'] = 3; Map['L'] = 4;
-    Map['C'] = 5; Map['D'] = 6; Map['M'] = 7;
-    for (int i = 0; i < 100;i++) {
-        rez = 0;
-        cout << "Введите римское число: ";cin >> input;
-        for (int k = 0; k < input.length(); k++) {
-            switch (Map[input[k]]) {
-            case 1: n = 1; break; case 2: n = 5; break;
-            case 3: n = 10; break; case 4: n = 50; break;
-            case 5: n = 100; break; case 6: n = 500; break;
-            case 7: n = 1000; break;
-            default: n = 0; break;
-            }
-            if (Map[input[k]] < Map[input[k+1]]) {
-                rez -= n;
-            }
-            else {
-                rez += n;
-            }
-        }
-        cout << "В арабских числах: " << rez << endl << endl;
+
+int rimToInt(char c) {
+    switch(c) {
+        case 'I': return 1;
+        case 'V': return 5;
+        case 'X': return 10;
+        case 'L': return 50;
+        case 'C': return 100;
+        case 'D': return 500;
+        case 'M': return 1000;
+        default: return 0;
     }
-    return 0;
+}
+
+string intToRim(int num) {
+    int vals[] = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+    string syms[] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    string res;
+    for (int i = 0; i < 13; i++) {
+        while (num >= vals[i]) {
+            res += syms[i];
+            num -= vals[i];
+        }
+    }
+    return res;
+}
+
+int rimToArabic(string s) {
+    int result = 0;
+    for (int i = 0; i < s.length(); i++) {
+        int curr = rimToInt(s[i]);
+        if (curr == 0) return -1;
+
+        int next = 0;
+        if (i + 1 < s.length()) {
+            next = rimToInt(s[i + 1]);
+        }
+
+        if (curr < next) {
+            result -= curr;
+        } else {
+            result += curr;
+        }
+    }
+
+    if (intToRim(result) != s) return -2;
+    return result;
+}
+
+int main() {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    string input;
+    for (int i = 0; i < 100; i++) {
+        cout << "Введите римское число:";
+        cin >> input;
+
+        int rez = rimToArabic(input);
+        if (rez == -1) {
+            cout << "Ошибка: посторонние символы!" << endl;
+        } else if (rez == -2) {
+            cout << "Ошибка: нарушение правил записи" << endl;
+        } else {
+            cout << "В арабских числах:" << rez << endl;
+        }
+    }
 }
