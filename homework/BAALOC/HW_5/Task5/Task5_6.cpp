@@ -20,7 +20,7 @@ void show(const std::vector<int>& v) {
     std::cout << std::endl;
 }
 
-int gcd(int a, int b) {
+int gcd(int a, int b) { // наибольший общий делитель, алгоритм Евклида
     while (b) {
         a %= b;
         std::swap(a, b);
@@ -111,7 +111,6 @@ int main() {
     show(v);
 
     std::cout << "НОД: " << overall_gcd(v) << std::endl;
-
     std::cout << "Наименьший общий делитель: " << min_div(v) << std::endl;
 
     std::vector<int> p = primes(v);
