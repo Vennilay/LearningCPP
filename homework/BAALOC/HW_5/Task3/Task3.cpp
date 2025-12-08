@@ -2,8 +2,11 @@
 #include <fstream>
 #include <string>
 
+
+// Слово максимальной длины и замена символов
 int main() {
-    std::string filename = "files/BAALOC/HW_5/Task3.txt";
+    std::string filename =
+        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/text.txt";
     char separator;
 
     std::cout << "Введите символ для замены пробелов: ";
