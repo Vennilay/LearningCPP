@@ -28,6 +28,7 @@ bool isValidRoman(const std::string& roman) {
     int repeatCount = 1;
     for (size_t i = 1; i < roman.size(); i++) {
         if (roman[i] == roman[i - 1]) {
+            // проверка на повторение (только один раз для V, L, D)
             repeatCount++;
             if (roman[i] == 'V' || roman[i] == 'L' || roman[i] == 'D') {
                 return false;
@@ -43,6 +44,7 @@ bool isValidRoman(const std::string& roman) {
     for (size_t i = 0; i + 1 < roman.size(); i++) {
         int current = getValue(roman[i]);
         int next = getValue(roman[i + 1]);
+        // проверка на корректное вычитание
         if (current < next) {
             if (!((roman[i] == 'I' && (roman[i + 1] == 'V' || roman[i + 1] == 'X')) ||
                 (roman[i] == 'X' && (roman[i + 1] == 'L' || roman[i + 1] == 'C')) ||
@@ -60,6 +62,7 @@ int decodeRoman(const std::string& roman) {
 
     for (size_t i = 0; i < roman.size(); ++i) {
         int current = getValue(roman[i]);
+        // вычитание или сложение, зависит от пары чисел
         if (i + 1 < roman.size() && current < getValue(roman[i + 1])) {
             result -= current;
         } else {
