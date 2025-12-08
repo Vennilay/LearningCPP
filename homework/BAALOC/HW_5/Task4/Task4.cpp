@@ -56,7 +56,7 @@ double task4(int n) {
 // 30
 size_t task30(long long n) {
     std::set<char> digits;
-    std::string s = std::to_string(std::llabs(n));
+    std::string s = std::to_string(std::abs(n));
     for (char c : s) {
         digits.insert(c);
     }
