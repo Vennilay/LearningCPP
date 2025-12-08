@@ -2,13 +2,12 @@
 #include <windows.h>
 using namespace std;
 
-int counter = 0;   // количество подходящих перестановок
+int counter = 0;
 
 void perestanovka(int Urn[], int m, int n)
 {
     if (m == n)
     {
-        // Проверка перестановки на наличие хотя бы одного совпадения
         for (int i = 0; i < n; ++i)
         {
             if (Urn[i] == i + 1)
@@ -37,10 +36,10 @@ void perestanovka(int Urn[], int m, int n)
 
 int main()
 {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
-    const int n = 10;
+    const int n = 11;
     int Urn[n];
 
     for (int i = 0; i < n; i++)
