@@ -9,8 +9,8 @@ int fact(const int n) {
 }
 
 int main() {
-    int n = 10; 
-    int a[12];
+    int n = 10;
+    int a[10];
     for (int i = 0; i < n; ++i)
         a[i] = i + 1;
 
@@ -19,6 +19,7 @@ int main() {
 
     for (int i = 0; i < total; ++i) {
         for (int j = 0; j < n; ++j) {
+            // Если номер шарика совпал с порядковым номером вытаскивания
             if (a[j] == j + 1) {
                 ++result;
                 break;
@@ -26,7 +27,6 @@ int main() {
         }
         std::next_permutation(a, a + n);
     }
-
     std::cout << "Результат: " << result << std::endl;
     return 0;
 }
