@@ -1,49 +1,27 @@
 ﻿#include <iostream>
-#include <cmath>
-#include <windows.h>
+#include <windows.h> // Для SetConsoleCP и SetConsoleOutputCP
 using namespace std;
-double roundToSixDecimalPlaces(double value) {
-    // 1. Умножаем число на 1,000,000 (10^6).
-    double scaled_value = value * 1000000.0;
-
-    // 2. Округляем до ближайшего целого числа, используя std::round.
-    // std::round использует стандартные правила округления (к ближайшему целому).
-    double rounded_scaled_value = std::round(scaled_value);
-
-    // 3. Делим обратно на 1,000,000.0, чтобы получить 6 знаков после запятой.
-    double result = rounded_scaled_value / 1000000.0;
-
-    return result;
-}
-
-long long Factorial(int n) {
-    if (n < 0) {
-        std::cerr << "Ошибка: Факториал отрицательного числа не существует." << std::endl;
-        return -1;
-    }
-
-    long long result = 1;
-    for (int i = 1; i <= n; ++i) {
-        result *= i;
-    }
-    return result;
-}
-//15
-int main()
-{
+//8
+int main() {
+    // Устанавливаем кодировку консоли Windows в UTF-8
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    int k;
-    double x, y = 0.0;
+    double a;
+    int n;
+    cout << "Введите a:"; cin >> a;
+    cout << "Введите n:"; cin >> n;
 
-    cout << "Введите X:";
-    cin >> x;
+    double y = 0.0;
+    double denominator = a; // Начнем с первого члена: a
 
-    for (k = 0; k < 100; ++k) {
-        double term = Factorial((2 * k + 1)) / pow((k + 1), 2) * pow(x, 4.0 * k);
-        y += term;
+    for (int i = 0; i <= n; ++i) {
+        // Добавляем текущий член (i+1)/denominator
+        y += (i + 1) / denominator;
+
+        // Умножаем denominator на следующий множитель для следующей итерации
+        denominator *= (a + i + 1);
     }
 
-    cout << roundToSixDecimalPlaces(y);
+    cout << "Сумма y = " << y << endl;
     return 0;
 }
