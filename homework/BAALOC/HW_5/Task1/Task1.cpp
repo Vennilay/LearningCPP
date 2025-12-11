@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-int getValue(const char c) {
-    switch (c) {
+int charToDigit(const char digit) {
+    switch (digit) {
     case 'I': return 1;
     case 'V': return 5;
     case 'X': return 10;
@@ -14,77 +14,60 @@ int getValue(const char c) {
     }
 }
 
-bool isValidRoman(const std::string& roman) {
-    if (roman.empty()) {
-        return false;
-    }
+int romanToInt(const std::string& rawRoman) {
+    int total = 0;
+    const int length = rawRoman.length();
 
-    for (const char c : roman) {
-        if (getValue(c) == 0) {
-            return false;
-        }
-    }
+    for (int i = 0; i < length; i++) {
+        const int currentValue = charToDigit(rawRoman[i]);
 
-    int repeatCount = 1;
-    for (size_t i = 1; i < roman.size(); i++) {
-        if (roman[i] == roman[i - 1]) {
-            // проверка на повторение (только один раз для V, L, D)
-            repeatCount++;
-            if (roman[i] == 'V' || roman[i] == 'L' || roman[i] == 'D') {
-                return false;
-            }
-            if (repeatCount > 3) {
-                return false;
-            }
+        if (i + 1 < length && currentValue < charToDigit(rawRoman[i + 1])) {
+            total -= currentValue;
         } else {
-            repeatCount = 1;
+            total += currentValue;
         }
     }
-
-    for (size_t i = 0; i + 1 < roman.size(); i++) {
-        int current = getValue(roman[i]);
-        int next = getValue(roman[i + 1]);
-        // проверка на корректное вычитание
-        if (current < next) {
-            if (!((roman[i] == 'I' && (roman[i + 1] == 'V' || roman[i + 1] == 'X')) ||
-                (roman[i] == 'X' && (roman[i + 1] == 'L' || roman[i + 1] == 'C')) ||
-                (roman[i] == 'C' && (roman[i + 1] == 'D' || roman[i + 1] == 'M')))) {
-                return false;
-            }
-        }
-    }
-
-    return true;
+    return total;
 }
 
-int decodeRoman(const std::string& roman) {
-    int result = 0;
+std::string intToRoman(int number) {
+    if (number <= 0) return "";
 
-    for (size_t i = 0; i < roman.size(); ++i) {
-        int current = getValue(roman[i]);
-        // вычитание или сложение, зависит от пары чисел
-        if (i + 1 < roman.size() && current < getValue(roman[i + 1])) {
-            result -= current;
-        } else {
-            result += current;
+    const int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    const std::string numerals[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+    std::string resultRoman;
+    for (int i = 0; i < 13; i++) {
+        while (number >= values[i]) {
+            resultRoman += numerals[i];
+            number -= values[i];
         }
     }
-
-    return result;
+    return resultRoman;
 }
 
 int main() {
-    std::string roman;
-
+    std::string userInput;
     std::cout << "Введите римское число: ";
-    std::cin >> roman;
+    std::cin >> userInput;
 
-    if (!isValidRoman(roman)) {
-        std::cout << "Ошибка: некорректное римское число!" << std::endl;
-        return 1;
+    const int inputLength = userInput.length();
+
+    for (int i = 0; i < inputLength; i++) {
+        if (charToDigit(userInput[i]) == 0) {
+            std::cout << "Ошибка: посторонние символы!" << std::endl;
+            return 1;
+        }
     }
 
-    std::cout << roman << " = " << decodeRoman(roman) << std::endl;
+    const int parsedValue = romanToInt(userInput);
+    const std::string validationStr = intToRoman(parsedValue);
+
+    if (validationStr == userInput) {
+        std::cout << userInput << ": " << parsedValue << std::endl;
+    } else {
+        std::cout << "Ошибка записи" << std::endl;
+    }
 
     return 0;
 }
