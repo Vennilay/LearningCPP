@@ -4,8 +4,8 @@ using namespace std;
 //28
 int main()
 {
-    SetConsoleCP(CP_UTF8);
-    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
     string str;
     int a = 0;
