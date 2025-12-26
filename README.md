@@ -12,19 +12,15 @@
 
 ## 📖 Оглавление
 
-* [✨ О проекте](#-о-проекте)
-* [🌍 Кросс-платформенность и CMake](#-кросс-платформенность-и-cmake)
-  * [🔧 Почему нужен CMake](#-почему-нужен-cmake)
-  * [👥 Наша команда](#-наша-команда)
-* [📁 Структура репозитория](#-структура-репозитория)
-* [🔒 Система защиты кода](#-система-защиты-кода-codeowners)
-* [🚀 Как запустить проект](#-как-запустить-проект)
-  * [📋 Требования](#-требования)
-  * [💻 Инструкция для CLion](#-инструкция-для-clion)
-  * [⌨️ Сборка через командную строку](#️-сборка-через-командную-строку)
-* [🎥 Видеоинструкция](#-видеоинструкция)
-* [⚙️ Технические детали](#️-технические-детали)
-* [📬 Контакты](#-контакты)
+- [О проекте](#-о-проекте)
+- [Кросс-платформенность и CMake](#-кросс-платформенность-и-cmake)
+- [Наша команда](#-наша-команда)
+- [Структура репозитория](#-структура-репозитория)
+- [Система защиты кода](#-система-защиты-кода-codeowners)
+- [Как запустить проект](#-как-запустить-проект)
+- [Видеоинструкция](#-видеоинструкция)
+- [Технические детали](#️-технические-детали)
+- [Контакты](#-контакты)
 
 ---
 
@@ -58,7 +54,77 @@
 
 Благодаря CMake любой студент может склонировать репозиторий и сразу начать работу на своей системе без лишних настроек! 🚀
 
-### 👥 Наша команда
+### ⚠️ ВНИМАНИЕ: Важная информация о выборе платформы
+
+**Использование <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="16" height="16"/> Linux или <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="16" height="16"/> macOS НАСТОЯТЕЛЬНО РЕКОМЕНДУЕТСЯ для разработки на C++!**
+
+#### Проблема кодировок в Windows
+
+Основная причина — **различия в обработке кодировок текста**. В Windows по умолчанию используется кодировка Windows-1251 (для русского языка) или другие региональные кодировки, в то время как Linux и macOS работают с UTF-8. Это приводит к серьёзным проблемам при работе с русским текстом в программах на C++.
+
+**Сравнение с Python:**
+
+В Python проблема кодировок решена "из коробки" — интерпретатор автоматически определяет и преобразует кодировки, независимо от платформы. Например:
+
+```python
+# Python — работает одинаково везде
+text = "Привет, мир!"
+print(text)  # Всегда выводит корректно
+```
+
+В C++ же вы работаете с кодировками на низком уровне:
+
+```cpp
+// C++ на Windows
+std::cout << "Привет, мир!" << std::endl;
+// Результат: "ÐÑÐ¸Ð²ÐµÑ, Ð¼Ð¸Ñ!" или "??????" — кракозябры!
+
+// C++ на Linux/macOS
+std::cout << "Привет, мир!" << std::endl;
+// Результат: "Привет, мир!" — работает корректно
+```
+
+**Конкретные проблемы в Windows:**
+
+- Файлы с исходным кодом сохраняются в одной кодировке (часто UTF-8), а компилятор ожидает другую (Windows-1251)
+- Ввод/вывод в консоль требует специальных манипуляций с `SetConsoleCP()` и `SetConsoleOutputCP()`
+- Чтение русских имён файлов вызывает ошибки
+- Отладка строк с кириллицей в Visual Studio показывает нечитаемые символы
+- При переносе кода между участниками команды возникают "кракозябры"
+
+**В Linux и macOS этих проблем НЕТ**, потому что:
+
+- UTF-8 является стандартной кодировкой системы
+- Терминал, редактор, компилятор и библиотеки работают в единой кодировке
+- Никаких дополнительных настроек не требуется
+
+#### Выбор IDE: CLion vs Visual Studio
+
+**CLion значительно превосходит Visual Studio** для долгосрочной работы с C++, особенно в образовательных проектах:
+
+**Преимущества CLion:**
+
+✅ **Кросс-платформенность** — одинаково работает на <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="16" height="16"/> Windows, <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="16" height="16"/> Linux и <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="16" height="16"/> macOS  
+✅ **Нативная поддержка CMake** — проект открывается и работает сразу, без настроек  
+✅ **Современный интерфейс** — чистый, интуитивный, без перегруженности  
+✅ **Интеллектуальный редактор** — превосходное автодополнение и рефакторинг  
+✅ **Встроенная интеграция с Git** — удобный GUI для работы с ветками, коммитами и PR  
+✅ **Единообразие** — весь код команды выглядит одинаково независимо от ОС участника  
+
+**Проблемы Visual Studio в долгосрочной перспективе:**
+
+❌ **Привязка к Windows** — работает только на одной ОС, что ограничивает гибкость  
+❌ **Неудобство с CMake** — VS генерирует свои `.sln` и `.vcxproj` файлы, игнорируя CMake структуру  
+❌ **Проблемы совместимости** — разные версии VS создают несовместимые проектные файлы  
+❌ **Перегруженный интерфейс** — огромное количество панелей и настроек, многие из которых не нужны для C++  
+❌ **Медленная работа** — IDE потребляет значительно больше ресурсов  
+❌ **Усложнённая командная работа** — каждый участник на Windows будет иметь свои настройки проекта  
+
+Для студентов РТУ МИРЭА CLion **бесплатен** по студенческой лицензии, что делает его идеальным выбором!
+
+---
+
+## 👥 Наша команда
 
 <table>
 <thead>
@@ -66,68 +132,56 @@
 <th align="center">👤 Участник</th>
 <th align="center">💻 Платформа</th>
 <th align="center">🔗 GitHub</th>
-<th align="center">📝 Примечание</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="center"><strong>Vennilay</strong></td>
-<td align="center">Windows → GNU/Linux 🐧</td>
-<td align="center"><a href="https://github.com/Vennilay">@Vennilay</a></td>
-<td align="center">Создатель и администратор 👑</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> → <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="20" height="20"/> GNU/Linux</td>
+<td align="center"><a href="https://github.com/Vennilay">@Vennilay</a> 👑</td>
 </tr>
 <tr>
 <td align="center"><strong>Baaloc</strong></td>
-<td align="center">macOS 🍎</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="20" height="20"/> macOS</td>
 <td align="center"><a href="https://github.com/BAALOC">@BAALOC</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>Fq1jjeR</strong></td>
-<td align="center">Windows 11 🪟</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> Windows 11</td>
 <td align="center"><a href="https://github.com/Fq1jjeR">@Fq1jjeR</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>EgorDevRus</strong></td>
-<td align="center">Windows → Manjaro Linux 🐧</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> → <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="20" height="20"/> Manjaro Linux</td>
 <td align="center"><a href="https://github.com/EgorDevRus">@EgorDevRus</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>Thesavewill</strong></td>
-<td align="center">Windows 11 🪟</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> Windows 11</td>
 <td align="center"><a href="https://github.com/Thesavewill">@Thesavewill</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>Vondre1</strong></td>
-<td align="center">Windows → GNU/Linux 🐧</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> → <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="20" height="20"/> GNU/Linux</td>
 <td align="center"><a href="https://github.com/Vondre1">@Vondre1</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>lkzz13</strong></td>
-<td align="center">macOS 🍎</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="20" height="20"/> macOS</td>
 <td align="center"><a href="https://github.com/lkzz13">@lkzz13</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>MXLNIK</strong></td>
-<td align="center">Windows 🪟</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="20" height="20"/> Windows</td>
 <td align="center"><a href="https://github.com/MXLNIK">@MXLNIK</a></td>
-<td align="center"></td>
 </tr>
 <tr>
 <td align="center"><strong>lii636</strong></td>
-<td align="center">GNU/Linux 🐧</td>
+<td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="20" height="20"/> GNU/Linux</td>
 <td align="center"><a href="https://github.com/lii636">@lii636</a></td>
-<td align="center"></td>
 </tr>
 </tbody>
 </table>
-
-> 💡 **Интересный факт:** Трое участников начали работу на Windows, а затем перешли на GNU/Linux в процессе обучения!
 
 ---
 
@@ -235,7 +289,7 @@ homework_ИМЯ_HW_НОМЕР_файл
 
 Если вы предпочитаете работать без IDE:
 
-**Для GNU/Linux и macOS:** 🐧🍎
+**Для <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="16" height="16"/> GNU/Linux и <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="16" height="16"/> macOS:**
 
 ```bash
 cd LearningCPP
@@ -247,7 +301,7 @@ cmake --build .
 ./homework_Vennilay_HW_1_main
 ```
 
-**Для Windows:** 🪟
+**Для <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="16" height="16"/> Windows:**
 
 ```bash
 cd LearningCPP
@@ -281,7 +335,7 @@ https://github.com/user-attachments/assets/d0fc5383-34d3-4ed0-95dc-8fe59b489f3d
 | 🔨 **Система сборки** | CMake 3.20+ |
 | 🔍 **Автообнаружение** | Все `.cpp` файлы в `homework/` |
 | 📦 **Копирование данных** | Автоматическое из `files/` в `build/` |
-| 🌐 **Платформы** | Windows, macOS, GNU/Linux |
+| 🌐 **Платформы** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" width="16" height="16"/> Windows, <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" width="16" height="16"/> macOS, <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="16" height="16"/> GNU/Linux |
 | 🗂️ **Контроль версий** | Git + GitHub |
 | 🔐 **Защита** | CODEOWNERS + обязательный PR review |
 
