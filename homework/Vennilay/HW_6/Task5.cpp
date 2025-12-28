@@ -1,60 +1,107 @@
 #include <iostream>
-#include <map>
 
 int main() {
+
     long long n = 0, k = 0;
 
-    std::cout << "Введите N (места) и K (школьники): ";
-    if (!(std::cin >> n >> k)) return 0;
+    std::cout << "Введите N (всего мест) и K (номер школьника): ";
+    std::cin >> n >> k;
 
-    std::map<long long, long long, std::greater<long long>> segments;
+    long long len1 = n;
+    long long count1 = 1;
 
-    segments[n] = 1;
+    long long len2 = n - 1;
+    long long count2 = 0;
 
-    std::cout << "Начало: " << n << " мест, " << k << " школьников.\n";
+    long long step = 1;
 
     while (k > 0) {
-        const auto it = segments.begin();
+        std::cout << "\nШАГ " << step << ":" << std::endl;
+        std::cout << "Два типа свободных участков:" << std::endl;
+        std::cout << "1) Длина " << len1 << " (количество: " << count1 << ")" << std::endl;
+        if (count2 > 0) {
+            std::cout << "2) Длина " << len2 << " (количество: " << count2 << ")" << std::endl;
+        } else {
+            std::cout << "2) Второго типа пока нет (количество: 0)" << std::endl;
+        }
+        std::cout << "Нужно посадить еще " << k << " человек" << std::endl;
+        std::cout << "------------------------------------------------" << std::endl;
 
-        const long long current_length = it->first;
-        const long long count = it->second;
+        std::cout << "Проверяем самую большую длину (" << len1 << ")..." << std::endl;
+        std::cout << "К (" << k << ") <= Количества мест (" << count1 << ")?" << std::endl;
 
-        std::cout << "------------------------------------------------\n";
-        std::cout << "Самый большой отрезок сейчас: длина " << current_length
-                  << ", таких отрезков: " << count << " шт.\n";
-        std::cout << "Осталось посадить школьников: " << k << "\n";
+        if (k <= count1) {
+            std::cout << "Школьник попадает в этот участок" << std::endl;
+            std::cout << "Вычисляем свободные места слева и справа..." << std::endl;
 
-        segments.erase(it);
+            const long long left = (len1 - 1) / 2;
+            const long long right = len1 / 2;
 
-        if (k <= count) {
-            std::cout << "Школьников (" << k << ") <= Отрезков (" << count << ").\n";
-            std::cout << "Значит, наш последний школьник садится именно сюда!\n";
-
-            const long long left_part = (current_length - 1) / 2;
-            const long long right_part = current_length / 2;
-
-            std::cout << "Ответ: " << left_part << " " << right_part << std::endl;
+            std::cout << "Формула: (" << len1 << " - 1) / 2 = " << left << std::endl;
+            std::cout << "Формула: " << len1 << " / 2 = " << right << std::endl;
+            std::cout << "\nОТВЕТ: " << left << " " << right << std::endl;
             return 0;
         }
 
-        std::cout << "Школьников много. Все " << count << " отрезков занимаются и делятся.\n";
+        std::cout << "НЕТ. Мест не хватает." << std::endl;
+        std::cout << "Заполняем все эти " << count1 << " мест и вычеркиваем школьников." << std::endl;
+        k = k - count1;
+        std::cout << "Осталось посадить: " << k << std::endl;
 
-        k -= count;
+        if (count2 > 0) {
+            std::cout << "------------------------------------------------" << std::endl;
+            std::cout << "Проверяем вторую длину (" << len2 << ")..." << std::endl;
+            std::cout << "Сравниваем: К (" << k << ") <= Количества мест (" << count2 << ")?" << std::endl;
 
-        long long left_part = (current_length - 1) / 2;
-        long long right_part = current_length / 2;
+            if (k <= count2) {
+                std::cout << "Школьник попадает в этот участок." << std::endl;
+                const long long left = (len2 - 1) / 2;
+                const long long right = len2 / 2;
 
-        std::cout << "Отрезок " << current_length << " распадается на "
-                  << left_part << " и " << right_part << ".\n";
+                std::cout << "Формула: (" << len2 << " - 1) / 2 = " << left << std::endl;
+                std::cout << "Формула: " << len2 << " / 2 = " << right << std::endl;
+                std::cout << "\nОТВЕТ: " << left << " " << right << std::endl;
+                return 0;
+            }
 
-        if (left_part > 0) {
-            segments[left_part] += count;
-            std::cout << "Добавлено " << count << " отрезков длины " << left_part << "\n";
+            std::cout << "Мест снова не хватает" << std::endl;
+            k = k - count2;
+            std::cout << "Заполнили эти места. Осталось посадить: " << k << std::endl;
         }
-        if (right_part > 0) {
-            segments[right_part] += count;
-            std::cout << "Добавлено " << count << " отрезков длины " << right_part << "\n";
+
+        std::cout << "------------------------------------------------" << std::endl;
+        std::cout << "Генерация новых участков для следующего шага:" << std::endl;
+
+        long long next_len1, next_count1, next_len2, next_count2;
+
+        if (len1 % 2 == 1) {
+            std::cout << "Длина " << len1 << " НЕЧЕТНАЯ" << std::endl;
+            std::cout << "Она делится на два одинаковых участка по " << len1 / 2 << "." << std::endl;
+
+            next_len1 = len1 / 2;
+            next_count1 = count1 * 2 + count2;
+            next_len2 = (len1 / 2) - 1;
+            next_count2 = count2;
+
+            std::cout << "Новое количество длинных (" << next_len1 << ") стало: " << count1 << "*2 + " << count2 << " = " << next_count1 << std::endl;
+        } else {
+            std::cout << "Длина " << len1 << " ЧЕТНАЯ" << std::endl;
+            std::cout << "Она делится на " << (len1 / 2) << " и " << (len1 - 1) / 2 << "." << std::endl;
+
+            next_len1 = len1 / 2;
+            next_count1 = count1;
+            next_len2 = (len1 / 2) - 1;
+            next_count2 = count1 + count2 * 2;
+
+            std::cout << "Новое количество коротких (" << next_len2 << ") стало: " << count1 << " + " << count2 << "*2 = " << next_count2 << std::endl;
         }
+
+        len1 = next_len1;
+        count1 = next_count1;
+        len2 = next_len2;
+        count2 = next_count2;
+
+        step++;
     }
 
     return 0;
