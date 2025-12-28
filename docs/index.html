@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LearningCPP — Навигатор</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --accent: #2f81f7;
+      --ok: #3fb950;
+      --bad: #f85149;
+      --border: #30363d;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 20px 18px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #0d1117 0%, #0b0f14 100%);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b0f14;
+      color: var(--text);
+      outline: none;
+    }
+    select:focus, input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(47,129,247,.18);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 860px) {
+      .row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    button {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #0b0f14;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+    }
+    button:hover {
+      border-color: var(--accent);
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b0f14;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .status.ok { border-color: rgba(63,185,80,.45); }
+    .status.bad { border-color: rgba(248,81,73,.45); }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .pill.ok { color: var(--ok); border-color: rgba(63,185,80,.45); }
+    .pill.bad { color: var(--bad); border-color: rgba(248,81,73,.45); }
+    ul { margin: 10px 0 0; padding-left: 18px; }
+    li { margin: 6px 0; }
+    footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    code { color: #d2a8ff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LearningCPP — навигатор решений</h1>
+    <p>Выберите автора и домашку. Если папки/решения нет — будет показано «нет решения», без 404.</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="grid">
+        <div>
+          <label for="author">Автор</label>
+          <select id="author"></select>
+        </div>
+        <div>
+          <label for="hw">Домашка</label>
+          <select id="hw" disabled></select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 12px;">
+        <div>
+          <label for="task">Номер задания (опционально)</label>
+          <input id="task" inputmode="numeric" placeholder="Например: 1" />
+        </div>
+        <div style="align-self: end;">
+          <button id="find">Найти</button>
+        </div>
+      </div>
+
+      <div id="status" class="status">Загрузка авторов…</div>
+
+      <div id="files"></div>
+
+      <footer>
+        <div>Источник: директории <code>homework/&lt;author&gt;/HW_&lt;N&gt;/</code>.</div>
+        <div>Навигатор подтягивает данные через GitHub Contents API (без токена), поэтому при очень частых обновлениях возможно ограничение по запросам.</div>
+      </footer>
+    </div>
+  </main>
+
+<script>
+  const OWNER = 'Vennilay';
+  const REPO = 'LearningCPP';
+  const REF = 'Vennilay';
+
+  const elAuthor = document.getElementById('author');
+  const elHw = document.getElementById('hw');
+  const elTask = document.getElementById('task');
+  const elStatus = document.getElementById('status');
+  const elFiles = document.getElementById('files');
+  const elFind = document.getElementById('find');
+
+  const apiBase = `https://api.github.com/repos/${OWNER}/${REPO}/contents`;
+
+  function apiUrl(path) {
+    const parts = path.split('/').filter(Boolean).map(encodeURIComponent).join('/');
+    return `${apiBase}/${parts}?ref=${encodeURIComponent(REF)}`;
+  }
+
+  function ghTree(path) {
+    return `https://github.com/${OWNER}/${REPO}/tree/${REF}/${path}`;
+  }
+
+  function ghBlob(path) {
+    return `https://github.com/${OWNER}/${REPO}/blob/${REF}/${path}`;
+  }
+
+  async function fetchContents(path) {
+    const res = await fetch(apiUrl(path), {
+      headers: { 'Accept': 'application/vnd.github+json' },
+    });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    return await res.json();
+  }
+
+  function setStatus(kind, html) {
+    elStatus.className = 'status' + (kind ? ` ${kind}` : '');
+    elStatus.innerHTML = html;
+  }
+
+  function clearFiles() {
+    elFiles.innerHTML = '';
+  }
+
+  function renderFilesList(author, hw, entries) {
+    const folderPath = `homework/${author}/${hw}`;
+    const cpp = entries
+      .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.cpp'))
+      .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+    const wrap = document.createElement('div');
+    wrap.className = 'status';
+
+    const head = document.createElement('div');
+    head.innerHTML = `<span class="pill ok">OK</span>Папка: <a href="${ghTree(folderPath)}" target="_blank" rel="noreferrer">${folderPath}</a>`;
+    wrap.appendChild(head);
+
+    if (cpp.length === 0) {
+      const p = document.createElement('div');
+      p.style.marginTop = '8px';
+      p.innerHTML = `<span class="pill bad">EMPTY</span>В папке нет <code>.cpp</code> файлов.`;
+      wrap.appendChild(p);
+      elFiles.appendChild(wrap);
+      return;
+    }
+
+    const list = document.createElement('ul');
+    for (const f of cpp) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${ghBlob(`${folderPath}/${f.name}`)}" target="_blank" rel="noreferrer">${f.name}</a>`;
+      list.appendChild(li);
+    }
+
+    const hint = document.createElement('div');
+    hint.style.marginTop = '8px';
+    hint.innerHTML = `<span class="pill">FILES</span>Доступные файлы:`;
+
+    wrap.appendChild(hint);
+    wrap.appendChild(list);
+    elFiles.appendChild(wrap);
+  }
+
+  function guessByTaskNumber(files, n) {
+    const num = String(Number(n));
+    const patterns = [
+      new RegExp(`^Task${num}\\.cpp$`, 'i'),
+      new RegExp(`^${num}_Task\\.cpp$`, 'i'),
+      new RegExp(`^${num}\\.cpp$`, 'i'),
+      new RegExp(`^${num}[-_].*\\.cpp$`, 'i'),
+      new RegExp(`^.*${num}.*\\.cpp$`, 'i'),
+    ];
+
+    for (const re of patterns) {
+      const hit = files.find(f => re.test(f.name));
+      if (hit) return hit;
+    }
+    return null;
+  }
+
+  async function loadAuthors() {
+    setStatus('', 'Загрузка авторов…');
+    clearFiles();
+
+    const root = await fetchContents('homework');
+    if (!root) {
+      setStatus('bad', '<span class="pill bad">ERR</span>Не найдена директория <code>homework/</code>.');
+      return;
+    }
+
+    const authors = root
+      .filter(x => x.type === 'dir')
+      .map(x => x.name)
+      .sort((a, b) => a.localeCompare(b, 'en'));
+
+    elAuthor.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '— выберите автора —';
+    elAuthor.appendChild(placeholder);
+
+    for (const a of authors) {
+      const opt = document.createElement('option');
+      opt.value = a;
+      opt.textContent = a;
+      elAuthor.appendChild(opt);
+    }
+
+    elHw.innerHTML = '';
+    elHw.disabled = true;
+    setStatus('', 'Выберите автора.');
+  }
+
+  async function loadHomeworks(author) {
+    setStatus('', `Загрузка домашек для <b>${author}</b>…`);
+    clearFiles();
+
+    const entries = await fetchContents(`homework/${author}`);
+    if (!entries) {
+      elHw.disabled = true;
+      setStatus('bad', `<span class="pill bad">404</span>Для <b>${author}</b> нет директории <code>homework/${author}/</code>.`);
+      return;
+    }
+
+    const hws = entries
+      .filter(x => x.type === 'dir' && /^HW_\d+$/i.test(x.name))
+      .map(x => x.name)
+      .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+
+    elHw.innerHTML = '';
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '— выберите домашку —';
+    elHw.appendChild(placeholder);
+
+    for (const hw of hws) {
+      const opt = document.createElement('option');
+      opt.value = hw;
+      opt.textContent = hw;
+      elHw.appendChild(opt);
+    }
+
+    elHw.disabled = false;
+
+    if (hws.length === 0) {
+      setStatus('bad', `<span class="pill bad">EMPTY</span>У <b>${author}</b> пока нет папок вида <code>HW_*</code>.`);
+    } else {
+      setStatus('', `Выберите домашку для <b>${author}</b>.`);
+    }
+  }
+
+  async function loadFiles(author, hw) {
+    setStatus('', `Загрузка файлов: <b>${author}</b> / <b>${hw}</b>…`);
+    clearFiles();
+
+    const entries = await fetchContents(`homework/${author}/${hw}`);
+    if (!entries) {
+      setStatus('bad', `<span class="pill bad">404</span>Нет папки <code>homework/${author}/${hw}/</code> — значит у автора нет этой домашки.`);
+      return;
+    }
+
+    setStatus('ok', `<span class="pill ok">OK</span>Домашка найдена. Можно искать конкретное задание или открыть список файлов.`);
+    renderFilesList(author, hw, entries);
+  }
+
+  async function findTask() {
+    const author = elAuthor.value;
+    const hw = elHw.value;
+    const task = elTask.value.trim();
+
+    if (!author) {
+      setStatus('bad', '<span class="pill bad">ERR</span>Сначала выберите автора.');
+      return;
+    }
+    if (!hw) {
+      setStatus('bad', '<span class="pill bad">ERR</span>Сначала выберите домашку.');
+      return;
+    }
+
+    const entries = await fetchContents(`homework/${author}/${hw}`);
+    if (!entries) {
+      setStatus('bad', `<span class="pill bad">404</span>Нет папки <code>homework/${author}/${hw}/</code>.`);
+      clearFiles();
+      return;
+    }
+
+    const files = entries.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.cpp'));
+
+    if (!task) {
+      setStatus('ok', `<span class="pill ok">OK</span>Папка есть. Ниже список файлов.`);
+      clearFiles();
+      renderFilesList(author, hw, entries);
+      return;
+    }
+
+    const hit = guessByTaskNumber(files, task);
+    clearFiles();
+
+    if (hit) {
+      const path = `homework/${author}/${hw}/${hit.name}`;
+      setStatus('ok', `<span class="pill ok">FOUND</span>Похоже на решение задания <b>${task}</b>: <a href="${ghBlob(path)}" target="_blank" rel="noreferrer">${hit.name}</a>`);
+      renderFilesList(author, hw, entries);
+      return;
+    }
+
+    setStatus('bad', `<span class="pill bad">NO</span>Не найдено решение для задания <b>${task}</b> в <code>homework/${author}/${hw}/</code>. Ниже — что есть.`);
+    renderFilesList(author, hw, entries);
+  }
+
+  elAuthor.addEventListener('change', async () => {
+    const author = elAuthor.value;
+    elHw.innerHTML = '';
+    elHw.disabled = true;
+    clearFiles();
+    if (!author) {
+      setStatus('', 'Выберите автора.');
+      return;
+    }
+    await loadHomeworks(author);
+  });
+
+  elHw.addEventListener('change', async () => {
+    const author = elAuthor.value;
+    const hw = elHw.value;
+    clearFiles();
+    if (!author || !hw) {
+      setStatus('', 'Выберите домашку.');
+      return;
+    }
+    await loadFiles(author, hw);
+  });
+
+  elFind.addEventListener('click', () => {
+    findTask().catch(err => setStatus('bad', `<span class="pill bad">ERR</span>${String(err)}`));
+  });
+
+  loadAuthors().catch(err => setStatus('bad', `<span class="pill bad">ERR</span>${String(err)}`));
+</script>
+</body>
+</html>

@@ -2,40 +2,63 @@
 #include <vector>
 
 int main() {
-    std::vector<bool> is_seat_free(55, false);
-
-    int free_seats_count;
-    std::cin >> free_seats_count;
-
-    for (int i = 0; i < free_seats_count; ++i) {
-        int seat_number;
-        std::cin >> seat_number;
-        is_seat_free[seat_number] = true;
+    int n = 0;
+    std::cout << "Введите количество свободных мест N: ";
+    if (!(std::cin >> n)) {
+        std::cout << "Ошибка ввода!" << std::endl;
+        return 1;
     }
 
-    int max_consecutive_coupes = 0;
-    int current_consecutive_coupes = 0;
+    std::vector<bool> is_free(55, false);
 
-    for (int i = 0; i < 9; ++i) {
-        const bool main_seats_are_free = is_seat_free[4 * i + 1] &&
-                                   is_seat_free[4 * i + 2] && 
-                                   is_seat_free[4 * i + 3] && 
-                                   is_seat_free[4 * i + 4];
+    std::cout << "Введите номера " << n << " свободных мест:" << std::endl;
+    for (int i = 0; i < n; ++i) {
+        int seat;
+        std::cin >> seat;
+        is_free[seat] = true;
+    }
 
-        const bool side_seats_are_free = is_seat_free[54 - 2 * i] &&
-                                   is_seat_free[53 - 2 * i];
+    int maks_podryad = 0;
+    int tekusch_podryad = 0;
 
-        if (main_seats_are_free && side_seats_are_free) {
-            current_consecutive_coupes++;
-            if (current_consecutive_coupes > max_consecutive_coupes) {
-                max_consecutive_coupes = current_consecutive_coupes;
+    std::cout << "\n--- Проверяем купе по очереди ---" << std::endl;
+
+    for (int coupe = 1; coupe <= 9; ++coupe) {
+
+        const int start_main = (coupe - 1) * 4 + 1;
+        const int side2 = 54 - (coupe - 1) * 2;
+        const int side1 = side2 - 1;
+
+        bool full_coupe_free = true;
+
+        for (int k = 0; k < 4; ++k) {
+            if (!is_free[start_main + k]) {
+                full_coupe_free = false;
+                break;
             }
-        } else {
-            current_consecutive_coupes = 0;
         }
-    }44
 
-    std::cout << max_consecutive_coupes << std::endl;
+        if (full_coupe_free) {
+            if (!is_free[side1] || !is_free[side2]) {
+                full_coupe_free = false;
+            }
+        }
+
+        if (full_coupe_free) {
+            tekusch_podryad++;
+
+            if (tekusch_podryad > maks_podryad) {
+                maks_podryad = tekusch_podryad;
+            }
+            std::cout << "Купе №" << coupe << " полностью свободно! (Места: " << start_main << "-" << start_main+3 << " и " << side1 << "," << side2 << ")" << std::endl;
+        } else {
+            tekusch_podryad = 0;
+            std::cout << "Купе №" << coupe << " занято." << std::endl;
+        }
+    }
+
+    std::cout << "\n--- Результат ---" << std::endl;
+    std::cout << "Максимально купе подряд: " << maks_podryad << std::endl;
 
     return 0;
 }
