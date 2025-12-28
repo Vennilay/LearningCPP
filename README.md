@@ -14,196 +14,45 @@
 
 ---
 
-## 🧭 Навигатор
+## 🧭 Навигатор (без 404)
 
-Навигация построена по схеме: **HW → Task → Author**. Выбирается домашка, затем задание, затем автор — ссылка ведёт прямо к файлу решения.
+### ✅ Вариант 1: интерактивное меню (рекомендуется)
 
-> Если у какого-то автора конкретного `TaskX.cpp` нет — значит решение ещё не добавлено (или лежит под другим именем файла).
+В репозиторий добавлен небольшой статический сайт с навигатором: выбираете **автора → домашку → (опционально) номер задания**, и он либо даёт ссылки, либо пишет, что решения нет.
 
-<details>
-  <summary><b>HW 1</b></summary>
+- Файлы навигатора лежат в [`/docs`](./docs/).
+- Чтобы навигатор открывался как сайт, включите GitHub Pages: **Settings → Pages → Deploy from a branch → Branch: `Vennilay` → Folder: `/docs`** (это стандартная схема публикации из папки `/docs`).
 
-  <details>
-    <summary>Task 1</summary>
+После включения Pages сайт будет доступен по адресу вида `https://<username>.github.io/<repo>/`.
 
-- [BAALOC](./homework/BAALOC/HW_1/Task1.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task1.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task1.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task1.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task1.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task1.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task1.cpp)
-- [lii636](./homework/lii636/HW_1/Task1.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task1.cpp)
+### ✅ Вариант 2: ручная навигация (всегда работает)
 
-  </details>
+- Условия: [`tasks/`](./tasks/) (PDF).
+- Решения: [`homework/`](./homework/) → `<author>/` → `HW_<N>/`.
 
-  <details>
-    <summary>Task 2</summary>
+Быстрые ссылки на директории авторов (без привязки к конкретным HW/Task, поэтому не ломаются):
 
-- [BAALOC](./homework/BAALOC/HW_1/Task2.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task2.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task2.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task2.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task2.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task2.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task2.cpp)
-- [lii636](./homework/lii636/HW_1/Task2.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task2.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 3</summary>
-
-- [BAALOC](./homework/BAALOC/HW_1/Task3.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task3.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task3.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task3.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task3.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task3.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task3.cpp)
-- [lii636](./homework/lii636/HW_1/Task3.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task3.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 4</summary>
-
-- [BAALOC](./homework/BAALOC/HW_1/Task4.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task4.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task4.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task4.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task4.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task4.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task4.cpp)
-- [lii636](./homework/lii636/HW_1/Task4.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task4.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 5</summary>
-
-- [BAALOC](./homework/BAALOC/HW_1/Task5.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task5.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task5.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task5.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task5.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task5.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task5.cpp)
-- [lii636](./homework/lii636/HW_1/Task5.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task5.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 6</summary>
-
-- [BAALOC](./homework/BAALOC/HW_1/Task6.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_1/Task6.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_1/Task6.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_1/Task6.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_1/Task6.cpp)
-- [Vennilay](./homework/Vennilay/HW_1/Task6.cpp)
-- [Vondre](./homework/Vondre/HW_1/Task6.cpp)
-- [lii636](./homework/lii636/HW_1/Task6.cpp)
-- [lkzz13](./homework/lkzz13/HW_1/Task6.cpp)
-
-  </details>
-
-</details>
-
-<details>
-  <summary><b>HW 2</b></summary>
-
-  <details>
-    <summary>Task 1</summary>
-
-- [BAALOC](./homework/BAALOC/HW_2/Task1.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_2/Task1.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_2/Task1.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_2/Task1.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_2/Task1.cpp)
-- [Vennilay](./homework/Vennilay/HW_2/Task1.cpp)
-- [Vondre](./homework/Vondre/HW_2/Task1.cpp)
-- [lii636](./homework/lii636/HW_2/Task1.cpp)
-- [lkzz13](./homework/lkzz13/HW_2/Task1.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 2</summary>
-
-- [BAALOC](./homework/BAALOC/HW_2/Task2.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_2/Task2.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_2/Task2.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_2/Task2.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_2/Task2.cpp)
-- [Vennilay](./homework/Vennilay/HW_2/Task2.cpp)
-- [Vondre](./homework/Vondre/HW_2/Task2.cpp)
-- [lii636](./homework/lii636/HW_2/Task2.cpp)
-- [lkzz13](./homework/lkzz13/HW_2/Task2.cpp)
-
-  </details>
-
-  <details>
-    <summary>Task 3</summary>
-
-- [BAALOC](./homework/BAALOC/HW_2/Task3.cpp)
-- [EgorDevRus](./homework/EgorDevRus/HW_2/Task3.cpp)
-- [Fq1jjeR](./homework/Fq1jjeR/HW_2/Task3.cpp)
-- [MXLNIK](./homework/MXLNIK/HW_2/Task3.cpp)
-- [Thesavewill](./homework/Thesavewill/HW_2/Task3.cpp)
-- [Vennilay](./homework/Vennilay/HW_2/Task3.cpp)
-- [Vondre](./homework/Vondre/HW_2/Task3.cpp)
-- [lii636](./homework/lii636/HW_2/Task3.cpp)
-- [lkzz13](./homework/lkzz13/HW_2/Task3.cpp)
-
-  </details>
-
-</details>
-
-<details>
-  <summary><b>HW 3</b></summary>
-
-- Папки решений: [homework/](./homework/) → выберите автора → `HW_3/`.
-
-</details>
-
-<details>
-  <summary><b>HW 4</b></summary>
-
-- Папки решений: [homework/](./homework/) → выберите автора → `HW_4/`.
-
-</details>
-
-<details>
-  <summary><b>HW 5</b></summary>
-
-- Папки решений: [homework/](./homework/) → выберите автора → `HW_5/`.
-
-</details>
-
-<details>
-  <summary><b>HW 6</b></summary>
-
-- Папки решений: [homework/](./homework/) → выберите автора → `HW_6/`.
-
-</details>
+- [BAALOC](./homework/BAALOC/)
+- [EgorDevRus](./homework/EgorDevRus/)
+- [Fq1jjeR](./homework/Fq1jjeR/)
+- [MXLNIK](./homework/MXLNIK/)
+- [Thesavewill](./homework/Thesavewill/)
+- [Vennilay](./homework/Vennilay/)
+- [Vondre](./homework/Vondre/)
+- [lii636](./homework/lii636/)
+- [lkzz13](./homework/lkzz13/)
 
 ---
 
 ## 📖 Оглавление
 
 - [Дисклеймер](#️-дисклеймер)
-- [Навигатор](#-навигатор)
+- [Навигатор (без 404)](#-навигатор-без-404)
 - [О проекте](#-о-проекте)
 - [Кросс-платформенность и CMake](#-кросс-платформенность-и-cmake)
 - [Наша команда](#-наша-команда)
 - [Структура репозитория](#-структура-репозитория)
-- [Система защиты кода](#-система-защиты-кода-codeowners)
+- [Система защиты кода (CODEOWNERS)](#-система-защиты-кода-codeowners)
 - [Как запустить проект](#-как-запустить-проект)
 - [Видеоинструкция](#-видеоинструкция)
 - [Технические детали](#️-технические-детали)
@@ -316,11 +165,12 @@ LearningCPP/
 ├── homework/                   # Решения
 │   └── <author>/
 │       └── HW_<N>/
-│           ├── Task1.cpp
-│           ├── Task2.cpp
+│           ├── *.cpp
 │           └── ...
 │
 ├── tasks/                      # Условия (PDF)
+│
+├── docs/                       # Навигатор (GitHub Pages)
 │
 ├── CMakeLists.txt
 └── README.md
@@ -380,6 +230,6 @@ https://github.com/user-attachments/assets/d0fc5383-34d3-4ed0-95dc-8fe59b489f3d
 | Система сборки | CMake 3.20+ |
 | Автообнаружение | Все `.cpp` файлы в `homework/` |
 | Копирование данных | Автоматическое из `files/` в `build/` |
-| Платформы | <img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white" /> / <img alt="macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" /> / <img alt="GNU/Linux" src="https://img.shields.io/badge/GNU%2FLinux-000000?logo=linux&logoColor=white" /> |
+| Платформы | <img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white" /> / <img alt="macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" /> / <img alt="GNU%2FLinux" src="https://img.shields.io/badge/GNU%2FLinux-000000?logo=linux&logoColor=white" /> |
 | Контроль версий | Git + GitHub |
 | Защита | CODEOWNERS + PR review |
