@@ -2,7 +2,7 @@
 #include <fstream>
 
 int main() {
-    std::ofstream file("../txtfiles/5.3.13.txt");
+    std::ofstream file("../files/5.3.13.txt");
 
     if (file.is_open()) {
         file << "Hello World!\n";

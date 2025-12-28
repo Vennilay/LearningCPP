@@ -5,7 +5,7 @@
 
 int main() {
     const std::string filename =
-        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/words.txt";
+        "files/words.txt";
     std::vector<std::string> words;
 
     std::ifstream inFile(filename);

@@ -95,10 +95,10 @@ void write(const std::vector<int>& v, const std::string& f) {
 
 int main() {
     const std::string numsFile =
-        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/numbers.txt";
+        "files/numbers.txt";
 
     const std::string primesFile =
-        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/primes.txt";
+        "files/primes.txt";
 
     std::vector<int> v = read(numsFile);
 

@@ -10,7 +10,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    string filename = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\6_Task.txt)";
+    string filename = "files/6_Task.txt";
 
     ofstream outFile(filename);
 

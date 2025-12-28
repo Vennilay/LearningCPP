@@ -10,7 +10,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    ifstream file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\1_Task.txt)");
+    ifstream file("files/1_Task.txt");
 
 
     if (!file.is_open()) {

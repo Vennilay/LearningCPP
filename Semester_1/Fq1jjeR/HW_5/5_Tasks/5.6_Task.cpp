@@ -27,7 +27,7 @@ int lcm(int a, int b) {
 
 int main() {
 
-    string basePath = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\)";
+    string basePath = "files";
     string numbersFile = basePath + "numbers.txt";
     string primesFile = basePath + "primes.txt";
 

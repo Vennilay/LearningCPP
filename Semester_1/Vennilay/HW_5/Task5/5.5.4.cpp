@@ -5,7 +5,7 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream fin("../txtfiles/5.5.4.txt");
+    std::ifstream fin("../files/5.5.4.txt");
     if (!fin.is_open()) {
         std::cerr << "Ошибка: Файл не найден!" << std::endl;
         return 1;
@@ -24,7 +24,7 @@ int main() {
 
     std::sort(words.begin(), words.end());
 
-    std::ofstream fout("../txtfiles/5.5.4_sorted.txt");
+    std::ofstream fout("../files/5.5.4_sorted.txt");
     for (const std::string& w : words) {
         fout << w << '\n';
     }

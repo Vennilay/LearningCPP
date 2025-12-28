@@ -53,7 +53,7 @@ string findShortestWord(ifstream& file) {
 }
 
 int main() {
-    ifstream file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\3_Task.txt)");
+    ifstream file("files/3_Task.txt");
 
     if (!file) {
         cerr << "Не удалось открыть файл." << endl;

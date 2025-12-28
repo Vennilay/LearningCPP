@@ -15,7 +15,7 @@ bool is_sorted_strict(const std::string& s) {
 
 int main() {
     std::string filename =
-        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/lines.txt";
+        "files/lines.txt";
 
     std::ifstream fin(filename);
     if (!fin.is_open()) {

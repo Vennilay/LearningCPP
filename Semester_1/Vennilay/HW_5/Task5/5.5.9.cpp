@@ -4,8 +4,8 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream FileA("../txtfiles/5.5.9A.txt");
-    std::ifstream FileB("../txtfiles/5.5.9B.txt");
+    std::ifstream FileA("../files/5.5.9A.txt");
+    std::ifstream FileB("../files/5.5.9B.txt");
 
     std::vector<int> nums;
     int x;
@@ -19,7 +19,7 @@ int main() {
 
     std::sort(nums.begin(), nums.end());
 
-    std::ofstream FileC("../txtfiles/5.5.9C.txt");
+    std::ofstream FileC("../files/5.5.9C.txt");
     for (int num : nums) {
         FileC << num << ' ';
     }
