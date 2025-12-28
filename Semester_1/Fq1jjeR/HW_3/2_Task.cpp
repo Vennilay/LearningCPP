@@ -8,7 +8,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    ifstream file(R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_3\2_Task.txt)");
+    ifstream file("files/2_Task.txt");
     char ch;
     bool count = true;
 

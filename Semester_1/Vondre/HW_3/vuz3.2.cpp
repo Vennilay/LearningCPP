@@ -3,7 +3,7 @@
 #include <cctype>
 
 int main() {
-    std::fstream file("./files/Vondre/HW_3/task2.txt");
+    std::fstream file("files/task2.txt");
 
     if (!file.is_open()) {
         std::cout<<"Xd";

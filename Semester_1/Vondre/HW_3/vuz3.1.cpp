@@ -3,7 +3,7 @@
 #include <iterator>
 
 int main() {
-    std::ifstream file("./files/Vondre/HW_3/task1.txt.txt");
+    std::ifstream file("files/task1.txt");
 
     if (file.is_open()){
         std::string content;

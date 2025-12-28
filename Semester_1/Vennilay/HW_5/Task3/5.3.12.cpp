@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-    std::ifstream file("../txtfiles/5.3.12.txt");
+    std::ifstream file("../files/5.3.12.txt");
     std::string line;
 
     if (file.is_open()) {

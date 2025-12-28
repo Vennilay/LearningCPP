@@ -5,8 +5,7 @@
 
 // Слово максимальной длины и замена символов
 int main() {
-    std::string filename =
-        "/Users/makarleonardov/MyProjects/UniversityProjects/Informatics/LearningCPP/homework/BAALOC/HW_5/files/text.txt";
+    std::string filename = "files/text.txt";
     char separator;
 
     std::cout << "Введите символ для замены пробелов: ";

@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 
-    string basePath = R"(D:\Coding\LearningCPP\files\Fq1jjeR\HW_5\)";
+    string basePath = "files";
     string fileA = basePath + "A.txt", fileB = basePath + "B.txt", fileC = basePath + "C.txt";
 
 
