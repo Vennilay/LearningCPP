@@ -1,6 +1,6 @@
 # 📚 LearningCPP
 
-![tony](https://github.com/user-attachments/assets/7c95bca2-6cb4-42f2-a1a7-8f7c2f4f7086)
+<img width="1200" height="674" alt="image" src="https://github.com/user-attachments/assets/f0bff7cc-441a-48cb-9987-d12fecf7a3e4" />
 
 ## 🎓 Учебный проект по C++
 
