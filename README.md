@@ -129,27 +129,35 @@
 
 ## 📁 Структура репозитория
 
+Теперь всё аккуратно разложено по семестрам.
+
 ```
 LearningCPP/
 │
 ├── .github/
 │   └── CODEOWNERS              # 👮 Права доступа (чтобы никто случайно не сломал чужой код)
 │
-├── files/                      # 📦 Входные файлы (txt, dat) для ваших программ
-│   └── <author>/
+├── tasks/                      # 📄 Условия задач (общая папка с PDF)
 │
-├── homework/                   # 🏠 Ваши решения (каждый в своей папке)
-│   └── <author>/
-│       └── HW_<N>/
-│           ├── Task1.cpp
-│           ├── Task2.cpp
-│           └── ...
-│
-├── tasks/                      # 📄 Условия задач (PDF)
+├── Semester_1/                 # 1️⃣ Первый семестр
+│   │
+│   ├── <author>/               # 👤 Личная папка студента
+│   │   │
+│   │   ├── HW_<N>/             # 🏠 Номер домашки
+│   │   │   ├── files/          # 📦 Файлы для конкретной задачи (txt, dat)
+│   │   │   │   └── data.txt
+│   │   │   ├── Task1.cpp
+│   │   │   └── ...
+│   │   │
+│   │   └── ...
+│   │
+│   └── ...
 │
 ├── CMakeLists.txt              # ⚙️ Главный скрипт сборки
 └── README.md
 ```
+
+> **Важно:** Папка `files` теперь лежит прямо внутри вашей домашки (`HW_...`) или рядом с задачей. CMake сам найдет её и скопирует куда нужно при запуске.
 
 ---
 
@@ -199,6 +207,6 @@ https://github.com/user-attachments/assets/d0fc5383-34d3-4ed0-95dc-8fe59b489f3d
 | 👅 Язык | C++ |
 | 📏 Стандарт | C++17 |
 | 🔨 Сборка | CMake 3.20+ |
-| 🔍 Автоматика | CMake сам находит все `.cpp` в папке `homework/` |
-| 📂 Файлы | Данные из `files/` сами копируются в `build/` |
+| 🔍 Автоматика | CMake рекурсивно находит все `.cpp` в папках семестров |
+| 📂 Файлы | Скрипт копирует папку `files` (если она есть рядом с кодом) к исполняемому файлу |
 | 💻 Платформы | <img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white" /> / <img alt="macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" /> / <img alt="GNU%2FLinux" src="https://img.shields.io/badge/GNU%2FLinux-000000?logo=linux&logoColor=white" /> |
