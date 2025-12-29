@@ -40,7 +40,7 @@ int main() {
         bool full_coupe_free = true;
         int occupied_seat = -1;
 
-        for (int seat : seats_in_coupe) {
+        for (const int seat : seats_in_coupe) {
             if (!is_free[seat]) {
                 full_coupe_free = false;
                 occupied_seat = seat;

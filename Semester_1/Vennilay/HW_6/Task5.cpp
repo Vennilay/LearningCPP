@@ -2,7 +2,7 @@
 #include <map>
 
 int main() {
-    long long n, k;
+    long long n = 0, k = 0;
 
     std::cout << "Введите N и K: ";
     std::cin >> n >> k;
@@ -28,7 +28,7 @@ int main() {
         std::cout << "Если сесть сюда, то слева будет " << left_part << ", справа " << right_part << std::endl;
 
         if (k <= count) {
-            std::cout << "Нашли! Наш школьник садится на одно из этих мест." << std::endl;
+            std::cout << "Наш школьник садится на одно из этих мест." << std::endl;
             std::cout << "Ответ -> Слева: " << left_part << ", Справа: " << right_part << std::endl;
             return 0;
         }
