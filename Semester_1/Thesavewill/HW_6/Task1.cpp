@@ -1,21 +1,24 @@
 #include <iostream>
+#include <windows.h>
+#include <algorithm> // Для использования функции std::max, хотя она здесь не нужна
+
 using namespace std;
 
 int main() {
-    int a, b ,c, cost = 0, n = 0 , remember = 0, ans = 0;
-    cin >> a >> b >> c;
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+    long long a, b, c;
 
-    while (cost < c) {
-        ++n;
-        cost = a + b * n;
-        if (cost > c && remember != 0) {
-            ans = remember;
-        }
-        else if (cost > c && remember == 0){
-            ans = remember;
-        }
-        remember = n;
+    if (!(cin >> a >> b >> c)) {
+        return 1;
     }
-    cout << ans;
+    if (a > c) {
+        cout << "A должно быть меньше либо равно C";
+        return 2;
+    }
+
+    long long max_n = (c - a) / b;
+    cout << max_n;
+
     return 0;
 }

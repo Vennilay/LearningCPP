@@ -10,6 +10,9 @@ int main() {
 
     for (int i = 0; i < N; ++i) {
         int seat_num; cin >> seat_num;
+        if (seat_num > 54 || seat_num <= 0) {
+            return 2;
+        }
         is_free[seat_num] = true;
     }
 
