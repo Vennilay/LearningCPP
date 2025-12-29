@@ -5,7 +5,7 @@ using namespace std;
 int main() {
     long long N, K;
     cin >> N >> K;
-    if (!N || !K) return 1;
+    if (!N || !K || K < 0 || N < 0) return 1;
 
     map<long long, long long, greater<long long>> mp;
     mp[N] = 1;

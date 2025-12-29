@@ -5,14 +5,12 @@ int main() {
     long long m;
     long long summ = 0, cf = 0, ct = 0;
 
-    cout << "Введите M:";
     if (!(cin >> m)) {
         return 1;
     }
-
     if (m < 3) {
         cout << 0 << "\n" << 0 << endl;
-        return 0;
+        return 2;
     }
 
     bool found = false;
