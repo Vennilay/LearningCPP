@@ -73,12 +73,14 @@
     }
     select, input {
       width: 100%;
+      min-width: 0;
       padding: 10px 10px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: #0b0f14;
       color: var(--text);
       outline: none;
+      box-sizing: border-box;
     }
     select:focus, input:focus {
       border-color: var(--accent);
@@ -97,11 +99,13 @@
       }
     }
 
+    /* Buttons: use grid to guarantee no overlaps on narrow widths */
     .btnrow {
       margin-top: 10px;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 10px;
-      flex-wrap: wrap;
+      align-items: stretch;
     }
     button {
       cursor: pointer;
@@ -112,7 +116,16 @@
       border-radius: 10px;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+    @media (max-width: 460px) {
+      button {
+        white-space: normal;
+      }
     }
     button:hover { border-color: var(--accent); }
     button:disabled {
@@ -157,9 +170,10 @@
       border-radius: 10px;
       overflow: hidden;
     }
+    /* Header: switch from flex to grid so the select never overlaps other controls */
     .files-head {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr minmax(240px, 520px);
       gap: 10px;
       align-items: center;
       justify-content: space-between;
@@ -167,11 +181,29 @@
       background: #0b0f14;
       border-bottom: 1px solid var(--border);
     }
+    @media (max-width: 760px) {
+      .files-head {
+        grid-template-columns: 1fr;
+      }
+    }
     .files-head .left {
       display: inline-flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
+      min-width: 0;
+    }
+    .files-head .right {
+      width: 100%;
+      max-width: 520px;
+      min-width: 0;
+      justify-self: end;
+    }
+    @media (max-width: 760px) {
+      .files-head .right {
+        max-width: none;
+        justify-self: stretch;
+      }
     }
     .files-head small { color: var(--muted); }
     .files-list {
@@ -254,7 +286,7 @@
             Только .cpp
           </label>
         </div>
-        <div style="min-width: 320px; flex: 1; max-width: 520px;">
+        <div class="right">
           <select id="fileSelect" disabled></select>
         </div>
       </div>
