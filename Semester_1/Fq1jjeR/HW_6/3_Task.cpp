@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-    int N, M;
+    long long N, M;
 
     cout << "Введите количество N (строк): ";
     cin >> N;
