@@ -13,10 +13,14 @@ int main() {
     occupied_seats.push_back(0);
     occupied_seats.push_back(n + 1);
 
+    long long max_d;
+    long long best_left_idx;
+    long long best_new_seat;
+
     for (int k = 0; k < k_count; ++k) {
-        long long max_d = -1;
-        long long best_left_idx = -1;
-        long long best_new_seat = -1;
+        max_d = -1;
+        best_left_idx = -1;
+        best_new_seat = -1;
 
         for (int i = 0; i < occupied_seats.size() - 1; ++i) {
             long long current_gap = occupied_seats[i + 1] - occupied_seats[i] - 1;
