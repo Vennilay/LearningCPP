@@ -100,7 +100,7 @@
 </tr>
 <tr>
 <td align="center"><strong>Thesavewill</strong></td>
-<td align="center"><img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white" /></td>
+<td align="center"><img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white" /> → <img alt="GNU/Linux" src="https://img.shields.io/badge/GNU%2FLinux-000000?logo=linux&logoColor=white" /></td>
 <td align="center"><a href="https://github.com/Thesavewill">@Thesavewill</a></td>
 </tr>
 <tr>
