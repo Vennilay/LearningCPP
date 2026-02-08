@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB_RECURSE SOURCES
         RELATIVE "${CMAKE_SOURCE_DIR}"
         "Semester_1/*.cpp"
+        "Semester_2/*.cpp"
 )
 
 foreach(SOURCE_FILE ${SOURCES})
