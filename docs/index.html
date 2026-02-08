@@ -16,6 +16,9 @@
       --border: #30363d;
       --shadow: rgba(0,0,0,.35);
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
@@ -103,7 +106,7 @@
     .btnrow {
       margin-top: 10px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
       gap: 10px;
       align-items: stretch;
     }
@@ -173,10 +176,9 @@
     /* Header: switch from flex to grid so the select never overlaps other controls */
     .files-head {
       display: grid;
-      grid-template-columns: 1fr minmax(240px, 520px);
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 520px);
       gap: 10px;
       align-items: center;
-      justify-content: space-between;
       padding: 10px 12px;
       background: #0b0f14;
       border-bottom: 1px solid var(--border);

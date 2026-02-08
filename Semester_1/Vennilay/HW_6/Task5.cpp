@@ -7,7 +7,7 @@ int main() {
     std::cout << "Введите N и K: ";
     std::cin >> n >> k;
 
-    std::cout << "\nНачинаем поиск. Всего мест: " << n << ", целевой школьник: " << k << std::endl;
+    std::cout << "\nВсего мест: " << n << ", целевой школьник: " << k << std::endl;
 
     std::map<long long, long long> segments;
     segments[n] = 1;
