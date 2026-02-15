@@ -6,15 +6,18 @@
   <title>LearningCPP — Навигатор</title>
   <style>
     :root {
-      --bg: #0d1117;
-      --panel: #161b22;
-      --text: #c9d1d9;
-      --muted: #8b949e;
-      --accent: #2f81f7;
-      --ok: #3fb950;
-      --bad: #f85149;
-      --border: #30363d;
-      --shadow: rgba(0,0,0,.35);
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --accent: #6ea8ff;
+      --accent2: #8b5cf6;
+      --ok: #22c55e;
+      --bad: #ef4444;
+      --border: rgba(255,255,255,.12);
+      --shadow: rgba(0,0,0,.42);
+      --radius: 14px;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -22,13 +25,17 @@
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
-      background: var(--bg);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(110,168,255,.25), transparent 60%),
+        radial-gradient(900px 520px at 90% 0%, rgba(139,92,246,.22), transparent 55%),
+        radial-gradient(800px 600px at 70% 110%, rgba(34,197,94,.12), transparent 60%),
+        var(--bg);
       color: var(--text);
     }
     header {
-      padding: 20px 18px;
+      padding: 18px 18px;
       border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, #0d1117 0%, #0b0f14 100%);
+      background: linear-gradient(180deg, rgba(11,16,32,.92) 0%, rgba(11,16,32,.70) 100%);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -36,7 +43,7 @@
     }
     header h1 {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: .2px;
     }
@@ -47,26 +54,47 @@
       line-height: 1.35;
     }
     main {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 18px;
     }
     .card {
-      background: var(--panel);
+      background: linear-gradient(180deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.05) 100%);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius);
       padding: 14px;
-      box-shadow: 0 10px 30px var(--shadow);
+      box-shadow: 0 18px 44px var(--shadow);
     }
-    .grid {
+    .layout {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
     }
     @media (min-width: 980px) {
-      .grid {
-        grid-template-columns: 1fr 1fr 1fr;
+      .layout {
+        grid-template-columns: 420px 1fr;
+        align-items: start;
       }
+    }
+    .panel-title {
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-title b {
+      color: var(--text);
+      font-size: 14px;
+      letter-spacing: .2px;
+    }
+    .hidden { display: none !important; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
     label {
       display: block;
@@ -78,16 +106,16 @@
       width: 100%;
       min-width: 0;
       padding: 10px 10px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--border);
-      background: #0b0f14;
+      background: rgba(11,16,32,.55);
       color: var(--text);
       outline: none;
       box-sizing: border-box;
     }
     select:focus, input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(47,129,247,.18);
+      box-shadow: 0 0 0 3px rgba(110,168,255,.20);
     }
 
     .row {
@@ -113,10 +141,10 @@
     button {
       cursor: pointer;
       border: 1px solid var(--border);
-      background: #0b0f14;
+      background: linear-gradient(180deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.06) 100%);
       color: var(--text);
       padding: 10px 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -130,18 +158,23 @@
         white-space: normal;
       }
     }
-    button:hover { border-color: var(--accent); }
+    button:hover { border-color: rgba(110,168,255,.45); }
     button:disabled {
       cursor: not-allowed;
       opacity: .55;
     }
 
+    .primary {
+      border-color: rgba(110,168,255,.55);
+      background: linear-gradient(180deg, rgba(110,168,255,.28) 0%, rgba(110,168,255,.16) 100%);
+    }
+
     .status {
       margin-top: 12px;
       padding: 10px 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--border);
-      background: #0b0f14;
+      background: rgba(11,16,32,.55);
       color: var(--muted);
       font-size: 13px;
       line-height: 1.35;
@@ -158,6 +191,7 @@
       font-size: 12px;
       margin-right: 8px;
       vertical-align: baseline;
+      background: rgba(255,255,255,.04);
     }
     .pill.ok { color: var(--ok); border-color: rgba(63,185,80,.45); }
     .pill.bad { color: var(--bad); border-color: rgba(248,81,73,.45); }
@@ -170,7 +204,7 @@
     .files {
       margin-top: 12px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
     }
     /* Header: switch from flex to grid so the select never overlaps other controls */
@@ -180,7 +214,7 @@
       gap: 10px;
       align-items: center;
       padding: 10px 12px;
-      background: #0b0f14;
+      background: rgba(255,255,255,.04);
       border-bottom: 1px solid var(--border);
     }
     @media (max-width: 760px) {
@@ -211,7 +245,7 @@
     .files-list {
       max-height: 420px;
       overflow: auto;
-      background: #0d1117;
+      background: rgba(11,16,32,.30);
     }
     ul { margin: 0; padding: 10px 18px; }
     li { margin: 6px 0; }
@@ -238,69 +272,84 @@
 <body>
 <header>
   <h1>LearningCPP — навигатор решений</h1>
-  <p>Быстрый выбор «семестр → автор → предмет → ПР» и переход в нужную папку/файл без 404. Ссылка сохраняется в <code>#hash</code> и её можно шарить.</p>
+  <p>Выбирай семестр и автора, находи нужную задачу и открывай файл на GitHub. Настройки сохраняются в <code>#hash</code>.</p>
 </header>
 
 <main>
   <div class="card">
-    <div class="grid">
+    <div class="layout">
       <div>
-        <label for="semester">Семестр</label>
-        <select id="semester"></select>
-      </div>
-      <div>
-        <label for="author">Автор</label>
-        <select id="author" disabled></select>
-      </div>
-      <div>
-        <label for="subject">Предмет</label>
-        <select id="subject" disabled></select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div>
-        <label for="task">Номер задачи (опционально, чтобы быстро найти файл)</label>
-        <input id="task" inputmode="numeric" placeholder="Например: 1" />
-      </div>
-      <div>
-        <label for="filter">Фильтр по имени файла (подстрока)</label>
-        <input id="filter" placeholder="Например: task, matrix, 3" />
-      </div>
-    </div>
-
-    <div class="btnrow">
-      <button id="openFolder" disabled>Открыть папку предмета</button>
-      <button id="findTask" disabled>Найти задачу</button>
-      <button id="openFile" disabled>Открыть выбранный файл</button>
-      <button id="copyLink">Скопировать ссылку</button>
-    </div>
-
-    <div id="status" class="status">Загрузка индекса…</div>
-
-    <div id="files" class="files" style="display:none;">
-      <div class="files-head">
-        <div class="left">
-          <span class="pill">FILES</span>
-          <small id="filesMeta">—</small>
-          <label class="switch" title="Показывать только .cpp">
-            <input id="onlyCpp" type="checkbox" checked />
-            Только .cpp
-          </label>
+        <div class="panel-title"><span class="pill">НАВИГАЦИЯ</span><b>Выбор</b></div>
+        <div class="grid">
+          <div>
+            <label for="semester">Семестр</label>
+            <select id="semester"></select>
+          </div>
+          <div>
+            <label for="author">Автор</label>
+            <select id="author" disabled></select>
+          </div>
+          <div>
+            <label for="subject">Раздел</label>
+            <select id="subject" disabled></select>
+          </div>
+          <div id="practiceWrap">
+            <label for="practice">Практика</label>
+            <select id="practice" disabled></select>
+          </div>
         </div>
-        <div class="right">
-          <select id="fileSelect" disabled></select>
+
+        <div class="row">
+          <div>
+            <label for="task">Номер задачи (быстрый поиск)</label>
+            <input id="task" inputmode="numeric" placeholder="Например: 1" />
+          </div>
+          <div>
+            <label for="filter">Фильтр по имени файла</label>
+            <input id="filter" placeholder="Например: task, matrix, 3" />
+          </div>
         </div>
+
+        <div class="btnrow">
+          <button id="openFolder" class="primary" disabled>Открыть папку</button>
+          <button id="findTask" disabled>Найти задачу</button>
+          <button id="openFile" disabled>Открыть файл</button>
+          <button id="copyLink">Скопировать ссылку</button>
+        </div>
+
+        <div id="status" class="status">Загрузка индекса…</div>
       </div>
-      <div class="files-list">
-        <ul id="filesList"></ul>
+
+      <div>
+        <div class="panel-title"><span class="pill">ФАЙЛЫ</span><b>Список</b> <small id="filesMeta" style="margin-left:auto; color: var(--muted);">—</small></div>
+        <div id="files" class="files" style="display:none;">
+          <div class="files-head">
+            <div class="left">
+              <label class="switch" title="Показывать только .cpp">
+                <input id="onlyCpp" type="checkbox" checked />
+                Только .cpp
+              </label>
+            </div>
+            <div class="right">
+              <select id="fileSelect" disabled></select>
+            </div>
+          </div>
+          <div class="files-list">
+            <ul id="filesList"></ul>
+          </div>
+        </div>
+
+        <footer>
+          <details>
+            <summary>Справка</summary>
+            <div style="margin-top:10px;">
+              <div>Поддерживаются структуры: <code>Semester_1/&lt;author&gt;/HW_*/...</code> и <code>Semester_2/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code>.</div>
+              <div style="margin-top:6px;">Можно выбрать другую ветку через <code>?ref=master</code> или <code>?ref=Vennilay</code>. Индекс кэшируется в <code>localStorage</code>.</div>
+            </div>
+          </details>
+        </footer>
       </div>
     </div>
-
-    <footer>
-      <div><span class="pill">SCAN</span>Ожидаемый формат решений: <code>Semester_*/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code>. Навигатор строит индекс одним запросом к Git Trees API и кэширует его в <code>localStorage</code>.</div>
-      <div><span class="pill">TIP</span>Можно выбрать другую ветку через <code>?ref=master</code> или <code>?ref=Vennilay</code>.</div>
-    </footer>
   </div>
 </main>
 
@@ -315,6 +364,7 @@
   const SEMESTER_RE = /^Semester_\d+$/i;
   const SUBJECT_RE = /^(OOP|AI_BigData|DataStructures|Informatics)$/i;
   const PR_RE = /^PR[_-]?\d+$/i;
+  const HW_RE = /^HW[_-]?\d+$/i;
 
   // Маппинг названий
   const SUBJECT_NAMES = {
@@ -335,6 +385,8 @@
   const elSemester  = document.getElementById('semester');
   const elAuthor    = document.getElementById('author');
   const elSubject   = document.getElementById('subject');
+  const elPractice  = document.getElementById('practice');
+  const elPracticeWrap = document.getElementById('practiceWrap');
   const elTask      = document.getElementById('task');
   const elFilter    = document.getElementById('filter');
   const elStatus    = document.getElementById('status');
@@ -386,11 +438,27 @@
   }
 
   function subjectToDisplay(code) {
+    const hw = String(code || '').match(/^HW[_-]?(\d+)$/i);
+    if (hw) return `Домашнее задание ${hw[1]}`;
     return SUBJECT_NAMES[code] || code;
   }
 
   function subjectFromDisplay(display) {
+    const hw = String(display || '').match(/^Домашнее задание (\d+)$/);
+    if (hw) return `HW_${hw[1]}`;
     return SUBJECT_CODES[display] || display;
+  }
+
+  function practiceToDisplay(code) {
+    const pr = String(code || '').match(/^PR[_-]?(\d+)$/i);
+    if (pr) return `Практика ${pr[1]}`;
+    return code;
+  }
+
+  function practiceFromDisplay(display) {
+    const pr = String(display || '').match(/^Практика (\d+)$/);
+    if (pr) return `PR_${pr[1]}`;
+    return display;
   }
 
   function hashGet() {
@@ -454,15 +522,36 @@
       if (!it || it.type !== 'blob' || typeof it.path !== 'string') continue;
 
       const parts = it.path.split('/');
-      if (parts.length < 5) continue;
+      if (parts.length < 3) continue;
 
-      const [semester, author, subject, pr] = parts;
+      const semester = parts[0];
+      const author = parts[1];
+      const third = parts[2];
+      const fourth = parts[3];
+
       if (!SEMESTER_RE.test(semester)) continue;
-      if (!SUBJECT_RE.test(subject)) continue;
-      if (!PR_RE.test(pr)) continue;
 
-      const rel = parts.slice(4).join('/');
-      const folderPath = `${semester}/${author}/${subject}/${pr}`;
+      let subject = '';
+      let pr = '';
+      let rel = '';
+      let folderPath = '';
+
+      // Semester_2/.../{subject}/PR_*/...
+      if (parts.length >= 5 && SUBJECT_RE.test(third) && PR_RE.test(fourth || '')) {
+        subject = third;
+        pr = fourth;
+        rel = parts.slice(4).join('/');
+        folderPath = `${semester}/${author}/${subject}/${pr}`;
+      }
+      // Semester_1/.../HW_*/...
+      else if (parts.length >= 4 && HW_RE.test(third)) {
+        subject = third.replace('-', '_');
+        pr = subject;
+        rel = parts.slice(3).join('/');
+        folderPath = `${semester}/${author}/${subject}`;
+      } else {
+        continue;
+      }
 
       const sem = ensure(index.semesters, semester, { authors: {} });
       const a = ensure(sem.authors, author, { subjects: {} });
@@ -548,18 +637,20 @@
     const sDisp = elSemester.value;
     const a = elAuthor.value;
     const subDisp = elSubject.value;
+    const prDisp = elPractice.value;
 
     const s = semesterFromDisplay(sDisp);
     const sub = subjectFromDisplay(subDisp);
+    const pr = practiceFromDisplay(prDisp);
 
     const sem = index.semesters[s];
     const author = sem?.authors?.[a];
     const subject = author?.subjects?.[sub];
-    return { sDisp, s, a, subDisp, sub, subject };
+    return { sDisp, s, a, subDisp, sub, prDisp, pr, subject };
   }
 
   function renderFiles() {
-    const { sDisp, s, a, subDisp, sub, subject } = getCurrentModel();
+    const { sDisp, s, a, subDisp, sub, prDisp, pr, subject } = getCurrentModel();
 
     const filter = elFilter.value.trim().toLowerCase();
     const onlyCpp = !!elOnlyCpp.checked;
@@ -575,13 +666,14 @@
       return;
     }
 
-    // Merge files from all PRs in this subject
+    // Collect files depending on practice selection
     const allFiles = [];
-    for (const pr of Object.values(subject.prs)) {
-      allFiles.push(...pr.files);
-    }
+    for (const p of Object.values(subject.prs)) allFiles.push(...p.files);
 
-    const shown = allFiles.filter(f => {
+    const selectedPractice = (pr && subject.prs?.[pr]) ? pr : '';
+    const baseFiles = selectedPractice ? subject.prs[selectedPractice].files : allFiles;
+
+    const shown = baseFiles.filter(f => {
       if (onlyCpp && !f.name.toLowerCase().endsWith('.cpp')) return false;
       if (filter && !f.rel.toLowerCase().includes(filter)) return false;
       return true;
@@ -591,7 +683,8 @@
     btnFindTask.disabled = false;
 
     elFilesWrap.style.display = '';
-    elFilesMeta.textContent = `${sDisp} / ${a} / ${subDisp} — файлов: ${shown.length} (всего ${allFiles.length})`;
+    const practiceLabel = (!elPractice.disabled && prDisp) ? ` / ${prDisp}` : '';
+    elFilesMeta.textContent = `${sDisp} / ${a} / ${subDisp}${practiceLabel} — файлов: ${shown.length} (всего ${allFiles.length})`;
 
     // list
     for (const f of shown) {
@@ -615,7 +708,7 @@
       }
     }
 
-    hashSet({ s: sDisp, a, sub: subDisp, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: sDisp, a, sub: subDisp, pr: prDisp || '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
   }
 
   function escapeHtml(s) {
@@ -667,7 +760,9 @@
       elAuthor.disabled = true;
       elSubject.disabled = true;
       fillSelect(elAuthor, '— выберите автора —', []);
-      fillSelect(elSubject, '— выберите предмет —', []);
+      fillSelect(elSubject, '— выберите раздел —', []);
+      fillSelect(elPractice, '— выберите практику —', []);
+      elPractice.disabled = true;
       setStatus('bad', `<span class="pill bad">ERR</span>Не найден семестр <code>${escapeHtml(sDisp)}</code> в индексе.`);
       renderFiles();
       return;
@@ -677,10 +772,54 @@
     fillSelect(elAuthor, '— выберите автора —', authors);
     elAuthor.disabled = false;
 
-    fillSelect(elSubject, '— выберите предмет —', []);
+    fillSelect(elSubject, '— выберите раздел —', []);
     elSubject.disabled = true;
 
+    fillSelect(elPractice, '— выберите практику —', []);
+    elPractice.disabled = true;
+
     setStatus('', 'Выберите автора.');
+    renderFiles();
+  }
+
+  function updatePractices() {
+    const h = hashGet();
+    const { subject } = getCurrentModel();
+    if (!subject) {
+      fillSelect(elPractice, '— выберите практику —', []);
+      elPractice.disabled = true;
+      elPracticeWrap.classList.add('hidden');
+      renderFiles();
+      return;
+    }
+
+    const prs = Object.keys(subject.prs || {}).sort(byLocale);
+
+    // Semester_1: HW_* treated as a single level, no separate practice UI
+    const looksLikeHw = prs.length > 0 && prs.every(x => /^HW[_-]?\d+$/i.test(x));
+    if (looksLikeHw) {
+      fillSelect(elPractice, '—', ['—']);
+      elPractice.value = '—';
+      elPractice.disabled = true;
+      elPracticeWrap.classList.add('hidden');
+      hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
+      renderFiles();
+      return;
+    }
+
+    elPracticeWrap.classList.remove('hidden');
+    const practiceValues = prs.map(practiceToDisplay);
+    fillSelect(elPractice, '— выберите практику —', practiceValues);
+    elPractice.disabled = false;
+
+    // restore from hash
+    if (h.pr && Array.from(elPractice.options).some(o => o.value === h.pr)) {
+      elPractice.value = h.pr;
+    } else {
+      elPractice.value = practiceValues[0] || '';
+    }
+
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: elPractice.value || '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
     renderFiles();
   }
 
@@ -691,20 +830,25 @@
 
     if (!author) {
       elSubject.disabled = true;
-      fillSelect(elSubject, '— выберите предмет —', []);
-      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(semesterToDisplay(s))}</code> (или нет файлов в формате предметов).`);
+      fillSelect(elSubject, '— выберите раздел —', []);
+      fillSelect(elPractice, '— выберите практику —', []);
+      elPractice.disabled = true;
+      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(semesterToDisplay(s))}</code> (или нет файлов в ожидаемом формате).`);
       renderFiles();
       return;
     }
 
     const subjects = Object.keys(author.subjects).map(subjectToDisplay).sort(byLocale);
-    fillSelect(elSubject, '— выберите предмет —', subjects);
+    fillSelect(elSubject, '— выберите раздел —', subjects);
     elSubject.disabled = false;
 
+    fillSelect(elPractice, '— выберите практику —', []);
+    elPractice.disabled = true;
+
     if (subjects.length === 0) {
-      setStatus('bad', `<span class="pill bad">EMPTY</span>У <b>${escapeHtml(a)}</b> нет предметов (или в них нет файлов).`);
+      setStatus('bad', `<span class="pill bad">EMPTY</span>У <b>${escapeHtml(a)}</b> нет разделов (или в них нет файлов).`);
     } else {
-      setStatus('', 'Выберите предмет.');
+      setStatus('', 'Выберите раздел.');
     }
 
     renderFiles();
@@ -734,7 +878,7 @@
       elSubject.value = h.sub;
     }
 
-    renderFiles();
+    updatePractices();
   }
 
   // ===== events =====
@@ -755,57 +899,69 @@
     if (!subject) {
       setStatus('bad', `<span class="pill bad">404</span>Этот предмет не найден в индексе.`);
     } else {
-      setStatus('ok', `<span class="pill ok">OK</span>Найден предмет: <a href="${ghTree(Object.values(subject.prs)[0].folderPath.split('/PR_')[0])}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>`);
+      const first = Object.values(subject.prs)[0];
+      const folderPath = first ? (first.folderPath.split('/PR_')[0]) : '';
+      setStatus('ok', `<span class="pill ok">OK</span>Найден раздел: <a href="${ghTree(folderPath)}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>`);
     }
 
+    updatePractices();
+  });
+
+  elPractice.addEventListener('change', () => {
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: elPractice.value, f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
     renderFiles();
   });
 
   elOnlyCpp.addEventListener('change', renderFiles);
   elFilter.addEventListener('input', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: elPractice.value || '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
     renderFiles();
   });
 
   elTask.addEventListener('input', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: elPractice.value || '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
   });
 
   elFileSelect.addEventListener('change', () => {
     const rel = elFileSelect.value;
     btnOpenFile.disabled = !rel;
-    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: rel, q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: elPractice.value || '', f: rel, q: elFilter.value.trim(), t: elTask.value.trim() });
   });
 
   btnOpenFolder.addEventListener('click', () => {
-    const { subject } = getCurrentModel();
+    const { subject, pr } = getCurrentModel();
     if (!subject) return;
-    const firstPr = Object.values(subject.prs)[0];
-    if (!firstPr) return;
-    const folderPath = firstPr.folderPath.split('/PR_')[0];
+    const selected = (pr && subject.prs?.[pr]) ? subject.prs[pr] : Object.values(subject.prs)[0];
+    if (!selected) return;
+    const folderPath = selected.folderPath.split('/PR_')[0];
     location.href = ghTree(folderPath);
   });
 
   btnOpenFile.addEventListener('click', () => {
-    const { subject } = getCurrentModel();
+    const { subject, pr } = getCurrentModel();
     if (!subject) return;
     const rel = elFileSelect.value;
     if (!rel) return;
-    // Find file across all PRs in this subject
+    // Find file within selected practice first, then fallback
     let file = null;
-    for (const pr of Object.values(subject.prs)) {
-      file = pr.files.find(x => x.rel === rel);
-      if (file) break;
+    if (pr && subject.prs?.[pr]) {
+      file = subject.prs[pr].files.find(x => x.rel === rel) || null;
+    }
+    if (!file) {
+      for (const p of Object.values(subject.prs)) {
+        file = p.files.find(x => x.rel === rel);
+        if (file) break;
+      }
     }
     if (!file) return;
     location.href = ghBlob(file.path);
   });
 
   btnFindTask.addEventListener('click', () => {
-    const { subject } = getCurrentModel();
+    const { subject, pr } = getCurrentModel();
     const task = elTask.value.trim();
     if (!subject) {
-      setStatus('bad', `<span class="pill bad">ERR</span>Сначала выберите семестр/автора/предмет.`);
+      setStatus('bad', `<span class="pill bad">ERR</span>Сначала выберите семестр/автора/раздел.`);
       return;
     }
 
@@ -814,10 +970,14 @@
       return;
     }
 
-    // Merge all files from all PRs
-    const allFiles = [];
-    for (const pr of Object.values(subject.prs)) {
-      allFiles.push(...pr.files);
+    // Search within selected practice first, otherwise across all
+    let allFiles = [];
+    if (pr && subject.prs?.[pr]) {
+      allFiles = subject.prs[pr].files.slice();
+    } else {
+      for (const p of Object.values(subject.prs)) {
+        allFiles.push(...p.files);
+      }
     }
 
     const best = findBestByTask(allFiles, task);
