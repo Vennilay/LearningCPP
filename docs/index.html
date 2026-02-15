@@ -238,7 +238,7 @@
 <body>
 <header>
   <h1>LearningCPP — навигатор решений</h1>
-  <p>Быстрый выбор «семестр → автор → ДЗ» и переход в нужную папку/файл без 404. Ссылка сохраняется в <code>#hash</code> и её можно шарить.</p>
+  <p>Быстрый выбор «семестр → автор → предмет → ПР» и переход в нужную папку</p>
 </header>
 
 <main>
@@ -253,14 +253,14 @@
         <select id="author" disabled></select>
       </div>
       <div>
-        <label for="hw">Домашка</label>
-        <select id="hw" disabled></select>
+        <label for="subject">Предмет</label>
+        <select id="subject" disabled></select>
       </div>
     </div>
 
     <div class="row">
       <div>
-        <label for="task">Номер задания (опционально, чтобы быстро найти файл)</label>
+        <label for="task">Номер задачи (опционально, чтобы быстро найти файл)</label>
         <input id="task" inputmode="numeric" placeholder="Например: 1" />
       </div>
       <div>
@@ -270,8 +270,8 @@
     </div>
 
     <div class="btnrow">
-      <button id="openFolder" disabled>Открыть папку</button>
-      <button id="findTask" disabled>Найти задание</button>
+      <button id="openFolder" disabled>Открыть папку предмета</button>
+      <button id="findTask" disabled>Найти задачу</button>
       <button id="openFile" disabled>Открыть выбранный файл</button>
       <button id="copyLink">Скопировать ссылку</button>
     </div>
@@ -298,7 +298,7 @@
     </div>
 
     <footer>
-      <div><span class="pill">SCAN</span>Ожидаемый формат решений: <code>Semester_*/&lt;author&gt;/HW_*/...</code>. Навигатор строит индекс одним запросом к Git Trees API и кэширует его в <code>localStorage</code>.</div>
+      <div><span class="pill">SCAN</span>Ожидаемый формат решений: <code>Semester_*/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code>. Навигатор строит индекс одним запросом к Git Trees API и кэширует его в <code>localStorage</code>.</div>
       <div><span class="pill">TIP</span>Можно выбрать другую ветку через <code>?ref=master</code> или <code>?ref=Vennilay</code>.</div>
     </footer>
   </div>
@@ -313,12 +313,13 @@
   const REF = (qs.get('ref') || 'Vennilay').trim();
 
   const SEMESTER_RE = /^Semester_\d+$/i;
-  const HW_RE = /^HW[_-]?\d+$/i;
+  const SUBJECT_RE = /^(OOP|AI_BigData|DataStructures|Informatics)$/i;
+  const PR_RE = /^PR[_-]?\d+$/i;
 
   // ===== elements =====
   const elSemester  = document.getElementById('semester');
   const elAuthor    = document.getElementById('author');
-  const elHw        = document.getElementById('hw');
+  const elSubject   = document.getElementById('subject');
   const elTask      = document.getElementById('task');
   const elFilter    = document.getElementById('filter');
   const elStatus    = document.getElementById('status');
@@ -365,18 +366,20 @@
     return {
       s: p.get('s') || '',
       a: p.get('a') || '',
-      hw: p.get('hw') || '',
+      sub: p.get('sub') || '',
+      pr: p.get('pr') || '',
       f: p.get('f') || '',
       q: p.get('q') || '',
       t: p.get('t') || '',
     };
   }
 
-  function hashSet({ s, a, hw, f, q, t }) {
+  function hashSet({ s, a, sub, pr, f, q, t }) {
     const p = new URLSearchParams();
     if (s) p.set('s', s);
     if (a) p.set('a', a);
-    if (hw) p.set('hw', hw);
+    if (sub) p.set('sub', sub);
+    if (pr) p.set('pr', pr);
     if (f) p.set('f', f);
     if (q) p.set('q', q);
     if (t) p.set('t', t);
@@ -403,7 +406,7 @@
   }
 
   // ===== index model =====
-  // index.semesters[semester].authors[author].hws[hw] = { folderPath, files: [{path, rel, name}] }
+  // index.semesters[semester].authors[author].subjects[subject].prs[pr] = { folderPath, files: [{path, rel, name}] }
   const index = { semesters: {} };
 
   function ensure(obj, key, init) {
@@ -418,20 +421,22 @@
       if (!it || it.type !== 'blob' || typeof it.path !== 'string') continue;
 
       const parts = it.path.split('/');
-      if (parts.length < 4) continue;
+      if (parts.length < 5) continue;
 
-      const [semester, author, hw] = parts;
+      const [semester, author, subject, pr] = parts;
       if (!SEMESTER_RE.test(semester)) continue;
-      if (!HW_RE.test(hw)) continue;
+      if (!SUBJECT_RE.test(subject)) continue;
+      if (!PR_RE.test(pr)) continue;
 
-      const rel = parts.slice(3).join('/');
-      const folderPath = `${semester}/${author}/${hw}`;
+      const rel = parts.slice(4).join('/');
+      const folderPath = `${semester}/${author}/${subject}/${pr}`;
 
       const sem = ensure(index.semesters, semester, { authors: {} });
-      const a = ensure(sem.authors, author, { hws: {} });
-      const h = ensure(a.hws, hw, { folderPath, files: [] });
+      const a = ensure(sem.authors, author, { subjects: {} });
+      const sub = ensure(a.subjects, subject, { prs: {} });
+      const p = ensure(sub.prs, pr, { folderPath, files: [] });
 
-      h.files.push({
+      p.files.push({
         path: it.path,
         rel,
         name: parts[parts.length - 1],
@@ -443,8 +448,11 @@
       const sem = index.semesters[semester];
       for (const author of Object.keys(sem.authors)) {
         const a = sem.authors[author];
-        for (const hw of Object.keys(a.hws)) {
-          a.hws[hw].files.sort((x, y) => byLocale(x.rel, y.rel));
+        for (const subject of Object.keys(a.subjects)) {
+          const sub = a.subjects[subject];
+          for (const pr of Object.keys(sub.prs)) {
+            sub.prs[pr].files.sort((x, y) => byLocale(x.rel, y.rel));
+          }
         }
       }
     }
@@ -506,22 +514,22 @@
   function getCurrentModel() {
     const s = elSemester.value;
     const a = elAuthor.value;
-    const hw = elHw.value;
+    const sub = elSubject.value;
     const sem = index.semesters[s];
     const author = sem?.authors?.[a];
-    const h = author?.hws?.[hw];
-    return { s, a, hw, h };
+    const subject = author?.subjects?.[sub];
+    return { s, a, sub, subject };
   }
 
   function renderFiles() {
-    const { s, a, hw, h } = getCurrentModel();
+    const { s, a, sub, subject } = getCurrentModel();
 
     const filter = elFilter.value.trim().toLowerCase();
     const onlyCpp = !!elOnlyCpp.checked;
 
     elFilesList.innerHTML = '';
 
-    if (!h) {
+    if (!subject) {
       elFilesWrap.style.display = 'none';
       elFileSelect.disabled = true;
       btnOpenFolder.disabled = true;
@@ -530,18 +538,23 @@
       return;
     }
 
-    btnOpenFolder.disabled = false;
-    btnFindTask.disabled = false;
+    // Merge files from all PRs in this subject
+    const allFiles = [];
+    for (const pr of Object.values(subject.prs)) {
+      allFiles.push(...pr.files);
+    }
 
-    const all = h.files;
-    const shown = all.filter(f => {
+    const shown = allFiles.filter(f => {
       if (onlyCpp && !f.name.toLowerCase().endsWith('.cpp')) return false;
       if (filter && !f.rel.toLowerCase().includes(filter)) return false;
       return true;
     });
 
+    btnOpenFolder.disabled = false;
+    btnFindTask.disabled = false;
+
     elFilesWrap.style.display = '';
-    elFilesMeta.textContent = `${s} / ${a} / ${hw} — файлов: ${shown.length} (всего ${all.length})`;
+    elFilesMeta.textContent = `${s} / ${a} / ${sub} — файлов: ${shown.length} (всего ${allFiles.length})`;
 
     // list
     for (const f of shown) {
@@ -565,16 +578,16 @@
       }
     }
 
-    hashSet({ s, a, hw, f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s, a, sub, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
   }
 
   function escapeHtml(s) {
     return String(s)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#39;');
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
   }
 
   function scoreTaskCandidate(fileName, n) {
@@ -614,9 +627,9 @@
     const sem = index.semesters[s];
     if (!sem) {
       elAuthor.disabled = true;
-      elHw.disabled = true;
+      elSubject.disabled = true;
       fillSelect(elAuthor, '— выберите автора —', []);
-      fillSelect(elHw, '— выберите домашку —', []);
+      fillSelect(elSubject, '— выберите предмет —', []);
       setStatus('bad', `<span class="pill bad">ERR</span>Не найден семестр <code>${escapeHtml(s)}</code> в индексе.`);
       renderFiles();
       return;
@@ -626,34 +639,34 @@
     fillSelect(elAuthor, '— выберите автора —', authors);
     elAuthor.disabled = false;
 
-    fillSelect(elHw, '— выберите домашку —', []);
-    elHw.disabled = true;
+    fillSelect(elSubject, '— выберите предмет —', []);
+    elSubject.disabled = true;
 
     setStatus('', 'Выберите автора.');
     renderFiles();
   }
 
-  function updateHws() {
+  function updateSubjects() {
     const { s, a } = getCurrentModel();
     const sem = index.semesters[s];
     const author = sem?.authors?.[a];
 
     if (!author) {
-      elHw.disabled = true;
-      fillSelect(elHw, '— выберите домашку —', []);
-      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(s)}</code> (или нет файлов в формате <code>HW_*</code>).`);
+      elSubject.disabled = true;
+      fillSelect(elSubject, '— выберите предмет —', []);
+      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(s)}</code> (или нет файлов в формате предметов).`);
       renderFiles();
       return;
     }
 
-    const hws = Object.keys(author.hws).sort(byLocale);
-    fillSelect(elHw, '— выберите домашку —', hws);
-    elHw.disabled = false;
+    const subjects = Object.keys(author.subjects).sort(byLocale);
+    fillSelect(elSubject, '— выберите предмет —', subjects);
+    elSubject.disabled = false;
 
-    if (hws.length === 0) {
-      setStatus('bad', `<span class="pill bad">EMPTY</span>У <b>${escapeHtml(a)}</b> нет <code>HW_*</code> (или в них нет файлов).`);
+    if (subjects.length === 0) {
+      setStatus('bad', `<span class="pill bad">EMPTY</span>У <b>${escapeHtml(a)}</b> нет предметов (или в них нет файлов).`);
     } else {
-      setStatus('', 'Выберите домашку.');
+      setStatus('', 'Выберите предмет.');
     }
 
     renderFiles();
@@ -675,12 +688,12 @@
     // author
     if (h.a && Array.from(elAuthor.options).some(o => o.value === h.a)) {
       elAuthor.value = h.a;
-      updateHws();
+      updateSubjects();
     }
 
-    // hw
-    if (h.hw && Array.from(elHw.options).some(o => o.value === h.hw)) {
-      elHw.value = h.hw;
+    // subject
+    if (h.sub && Array.from(elSubject.options).some(o => o.value === h.sub)) {
+      elSubject.value = h.sub;
     }
 
     renderFiles();
@@ -688,23 +701,23 @@
 
   // ===== events =====
   elSemester.addEventListener('change', () => {
-    hashSet({ s: elSemester.value, a: '', hw: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: '', sub: '', pr: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
     updateAuthors();
   });
 
   elAuthor.addEventListener('change', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, hw: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
-    updateHws();
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: '', pr: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    updateSubjects();
   });
 
-  elHw.addEventListener('change', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, hw: elHw.value, f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
+  elSubject.addEventListener('change', () => {
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: '', q: elFilter.value.trim(), t: elTask.value.trim() });
 
-    const { h } = getCurrentModel();
-    if (!h) {
-      setStatus('bad', `<span class="pill bad">404</span>Эта домашка не найдена в индексе.`);
+    const { subject } = getCurrentModel();
+    if (!subject) {
+      setStatus('bad', `<span class="pill bad">404</span>Этот предмет не найден в индексе.`);
     } else {
-      setStatus('ok', `<span class="pill ok">OK</span>Найдена папка: <a href="${ghTree(h.folderPath)}" target="_blank" rel="noreferrer">${escapeHtml(h.folderPath)}</a>`);
+      setStatus('ok', `<span class="pill ok">OK</span>Найден предмет: <a href="${ghTree(subject.prs[Object.keys(subject.prs)[0]].folderPath.split('/PR_')[0])}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>`);
     }
 
     renderFiles();
@@ -712,56 +725,71 @@
 
   elOnlyCpp.addEventListener('change', renderFiles);
   elFilter.addEventListener('input', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, hw: elHw.value, f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
     renderFiles();
   });
 
   elTask.addEventListener('input', () => {
-    hashSet({ s: elSemester.value, a: elAuthor.value, hw: elHw.value, f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
   });
 
   elFileSelect.addEventListener('change', () => {
     const rel = elFileSelect.value;
     btnOpenFile.disabled = !rel;
-    hashSet({ s: elSemester.value, a: elAuthor.value, hw: elHw.value, f: rel, q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: rel, q: elFilter.value.trim(), t: elTask.value.trim() });
   });
 
   btnOpenFolder.addEventListener('click', () => {
-    const { h } = getCurrentModel();
-    if (!h) return;
-    location.href = ghTree(h.folderPath);
+    const { subject } = getCurrentModel();
+    if (!subject) return;
+    const firstPr = Object.values(subject.prs)[0];
+    if (!firstPr) return;
+    const folderPath = firstPr.folderPath.split('/PR_')[0];
+    location.href = ghTree(folderPath);
   });
 
   btnOpenFile.addEventListener('click', () => {
-    const { h } = getCurrentModel();
-    if (!h) return;
+    const { subject } = getCurrentModel();
+    if (!subject) return;
     const rel = elFileSelect.value;
     if (!rel) return;
-    const file = h.files.find(x => x.rel === rel);
+    // Find file across all PRs in this subject
+    let file = null;
+    for (const pr of Object.values(subject.prs)) {
+      file = pr.files.find(x => x.rel === rel);
+      if (file) break;
+    }
     if (!file) return;
     location.href = ghBlob(file.path);
   });
 
   btnFindTask.addEventListener('click', () => {
-    const { h } = getCurrentModel();
+    const { subject } = getCurrentModel();
     const task = elTask.value.trim();
-    if (!h) {
-      setStatus('bad', `<span class="pill bad">ERR</span>Сначала выберите семестр/автора/домашку.`);
+    if (!subject) {
+      setStatus('bad', `<span class="pill bad">ERR</span>Сначала выберите семестр/автора/предмет.`);
       return;
     }
 
     if (!task) {
-      setStatus('ok', `<span class="pill ok">OK</span>Введите номер задания, либо пользуйтесь списком файлов.`);
+      setStatus('ok', `<span class="pill ok">OK</span>Введите номер задачи, либо пользуйтесь списком файлов.`);
       return;
     }
 
-    const best = findBestByTask(h.files, task);
+    // Merge all files from all PRs
+    const allFiles = [];
+    for (const pr of Object.values(subject.prs)) {
+      allFiles.push(...pr.files);
+    }
+
+    const best = findBestByTask(allFiles, task);
     if (!best) {
-      setStatus('bad', `<span class="pill bad">NO</span>Не удалось сопоставить задание <b>${escapeHtml(task)}</b> ни с одним файлом в <a href="${ghTree(h.folderPath)}" target="_blank" rel="noreferrer">${escapeHtml(h.folderPath)}</a>.`);
+      const folderPath = Object.values(subject.prs)[0]?.folderPath.split('/PR_')[0] || '';
+      setStatus('bad', `<span class="pill bad">NO</span>Не удалось сопоставить задачу <b>${escapeHtml(task)}</b> ни с одним файлом в <a href="${ghTree(folderPath)}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>.`);
       return;
     }
 
-    setStatus('ok', `<span class="pill ok">FOUND</span>Задание <b>${escapeHtml(task)}</b> похоже на: <a href="${ghBlob(best.path)}" target="_blank" rel="noreferrer">${escapeHtml(best.rel)}</a>`);
+    setStatus('ok', `<span class="pill ok">FOUND</span>Задача <b>${escapeHtml(task)}</b> похожа на: <a href="${ghBlob(best.path)}" target="_blank" rel="noreferrer">${escapeHtml(best.rel)}</a>`);
 
     // try set in UI
     elFilter.value = '';
@@ -772,7 +800,7 @@
     if (Array.from(elFileSelect.options).some(o => o.value === best.rel)) {
       elFileSelect.value = best.rel;
       btnOpenFile.disabled = false;
-      hashSet({ s: elSemester.value, a: elAuthor.value, hw: elHw.value, f: best.rel, q: elFilter.value.trim(), t: elTask.value.trim() });
+      hashSet({ s: elSemester.value, a: elAuthor.value, sub: elSubject.value, pr: '', f: best.rel, q: elFilter.value.trim(), t: elTask.value.trim() });
     }
   });
 
@@ -796,10 +824,10 @@
 
       const semesters = Object.keys(index.semesters).sort(byLocale);
       if (semesters.length === 0) {
-        setStatus('bad', `<span class="pill bad">EMPTY</span>Не найдено решений в формате <code>Semester_*/&lt;author&gt;/HW_*/...</code> в ветке <code>${escapeHtml(REF)}</code>.`);
+        setStatus('bad', `<span class="pill bad">EMPTY</span>Не найдено решений в формате <code>Semester_*/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code> в ветке <code>${escapeHtml(REF)}</code>.`);
         fillSelect(elSemester, '— семестр не найден —', []);
         elAuthor.disabled = true;
-        elHw.disabled = true;
+        elSubject.disabled = true;
         return;
       }
 
@@ -809,7 +837,7 @@
       updateSelectionFromHash();
 
       if (!truncated) {
-        setStatus('ok', `${fromCache ? '<span class="pill ok">CACHE</span>' : '<span class="pill ok">OK</span>'}Индекс готов. Выберите автора и ДЗ.`);
+        setStatus('ok', `${fromCache ? '<span class="pill ok">CACHE</span>' : '<span class="pill ok">OK</span>'}Индекс готов. Выберите автора и предмет.`);
       }
     } catch (err) {
       const msg = String(err);
