@@ -1,5 +1,5 @@
 #include <iostream>
 int main() {
-    std::cout << "Placeholder for Semester_2/lkzz13/AI_BigData/PR_1" << std::endl;
+    std::cout << "Placeholder" << std::endl;
     return 0;
 }
