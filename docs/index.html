@@ -238,7 +238,7 @@
 <body>
 <header>
   <h1>LearningCPP — навигатор решений</h1>
-  <p>Быстрый выбор «семестр → автор → предмет → ПР» и переход в нужную папку</p>
+  <p>Быстрый выбор «семестр → автор → предмет → ПР» и переход в нужную папку/файл без 404. Ссылка сохраняется в <code>#hash</code> и её можно шарить.</p>
 </header>
 
 <main>
@@ -316,6 +316,21 @@
   const SUBJECT_RE = /^(OOP|AI_BigData|DataStructures|Informatics)$/i;
   const PR_RE = /^PR[_-]?\d+$/i;
 
+  // Маппинг названий
+  const SUBJECT_NAMES = {
+    'OOP': 'ООП',
+    'AI_BigData': 'ИИ и БД',
+    'DataStructures': 'Структуры данных',
+    'Informatics': 'Информатика'
+  };
+
+  const SUBJECT_CODES = {
+    'ООП': 'OOP',
+    'ИИ и БД': 'AI_BigData',
+    'Структуры данных': 'DataStructures',
+    'Информатика': 'Informatics'
+  };
+
   // ===== elements =====
   const elSemester  = document.getElementById('semester');
   const elAuthor    = document.getElementById('author');
@@ -357,7 +372,25 @@
   }
 
   function byLocale(a, b) {
-    return a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
+    return a.localeCompare(b, 'ru', { numeric: true, sensitivity: 'base' });
+  }
+
+  function semesterToDisplay(name) {
+    const match = name.match(/^Semester_(\d+)$/i);
+    return match ? `Семестр ${match[1]}` : name;
+  }
+
+  function semesterFromDisplay(display) {
+    const match = display.match(/^Семестр (\d+)$/);
+    return match ? `Semester_${match[1]}` : display;
+  }
+
+  function subjectToDisplay(code) {
+    return SUBJECT_NAMES[code] || code;
+  }
+
+  function subjectFromDisplay(display) {
+    return SUBJECT_CODES[display] || display;
   }
 
   function hashGet() {
@@ -512,17 +545,21 @@
   }
 
   function getCurrentModel() {
-    const s = elSemester.value;
+    const sDisp = elSemester.value;
     const a = elAuthor.value;
-    const sub = elSubject.value;
+    const subDisp = elSubject.value;
+
+    const s = semesterFromDisplay(sDisp);
+    const sub = subjectFromDisplay(subDisp);
+
     const sem = index.semesters[s];
     const author = sem?.authors?.[a];
     const subject = author?.subjects?.[sub];
-    return { s, a, sub, subject };
+    return { sDisp, s, a, subDisp, sub, subject };
   }
 
   function renderFiles() {
-    const { s, a, sub, subject } = getCurrentModel();
+    const { sDisp, s, a, subDisp, sub, subject } = getCurrentModel();
 
     const filter = elFilter.value.trim().toLowerCase();
     const onlyCpp = !!elOnlyCpp.checked;
@@ -554,7 +591,7 @@
     btnFindTask.disabled = false;
 
     elFilesWrap.style.display = '';
-    elFilesMeta.textContent = `${s} / ${a} / ${sub} — файлов: ${shown.length} (всего ${allFiles.length})`;
+    elFilesMeta.textContent = `${sDisp} / ${a} / ${subDisp} — файлов: ${shown.length} (всего ${allFiles.length})`;
 
     // list
     for (const f of shown) {
@@ -578,7 +615,7 @@
       }
     }
 
-    hashSet({ s, a, sub, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
+    hashSet({ s: sDisp, a, sub: subDisp, pr: '', f: elFileSelect.value || '', q: elFilter.value.trim(), t: elTask.value.trim() });
   }
 
   function escapeHtml(s) {
@@ -623,14 +660,15 @@
   }
 
   function updateAuthors() {
-    const s = elSemester.value;
+    const sDisp = elSemester.value;
+    const s = semesterFromDisplay(sDisp);
     const sem = index.semesters[s];
     if (!sem) {
       elAuthor.disabled = true;
       elSubject.disabled = true;
       fillSelect(elAuthor, '— выберите автора —', []);
       fillSelect(elSubject, '— выберите предмет —', []);
-      setStatus('bad', `<span class="pill bad">ERR</span>Не найден семестр <code>${escapeHtml(s)}</code> в индексе.`);
+      setStatus('bad', `<span class="pill bad">ERR</span>Не найден семестр <code>${escapeHtml(sDisp)}</code> в индексе.`);
       renderFiles();
       return;
     }
@@ -654,12 +692,12 @@
     if (!author) {
       elSubject.disabled = true;
       fillSelect(elSubject, '— выберите предмет —', []);
-      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(s)}</code> (или нет файлов в формате предметов).`);
+      setStatus('bad', `<span class="pill bad">404</span>Для <b>${escapeHtml(a || '—')}</b> нет папки в <code>${escapeHtml(semesterToDisplay(s))}</code> (или нет файлов в формате предметов).`);
       renderFiles();
       return;
     }
 
-    const subjects = Object.keys(author.subjects).sort(byLocale);
+    const subjects = Object.keys(author.subjects).map(subjectToDisplay).sort(byLocale);
     fillSelect(elSubject, '— выберите предмет —', subjects);
     elSubject.disabled = false;
 
@@ -717,7 +755,7 @@
     if (!subject) {
       setStatus('bad', `<span class="pill bad">404</span>Этот предмет не найден в индексе.`);
     } else {
-      setStatus('ok', `<span class="pill ok">OK</span>Найден предмет: <a href="${ghTree(subject.prs[Object.keys(subject.prs)[0]].folderPath.split('/PR_')[0])}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>`);
+      setStatus('ok', `<span class="pill ok">OK</span>Найден предмет: <a href="${ghTree(Object.values(subject.prs)[0].folderPath.split('/PR_')[0])}" target="_blank" rel="noreferrer">${escapeHtml(elSemester.value + '/' + elAuthor.value + '/' + elSubject.value)}</a>`);
     }
 
     renderFiles();
@@ -822,7 +860,7 @@
 
       buildIndex(tree);
 
-      const semesters = Object.keys(index.semesters).sort(byLocale);
+      const semesters = Object.keys(index.semesters).map(semesterToDisplay).sort(byLocale);
       if (semesters.length === 0) {
         setStatus('bad', `<span class="pill bad">EMPTY</span>Не найдено решений в формате <code>Semester_*/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code> в ветке <code>${escapeHtml(REF)}</code>.`);
         fillSelect(elSemester, '— семестр не найден —', []);
