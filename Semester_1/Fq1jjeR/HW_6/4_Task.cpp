@@ -4,28 +4,30 @@
 using namespace std;
 
 int main() {
-    int n; // Количество свободных мест
-    if (!(cin >> n) || cin.peek() == '.' || cin.peek() == ',') {
-        return -1;
-    }
+    int n;
+    cin >> n;
 
     set<int> free_seats;
     for (int i = 0; i < n; ++i) {
-        int seat_num; //
+        int seat_num;
         cin >> seat_num;
         free_seats.insert(seat_num);
     }
 
-    int max_c = 0; // max_consecutive_free_compartments
-    int cur_c = 0; // current_consecutive_free_compartments
+    int max_c = 0;
+    int cur_c = 0;
+    int main_start;
+    int main_end;
+    int side1;
+    int side2;
 
     for (int k = 1; k <= 9; ++k) {
-        int main_start = 4 * (k - 1) + 1;
-        int main_end = 4 * k;
-        int side1 = 54 - 2 * (k - 1);
-        int side2 = 53 - 2 * (k - 1);
+        main_start = 4 * (k - 1) + 1;
+        main_end = 4 * k;
+        side1 = 54 - 2 * (k - 1);
+        side2 = 53 - 2 * (k - 1);
 
-        bool is_c_free = true; // is_compartment_free
+        bool is_c_free = true;
         for (int s = main_start; s <= main_end; ++s) {
             if (free_seats.find(s) == free_seats.end()) {
                 is_c_free = false;
