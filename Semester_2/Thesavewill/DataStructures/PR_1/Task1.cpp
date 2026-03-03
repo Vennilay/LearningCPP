@@ -72,8 +72,13 @@ void printArray(const char* arr, int n) {
 }
 
 void fillRandom(char* arr, int n) {
-    for (int i = 0; i < n; i++) arr[i] = 'A' + rand() % 26;
+    string sel;
+    cout << "Использовать заготовленный массив? д/Н: "; cin >> sel;
+
+    if (sel == "д") for (int i = 0; i < n; i++) arr[i] = 'A' + i % 26;
+    else for (int i = 0; i < n; i++) arr[i] = 'A' + rand() % 26;
 }
+
 void fillValueBad(char* arr, int n, char val) {
     for (int i = 0; i < n; i++) arr[i] = val;
 }
