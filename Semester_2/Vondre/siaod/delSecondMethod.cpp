@@ -23,30 +23,27 @@ string generateRandomString(int length) {
 }
 
 
-void delFirstMetod(char*x, int &n, char key, int &comparisons, int &movements) {
+void delOtherMethod(char*x, int &n, char key, int &comparisons, int &movements) {
 
     comparisons = 0;
     movements = 0;
-    int i = 0;
-    while (i < n) {
+    int j = 0;
+    for (int i = 0; i < n; i++)
+    {
         comparisons++;
-        if (x[i] == key) {
-            for (int j = i; j <= n-1; j++) {
-                x[j] = x[j+1];
-                movements++;
-            }
-            n--;
+
+        if (x[i] != key)
+        {
+            x[j] = x[i];
+            j++;
+            movements++;
         }
-        else {
-            i++;
-        }
+
     }
+    n = j;
 }
 
 void activity(char &key, int n, string &vvod, int &comparisons, int &movements){
-    cout<<"Введите символ который нужно удалить: ";
-    cin>>key;
-
     cout<<"Начальная длина строки: "<<n<<endl;
 
     char*x = new char[n + 1];
@@ -54,7 +51,7 @@ void activity(char &key, int n, string &vvod, int &comparisons, int &movements){
     strcpy(x,vvod.c_str());
 
     auto start = chrono::high_resolution_clock::now();
-    delFirstMetod(x,n,key, comparisons, movements);
+    delOtherMethod(x,n,key, comparisons, movements);
     auto end = chrono::high_resolution_clock::now();
 
     cout<<"Получившаяся строка: "<<x<<endl;
@@ -86,14 +83,19 @@ int main() {
     cin>>vibor;
     cin.ignore();
 
+
     if (vibor == 1) {
         cout<<"Введите строку: "<<endl;
         getline(cin, vvod);
         n = vvod.size();
+        cout<<"Введите символ который нужно удалить: ";
+        cin>>key;
         activity(key, n, vvod, comparisons, movements);
     }
 
-    if (vibor == 2) {
+    else if (vibor == 2) {
+        cout<<"Введите символ который нужно удалить: ";
+        cin>>key;
         for (int n : test)
         {
             vvod = generateRandomString(n);
