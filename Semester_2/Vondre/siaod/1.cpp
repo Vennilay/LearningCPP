@@ -23,13 +23,17 @@ string generateRandomString(int length) {
 }
 
 
+void delFirstMetod(char*x, int &n, char key, int &comparisons, int &movements) {
 
-void delFirstMetod(char*x, int &n, char key) {
+    comparisons = 0;
+    movements = 0;
     int i = 0;
     while (i <= n) {
+        comparisons++;
         if (x[i] == key) {
             for (int j = i; j <= n-1; j++) {
                 x[j] = x[j+1];
+                movements++;
             }
             n--;
         }
@@ -40,8 +44,9 @@ void delFirstMetod(char*x, int &n, char key) {
 }
 
 int main() {
-    auto start = chrono::high_resolution_clock::now();
 
+    int comparisons;
+    int movements;
 
     string vvod;
     int n;
@@ -58,9 +63,6 @@ int main() {
         n = vvod.size();
     }
 
-    auto point1 = chrono::high_resolution_clock::now(); //отделяем код генерации строки от основной программы
-    cout<<chrono::duration_cast<chrono::milliseconds>(point1);;
-
     if (vibor == 2) {
         cout<<"Введите длину строки: ";
         cin>>n;
@@ -71,16 +73,8 @@ int main() {
         return 0;
     }
 
-    auto point2 = chrono::high_resolution_clock::now();
-
-    cout<<chrono::duration_cast<chrono::milliseconds>(point2);
-
-
-
     cout<<"Введите символ который нужно удалить: ";
     cin>>key;
-
-
 
     cout<<"Начальная длина строки: "<<n<<endl;
 
@@ -88,13 +82,14 @@ int main() {
 
     strcpy(x,vvod.c_str());
 
-    delFirstMetod(x,n,key);
+    auto start = chrono::high_resolution_clock::now();
+    delFirstMetod(x,n,key, comparisons, movements);
+    auto end = chrono::high_resolution_clock::now();
 
     cout<<"Получившаяся строка: "<<x<<endl;
     cout<<"Новая длина: "<<n<<endl;
     delete[] x;
 
-    auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
     cout << "Время выполнения: " << duration.count() << " мс\n";
 }
