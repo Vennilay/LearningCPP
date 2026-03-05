@@ -9,9 +9,9 @@ string generateRandomString(int length) {
     string chars =
         // "abcdefghijklmnopqrstuvwxyz"
         // "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    //     "0123456789"
-    //     "!@#$%^&*()-_=+[]{};:,.<>/?"
-    "12";
+        "0123456789"
+        // "!@#$%^&*()-_=+[]{};:,.<>/?"
+    ;
 
     string result = "";
 
@@ -22,9 +22,7 @@ string generateRandomString(int length) {
     return result;
 }
 
-
 void delFirstMetod(char*x, int &n, char key, int &comparisons, int &movements) {
-
     comparisons = 0;
     movements = 0;
     int i = 0;
@@ -41,10 +39,10 @@ void delFirstMetod(char*x, int &n, char key, int &comparisons, int &movements) {
             i++;
         }
     }
+    x[n] = '\0';
 }
 
 void delOtherMethod(char*x, int &n, char key, int &comparisons, int &movements) {
-
     comparisons = 0;
     movements = 0;
     int j = 0;
@@ -55,8 +53,8 @@ void delOtherMethod(char*x, int &n, char key, int &comparisons, int &movements) 
         if (x[i] != key)
         {
             x[j] = x[i];
-            j++;
             movements++;
+            j++;
         }
     }
     n = j;
@@ -74,9 +72,12 @@ void activity(char &key, int n, string &vvod, int &comparisons, int &movements, 
     switch (alg) {
         case 1:
             delFirstMetod(x,n,key, comparisons, movements);
+            break;
         case 2:
             delOtherMethod(x,n,key, comparisons, movements);
-        default: ;
+            break;
+        default:
+            delete[] x;
     }
 
     auto end = chrono::high_resolution_clock::now();
@@ -99,6 +100,11 @@ int main() {
     cin>>alg;
     cin.ignore();
 
+    if (alg != 1 && alg != 2) {
+        cout<<"Ошибка выбора";
+        return 0;
+    }
+
     int test[7] = {100, 200, 500, 1000, 2000, 5000, 10000};
 
     int comparisons;
@@ -114,27 +120,28 @@ int main() {
     cin>>vibor;
     cin.ignore();
 
-    if (vibor == 1) {
-        cout<<"Введите строку: "<<endl;
-        getline(cin, vvod);
-        n = vvod.size();
-        cout<<"Введите символ который нужно удалить: ";
-        cin>>key;
-        activity(key, n, vvod, comparisons, movements, alg);
-    }
-
-    else if (vibor == 2) {
-        cout<<"Введите символ который нужно удалить: ";
-        cin>>key;
-        for (int n : test)
-        {
-            vvod = generateRandomString(n);
-            cout<<"Cгенерированная строка: "<<vvod<<endl;
-
+    switch (vibor) {
+        case 1:
+            cout<<"Введите строку: "<<endl;
+            getline(cin, vvod);
+            n = vvod.size();
+            cout<<"Введите символ который нужно удалить: ";
+            cin>>key;
             activity(key, n, vvod, comparisons, movements, alg);
-        }
-    }
-    else {
-        return 0;
+            break;
+        case 2:
+            cout<<"Введите символ который нужно удалить: ";
+            cin>>key;
+            for (int n : test)
+            {
+                vvod = generateRandomString(n);
+                cout<<"Cгенерированная строка: "<<vvod<<endl;
+
+                activity(key, n, vvod, comparisons, movements, alg);
+            }
+            break;
+        default:
+            cout<<"Ошибка выбора";
+            return 0;
     }
 }
