@@ -1,15 +1,24 @@
 #include <chrono>
-#include <cstring>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
+string worstCaseForSelectionSort(int n) {
+    string result;
+    while ((int)result.size() < n) {
+        for (char c = '9'; c >= '0' && result.size() < n; --c) {
+            result += c;
+        }
+    }
+    return result;
+}
+
 string generateRandomString(int length) {
     string chars =
         // "abcdefghijklmnopqrstuvwxyz"
         // "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "0"
+        "0123456789"
         // "!@#$%^&*()-_=+[]{};:,.<>/?"
     ;
 
@@ -42,22 +51,46 @@ void selectionSort(string &vvod, int n, long &comparisons, long &movements) {
     }
 }
 
+
+void exchangeSort(string &vvod, int n, long &comparisons, long &movements) {
+    comparisons = 0;
+    movements = 0;
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i+1; j < n; j++) {
+            comparisons++;
+            if (vvod[i] < vvod[j]) {
+                int temp = vvod[i];
+                vvod[i] = vvod[j];
+                vvod[j] = temp;
+                movements+=3;
+            }
+        }
+    }
+}
+
 void activity(string &vvod, int n, long &comparisons, long &movements, int alg) {
     auto start = chrono::high_resolution_clock::now();
+
     switch (alg) {
         case 1:
             selectionSort(vvod, n, comparisons, movements);
             break;
-        default:;
+        case 2:
+            exchangeSort(vvod, n, comparisons, movements);
+            break;
+        default:
+            return;
     }
-    auto end = chrono::high_resolution_clock::now();
 
+    auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration<double, milli>(end - start);
-    cout << "Время выполнения: " << duration.count() << " мс\n";
-    cout<<"Сп: "<<comparisons<<endl;
-    cout<<"Мп: "<<movements<<endl;
-    cout<<"Тп: "<<comparisons + movements<<endl;
-    cout<<endl;
+
+    cout << n << "\t"
+         << duration.count() << "\t"
+         << comparisons << "\t"
+         << movements << "\t"
+         << (comparisons + movements) << "\n";
 }
 
 int main() {
@@ -69,9 +102,13 @@ int main() {
     long movements;
 
     int alg;
-    cout<<"Выберите алгоритм сортировки:"<<endl<<"1)selection Sort"<<endl;
+    cout<<"Выберите алгоритм сортировки:"<<endl<<"1)Selection Sort"<<endl<<"2)Exchange Sort"<<endl;
     cin>>alg;
     cin.ignore();
+
+    if (alg != 1 && alg != 2) {
+        return 0;
+    }
 
     cout<<"Ввод строки вручную или тестирование скорости:"<<endl<<"1) Вручную"<<endl<<"2) Тест"<<endl;
     cin>>vvodStroki;
@@ -81,17 +118,14 @@ int main() {
             cout<<"Введите строку: "<<endl;
             getline(cin, vvod);
             n = vvod.size();
+            cout << "количество\tвремя,мс\tСп\tМп\tТп\n";
             activity(vvod, n, comparisons, movements, alg);
             break;
         case 2:
+            cout << "количество\tвремя,мс\tСп\tМп\tТп\n";
             for (int n : test){
                 vvod = generateRandomString(n);
-                cout<<"Длинна строки: "<<n<<endl;
-                // cout<<"Cгенерированная строка: "<<vvod<<endl;
-
                 activity(vvod, n, comparisons, movements, alg);
-
-                // cout<<"Отсортированная строка: "<<vvod<<endl;
             }
             break;
         default:
