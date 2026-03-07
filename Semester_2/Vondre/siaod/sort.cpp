@@ -51,7 +51,6 @@ void selectionSort(string &vvod, int n, long &comparisons, long &movements) {
     }
 }
 
-
 void exchangeSort(string &vvod, int n, long &comparisons, long &movements) {
     comparisons = 0;
     movements = 0;
@@ -59,7 +58,7 @@ void exchangeSort(string &vvod, int n, long &comparisons, long &movements) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = i+1; j < n; j++) {
             comparisons++;
-            if (vvod[i] < vvod[j]) {
+            if (vvod[i] > vvod[j]) {
                 int temp = vvod[i];
                 vvod[i] = vvod[j];
                 vvod[j] = temp;
@@ -120,6 +119,7 @@ int main() {
             n = vvod.size();
             cout << "количество\tвремя,мс\tСп\tМп\tТп\n";
             activity(vvod, n, comparisons, movements, alg);
+            cout<<"Получившаяся строка: "<<vvod;
             break;
         case 2:
             cout << "количество\tвремя,мс\tСп\tМп\tТп\n";
