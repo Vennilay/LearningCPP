@@ -343,7 +343,7 @@
           <details>
             <summary>Справка</summary>
             <div style="margin-top:10px;">
-              <div>Поддерживаются структуры: <code>Semester_1/&lt;author&gt;/HW_*/...</code> и <code>Semester_2/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code>.</div>
+              <div>Поддерживаются структуры: <code>Semester_1/&lt;author&gt;/HW_*/...</code> и <code>Semester_2/&lt;author&gt;/{OOP,SIAOD,Informatics}/PR_*/...</code>.</div>
               <div style="margin-top:6px;">Можно выбрать другую ветку через <code>?ref=master</code> или <code>?ref=Vennilay</code>. Индекс кэшируется в <code>localStorage</code>.</div>
             </div>
           </details>
@@ -362,22 +362,20 @@
   const REF = (qs.get('ref') || 'Vennilay').trim();
 
   const SEMESTER_RE = /^Semester_\d+$/i;
-  const SUBJECT_RE = /^(OOP|AI_BigData|DataStructures|Informatics)$/i;
+  const SUBJECT_RE = /^(OOP|SIAOD|Informatics)$/i;
   const PR_RE = /^PR[_-]?\d+$/i;
   const HW_RE = /^HW[_-]?\d+$/i;
 
   // Маппинг названий
   const SUBJECT_NAMES = {
     'OOP': 'ООП',
-    'AI_BigData': 'ИИ и БД',
-    'DataStructures': 'Структуры данных',
+    'SIAOD': 'Структуры данных',
     'Informatics': 'Информатика'
   };
 
   const SUBJECT_CODES = {
     'ООП': 'OOP',
-    'ИИ и БД': 'AI_BigData',
-    'Структуры данных': 'DataStructures',
+    'Структуры данных': 'SIAOD',
     'Информатика': 'Informatics'
   };
 
@@ -1022,7 +1020,7 @@
 
       const semesters = Object.keys(index.semesters).map(semesterToDisplay).sort(byLocale);
       if (semesters.length === 0) {
-        setStatus('bad', `<span class="pill bad">EMPTY</span>Не найдено решений в формате <code>Semester_*/&lt;author&gt;/{OOP,AI_BigData,DataStructures,Informatics}/PR_*/...</code> в ветке <code>${escapeHtml(REF)}</code>.`);
+        setStatus('bad', `<span class="pill bad">EMPTY</span>Не найдено решений в формате <code>Semester_*/&lt;author&gt;/{OOP,SIAOD,Informatics}/PR_*/...</code> в ветке <code>${escapeHtml(REF)}</code>.`);
         fillSelect(elSemester, '— семестр не найден —', []);
         elAuthor.disabled = true;
         elSubject.disabled = true;
