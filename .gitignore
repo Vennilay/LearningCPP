@@ -57,6 +57,7 @@ build/
 out/
 
 # JetBrains IDEs (CLion, IntelliJ IDEA)
+.vscode
 .idea/
 *.iml
 *.iws
