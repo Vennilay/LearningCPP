@@ -9,7 +9,7 @@ string generateRandomString(int length) {
     string chars =
         // "abcdefghijklmnopqrstuvwxyz"
         // "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "0123456789"
+        "1"
         // "!@#$%^&*()-_=+[]{};:,.<>/?"
     ;
 
@@ -105,7 +105,7 @@ int main() {
         return 0;
     }
 
-    int test[7] = {100, 200, 500, 1000, 2000, 5000, 10000};
+    int test[4] = {10, 100, 1000, 10000};
 
     int comparisons;
     int movements;
