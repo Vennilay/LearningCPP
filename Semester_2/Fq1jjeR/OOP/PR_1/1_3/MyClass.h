@@ -1,6 +1,7 @@
 #ifndef __MYCLASS__H
 #define __MYCLASS__H
 
+
 class MyClass
 {
 public:

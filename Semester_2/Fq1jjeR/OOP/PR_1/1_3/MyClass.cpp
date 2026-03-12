@@ -1,6 +1,5 @@
 #include "MyClass.h"
 
-
 void MyClass::setHiddenValue(int hiddenValue)
 {
     this->hiddenValue = hiddenValue;
