@@ -4,25 +4,26 @@ project(LearningCPP CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB_RECURSE SOURCES
-        RELATIVE "${CMAKE_SOURCE_DIR}"
-        "Semester_1/*.cpp"
-        "Semester_2/*.cpp"
+file(GLOB_RECURSE MAINS
+        "Semester_1/*/main.cpp"
+        "Semester_2/*/main.cpp"
 )
 
-foreach(SOURCE_FILE ${SOURCES})
-    string(REPLACE "/" "_" TARGET_NAME "${SOURCE_FILE}")
-    string(REPLACE ".cpp" "" TARGET_NAME "${TARGET_NAME}")
+foreach(MAIN_FILE ${MAINS})
+    get_filename_component(SOURCE_DIR_ABS "${MAIN_FILE}" DIRECTORY)
 
-    add_executable(${TARGET_NAME} "${SOURCE_FILE}")
+    file(GLOB FOLDER_SOURCES "${SOURCE_DIR_ABS}/*.cpp")
 
-    get_filename_component(SOURCE_DIR_ABS "${CMAKE_SOURCE_DIR}/${SOURCE_FILE}" DIRECTORY)
+    file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}" "${SOURCE_DIR_ABS}")
+    string(REPLACE "/" "_" TARGET_NAME "${REL_PATH}")
+
+    add_executable(${TARGET_NAME} ${FOLDER_SOURCES}
+            Semester_2/Fq1jjeR/OOP/PR_1/1_3/MyClass.cpp)
 
     set(FILES_DIR_TO_COPY "")
 
     if(EXISTS "${SOURCE_DIR_ABS}/files")
         set(FILES_DIR_TO_COPY "${SOURCE_DIR_ABS}/files")
-
     elseif(EXISTS "${SOURCE_DIR_ABS}/../files")
         get_filename_component(PARENT_DIR "${SOURCE_DIR_ABS}/.." ABSOLUTE)
         set(FILES_DIR_TO_COPY "${PARENT_DIR}/files")
@@ -37,5 +38,4 @@ foreach(SOURCE_FILE ${SOURCES})
                 COMMENT "Found 'files' at ${FILES_DIR_TO_COPY}. Copying..."
         )
     endif()
-
 endforeach()
