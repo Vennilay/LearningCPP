@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string worstCaseForSelectionSort(int n) {
+string worstCase(int n) {
     string result;
     while ((int)result.size() < n) {
         for (char c = '9'; c >= '0' && result.size() < n; --c) {
@@ -38,7 +38,7 @@ void selectionSort(string &vvod, int n, long &comparisons, long &movements) {
         int minIndex = i;
         for (int j = i+1; j < n; j++) {
             comparisons++;
-            if (vvod[j] < vvod[minIndex]) {
+            if (vvod[j] > vvod[minIndex]) {
                 minIndex = j;
             }
         }
@@ -58,7 +58,7 @@ void exchangeSort(string &vvod, int n, long &comparisons, long &movements) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = i+1; j < n; j++) {
             comparisons++;
-            if (vvod[i] > vvod[j]) {
+            if (vvod[i] < vvod[j]) {
                 int temp = vvod[i];
                 vvod[i] = vvod[j];
                 vvod[j] = temp;
@@ -124,7 +124,7 @@ int main() {
         case 2:
             cout << "количество\tвремя,мс\tСп\tМп\tТп\n";
             for (int n : test){
-                vvod = generateRandomString(n);
+                vvod = worstCase(n);
                 activity(vvod, n, comparisons, movements, alg);
             }
             break;
