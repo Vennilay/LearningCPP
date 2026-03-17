@@ -9,7 +9,7 @@ string generateRandomString(int length) {
     string chars =
         // "abcdefghijklmnopqrstuvwxyz"
         // "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "1"
+        "12"
         // "!@#$%^&*()-_=+[]{};:,.<>/?"
     ;
 
