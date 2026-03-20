@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <chrono>
-#include <fstream>
 #include <vector>
 
 using namespace std;
@@ -47,20 +46,16 @@ void runTest(int mode) {
     for (int n : sizes) {
         char* data = new char[n];
 
-        if (mode == 1) { // Лучший
-            for (int i = 0; i < n; i++) data[i] = (char)('a' + (i % 26));
+        if (mode == 1) { // Лучший случай
+            for (int i = 0; i < n; i++) data[i] = 'a';
         }
-        else if (mode == 2) { // Из файла
-            ifstream inFile(FILE_PATH);
+
+        else if (mode == 2) { // СРЕДНИЙ СЛУЧАЙ (рандом)
             for (int i = 0; i < n; i++) {
-                if (!(inFile >> data[i])) {
-                    inFile.clear();
-                    inFile.seekg(0);
-                    inFile >> data[i];
-                }
+                data[i] = (char)(rand() % 256);
             }
-            inFile.close();
         }
+
         else {
             for (int i = 0; i < n; i++) data[i] = (char)('z' - (i % 26));
         }
