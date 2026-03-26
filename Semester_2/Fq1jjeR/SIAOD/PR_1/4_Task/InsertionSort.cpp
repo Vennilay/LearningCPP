@@ -61,7 +61,6 @@ void runTest(int mode) {
         delete[] data;
     }
 }
-
 int main() {
     runTest(1);
     runTest(2);
