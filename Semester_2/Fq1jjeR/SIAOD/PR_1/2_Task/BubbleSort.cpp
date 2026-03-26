@@ -81,6 +81,5 @@ int main() {
     runTest(1);
     runTest(2);
     runTest(3);
-
     return 0;
 }

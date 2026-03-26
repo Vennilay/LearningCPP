@@ -163,6 +163,5 @@ int main() {
     } else {
         cout << "Неверный выбор режима!" << endl;
     }
-
     return 0;
 }
