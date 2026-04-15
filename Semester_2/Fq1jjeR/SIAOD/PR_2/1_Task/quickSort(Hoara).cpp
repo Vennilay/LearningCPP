@@ -1,105 +1,101 @@
 #include <iostream>
-#include <iomanip>
-#include <chrono>
 #include <vector>
-#include <stack>
+#include <algorithm>
+#include <chrono>
+#include <iomanip>
+#include <fstream>
 
 using namespace std;
 
-struct Stats {
-    long long Cn = 0, Mn = 0, Tn = 0;
+struct Metrics {
+    long long comparisons = 0;
+    long long moves = 0;
+    double duration_ms = 0;
 };
 
-// Итеративная быстрая сортировка Хоара (защищена от переполнения стека)
-void quickSortIterative(char* x, int n, Stats& s) {
-    s.Cn = 0; s.Mn = 0;
-    if (n < 2) return;
+// Алгоритм разбиения Хоара
+void quickSortHoare(vector<int>& arr, int low, int high, Metrics& m) {
+    if (low >= high) return;
 
-    // Стек для хранения границ подмассивов [left, right]
-    stack<pair<int, int>> st;
-    st.push({0, n - 1});
+    int pivot = arr[low + (high - low) / 2];
+    int i = low;
+    int j = high;
 
-    while (!st.empty()) {
-        int left = st.top().first;
-        int right = st.top().second;
-        st.pop();
-
-        int i = left, j = right;
-        char pivot = x[left + (right - left) / 2]; // Безопасный выбор опорного
-
-        // Разделение (Partition)
-        while (i <= j) {
-            while (x[i] < pivot) { s.Cn++; i++; }
-            s.Cn++;
-            while (x[j] > pivot) { s.Cn++; j--; }
-            s.Cn++;
-
-            if (i <= j) {
-                if (i < j) {
-                    swap(x[i], x[j]);
-                    s.Mn += 3;
-                }
-                i++;
-                j--;
-            }
+    while (i <= j) {
+        while (arr[i] < pivot) {
+            m.comparisons++;
+            i++;
         }
+        m.comparisons++; // для последнего сравнения, которое нарушило цикл
 
-        // Добавляем подмассивы в стек (сначала больший, чтобы стек был меньше)
-        if (left < j) st.push({left, j});
-        if (i < right) st.push({i, right});
+        while (arr[j] > pivot) {
+            m.comparisons++;
+            j--;
+        }
+        m.comparisons++; // для последнего сравнения, которое нарушило цикл
+
+        if (i <= j) {
+            swap(arr[i], arr[j]);
+            m.moves++; // обмен элементов
+            i++;
+            j--;
+        }
     }
-    s.Tn = s.Cn + s.Mn;
+
+    if (low < j) quickSortHoare(arr, low, j, m);
+    if (i < high) quickSortHoare(arr, i, high, m);
 }
 
-void printHeader(string title) {
-    cout << "\n[" << title << "]" << endl;
-    cout << "---------------------------------------------------------------------------" << endl;
-    cout << left << setw(10) << "n"
-         << setw(15) << "Время(мс)"
-         << setw(15) << "Сп"
-         << setw(15) << "Мп"
-         << setw(15) << "Тп=Сп+Мп" << endl;
-    cout << "---------------------------------------------------------------------------" << endl;
-}
+Metrics getQuickSortMetrics(vector<int>& arr) {
+    Metrics m;
+    if (arr.size() <= 1) return m;
 
-void runTest(int mode) {
-    vector<int> sizes = {100, 200, 500, 1000, 2000, 5000, 10000, 50000, 100000, 200000, 500000, 1000000};
+    auto start = chrono::high_resolution_clock::now();
 
-    if (mode == 1) printHeader("ЛУЧШИЙ СЛУЧАЙ (рандом)");
-    else if (mode == 2) printHeader("СРЕДНИЙ СЛУЧАЙ (рандом)");
-    else printHeader("ХУДШИЙ СЛУЧАЙ (все одинаковые)");
+    quickSortHoare(arr, 0, arr.size() - 1, m);
 
-    for (int n : sizes) {
-        char* data = new char[n];
-
-        if (mode == 1 || mode == 2) {
-            for (int i = 0; i < n; i++) data[i] = (char)(rand() % 256);
-        } else {
-            // Для этой версии Хоара худший случай - массив из одинаковых элементов
-            for (int i = 0; i < n; i++) data[i] = 'a';
-        }
-
-        Stats s;
-        auto start = chrono::high_resolution_clock::now();
-        quickSortIterative(data, n, s);
-        auto end = chrono::high_resolution_clock::now();
-
-        chrono::duration<double, milli> elapsed = end - start;
-
-        cout << left << setw(10) << n
-             << setw(15) << fixed << setprecision(4) << elapsed.count()
-             << setw(15) << s.Cn
-             << setw(15) << s.Mn
-             << setw(15) << s.Tn << endl;
-
-        delete[] data;
-    }
+    auto end = chrono::high_resolution_clock::now();
+    m.duration_ms = chrono::duration<double, milli>(end - start).count();
+    return m;
 }
 
 int main() {
-    srand(time(0));
-    runTest(1);
-    runTest(2);
-    runTest(3);
+    vector<int> allData;
+    ifstream inputFile("numbers.txt");
+
+    if (!inputFile) {
+        cerr << "Ошибка: Не удалось найти файл numbers.txt!" << endl;
+        return 1;
+    }
+
+    int num;
+    while (inputFile >> num) {
+        allData.push_back(num);
+    }
+    inputFile.close();
+
+    vector<int> sizes = {100, 200, 500, 1000, 2000, 5000, 10000, 100000, 200000, 500000, 1000000};
+
+    cout << "|" << setw(10) << "n"
+         << " | " << setw(12) << "Время, мс   "
+         << " | " << setw(12) << "Сп"
+         << " | " << setw(12) << "Мп"
+         << " | " << setw(12) << "Тп = Сп+Мп" << " |" << endl;
+    cout << string(75, '-') << endl;
+
+    for (int n : sizes) {
+        if (n > (int)allData.size()) break;
+
+        vector<int> testData(allData.begin(), allData.begin() + n);
+
+        Metrics m = getQuickSortMetrics(testData);
+
+        cout << "|" << setw(10) << n
+             << " | " << setw(12) << fixed << setprecision(4) << m.duration_ms
+             << " | " << setw(12) << m.comparisons
+             << " | " << setw(12) << m.moves
+             << " | " << setw(14) << (m.comparisons + m.moves) << " |" << endl;
+    }
+
     return 0;
 }

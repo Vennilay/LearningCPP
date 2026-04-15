@@ -4,7 +4,6 @@
 #include <string>
 
 int main() {
-    // Указываем ваш путь. Обратите внимание на двойные слэши.
     std::string path = "D:\\coding\\ClionProject\\Semester_2\\Fq1jjeR\\SIAOD\\PR_2\\1_Task\\numbers.txt";
 
     int min, max, count;

@@ -15,7 +15,7 @@ struct Metrics {
     double duration_ms = 0;    // Время в мс
 };
 
-// Функция турнирной сортировки с подсчетом метрик (ИСПРАВЛЕННАЯ)
+// Функция турнирной сортировки с подсчетом метрик
 Metrics tournamentSort(vector<int>& arr) {
     Metrics m;
     int n = arr.size();
