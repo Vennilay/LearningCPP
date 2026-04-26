@@ -13,7 +13,7 @@ class cl_base
     vector<cl_base*> subordinate_objects;
 
 public:
-    cl_base(cl_base* p_head_object, string s_object_name = "Base object");
+    cl_base(cl_base* p_head_object, string s_object_name = "Base_object");
     bool set_object_name(string new_name);
     string get_object_name();
     cl_base* get_head_object();
