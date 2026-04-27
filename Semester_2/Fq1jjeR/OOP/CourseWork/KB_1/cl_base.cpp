@@ -16,7 +16,7 @@ bool cl_base::set_object_name(string new_name) {
         for (int i = 0; i < p_head_object->subordinate_objects.size(); ++i) {
             if (p_head_object->subordinate_objects[i]->get_object_name() == new_name) {
                 return false;
-                }
+            }
         }
     }
     s_object_name = new_name;
@@ -36,7 +36,12 @@ int cl_base::get_count_subordinate_objects() {
 }
 
 void cl_base::print_tree_structure() {
-    if (subordinate_objects.size() != 0) {
+    if (p_head_object == nullptr)
+    {
+        cout << this->get_object_name();
+    }
+    if (subordinate_objects.size() != 0)
+    {
         cout << endl << this->get_object_name();
         for (int i = 0; i < subordinate_objects.size(); ++i)
         {
